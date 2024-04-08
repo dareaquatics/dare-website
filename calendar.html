@@ -1,18 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- TEMP BANNER -->
-<style>
-
-  .banner {
-    background-color: red;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-</style>
-
   
 <head>
   <!-- Google Analytics (gtag.js) -->
@@ -99,33 +86,8 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
-    <!-- TEMP BANNER START -->
-    <div class="banner">
-        <p>The calendar feature is currently broken. We apologize for the inconvenience.</p>
-    </div>
-    <!-- TEMP BANNER END -->
-    
-    <section class="inner-page">
-      <div class="container">
-      <meta charset='utf-8' />
-      <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-      <script>
-
-        document.addEventListener('DOMContentLoaded', function() {
-          var calendarEl = document.getElementById('calendar');
-          var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
-          });
-          calendar.render();
-        });
-
-      </script>
-
-        <div id='calendar'></div>
-
-      </div>
-    </section>
-
+ <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-5dcf0f95-f236-41b2-989b-f8cf60526edc" data-elfsight-app-lazy></div>
 
   </main><!-- End #main -->
 
