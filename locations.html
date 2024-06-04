@@ -1,31 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<style>
-
-  .banner {
-    background-color: red;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-</style>
-
-	
 <head>
-
- <!-- Google Analytics (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    
-    gtag('config', 'G-QXFQXHX3SN');
-  </script>
-  <!-- Google Analytics End (gtag.js) -->
-	
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -33,14 +9,24 @@
   <meta content="dare aquatics website" name="description">
   <meta content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me" name="keywords">
 
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QXFQXHX3SN');
+  </script>
+  <!-- Google Analytics End (gtag.js) -->
+
   <!-- favicons -->
   <link href="assets/img/logo.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- gfonts -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- /vendor/ css files -->
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -48,27 +34,120 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- style.css -->
+  <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <style>
+    .banner {
+      background-color: #d9534f;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .banner p {
+      margin: 0;
+    }
+
+    .breadcrumbs {
+      background: #f7f7f7;
+      padding: 20px 0;
+      margin-bottom: 20px;
+    }
+
+    .breadcrumbs h2 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    .breadcrumbs ol {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+
+    .breadcrumbs ol li+li::before {
+      content: ">";
+      padding: 0 10px;
+      color: #6c757d;
+    }
+
+    .inner-page {
+      padding: 20px 0;
+    }
+
+    .footer-top {
+      padding: 60px 0;
+      background: #f7f7f7;
+    }
+
+    .footer-top h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links ul li {
+      padding: 10px 0;
+    }
+
+    .footer-links ul li a {
+      color: #6c757d;
+      transition: 0.3s;
+    }
+
+    .footer-links ul li a:hover {
+      color: #d9534f;
+    }
+
+    .footer-newsletter {
+      background: #343a40;
+      color: white;
+      padding: 50px 0;
+    }
+
+    .footer-newsletter h4 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-newsletter .form-control {
+      border: 0;
+      padding: 10px;
+      margin-right: 10px;
+      width: 70%;
+      display: inline-block;
+    }
+
+    .footer-newsletter .btn {
+      padding: 10px 20px;
+      border: 0;
+      background: #d9534f;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- header  -->
+  <!-- header -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
       <div class="logo">
-        <!-- <h1 class="text-light"><a href="/"><span>DARE Aquatics</span></a></h1> -->
         <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
       </div>
-
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto " href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="/">Home</a></li>
           <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
-	  <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
+          <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
           <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
           <li><a class="nav-link scrollto" href="news">News</a></li>
           <li><a class="nav-link scrollto" href="locations">Pool Locations</a></li>
@@ -77,82 +156,75 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
-<!-- .navbar -->
-
     </div>
   </header>
-<!-- end header -->
+  <!-- end header -->
 
   <main id="main">
 
     <!-- breadcrumbs section -->
     <section class="breadcrumbs">
       <div class="container">
-
         <div class="d-flex justify-content-between align-items-center">
-        <h2>Pool Locations</h2>
+          <h2>Pool Locations</h2>
           <ol>
             <li><a href="/">Home</a></li>
             <li>Locations</li>
           </ol>
         </div>
-
       </div>
     </section>
-<!-- end breadcrumbs -->
+    <!-- end breadcrumbs -->
 
     <div class="banner">
-  	<br>
-	<p>Photography or videography of any kind is <b>NOT</b> allowed near or on the pool deck without city permission. Parents and spectators are <b>NOT</b> allowed on the pool deck.</p>
+      <p>Photography or videography of any kind is <b>NOT</b> allowed near or on the pool deck without city permission. Parents and spectators are <b>NOT</b> allowed on the pool deck.</p>
     </div>
 
-	  
     <section class="inner-page">
       <div class="container">
         <p>Practice is usually held at these two sites. If scheduling a tryout, please reach out to us via the contact form OR via email.</p>
         <br>
-	
         <b>Alhambra Park Pool</b>
+        <p>500 N Palm Ave, Alhambra, CA 91801</p>
         <br>
-	    <p>500 N Palm Ave, Alhambra, CA 91801</p>
-		<br>
-	    <b>Granada Pool</b>
-	    <br>
+        <b>Granada Pool</b>
         <p>2233 Whitney Dr, Alhambra, CA 91803</p>
-
         <br><br>
         <hr>
         <br>
-
         <!-- iframes -->
-          <div class="row justify-content-center"> <!-- Center the iframes -->
-          <div class="col-md-6 text-center"> <!-- Center the first iframe -->
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.9238625211174!2d-118.14836772378301!3d34.09709087314014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c588d954c781%3A0xc3cf37bb693dceb3!2sAlhambra%20Park%20Pool!5e0!3m2!1sen!2sus!4v1694492509520!5m2!1sen!2sus" width="75%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.9238625211174!2d-118.14836772378301!3d34.09709087314014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c588d954c781%3A0xc3cf37bb693dceb3!2sAlhambra%20Park%20Pool!5e0!3m2!1sen!2sus!4v1694492509520!5m2!1sen!2sus" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-          <div class="col-md-6 text-center"> <!-- Center the second iframe -->
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.098027516108!2d-118.14792692378424!3d34.067001273151476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c536aaaaaaab%3A0xa8a9667deac41d80!2sGranada%20Pool!5e0!3m2!1sen!2sus!4v1694492555797!5m2!1sen!2sus" width="75%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="col-md-6 text-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.098027516108!2d-118.14792692378424!3d34.067001273151476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c536aaaaaaab%3A0xa8a9667deac41d80!2sGranada%20Pool!5e0!3m2!1sen!2sus!4v1694492555797!5m2!1sen!2sus" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-        <!-- stop -->
+        </div>
+        <!-- end iframes -->
       </div>
     </section>
 
   </main>
-<!-- End #main -->
+  <!-- End #main -->
 
   <!-- footer -->
   <footer id="footer">
 
-  <!-- leave this here or the website looks ugly :( -->
     <div class="footer-newsletter">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6">
-            <h4></h4>
+            <h4>Join Our Newsletter</h4>
+            <p>Stay updated with our latest news and events</p>
+            <form action="" method="post">
+              <input type="email" name="email" placeholder="Enter your email" class="form-control">
+              <button type="submit" class="btn">Subscribe</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  <!-- end -->
 
     <div class="footer-top">
       <div class="container">
@@ -180,10 +252,9 @@
               <li><i class="bx bx-chevron-right"></i> <a href="/policy">Team Policy Documents</a></li>
             </ul>
           </div>
-          
+
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
-
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/">USA Swimming</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/safe-sport">Safe Sport</a></li>
@@ -192,7 +263,6 @@
               <li><i class="bx bx-chevron-right"></i> <a href="http://www.swimmingworldmagazine.com">Swimming World Online</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="https://swimmingcoach.org">American Swimming Coaches Association</a></li>
             </ul>
-          </div>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
@@ -213,22 +283,22 @@
         &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-      Made with ❤️ by Ryan
+        Made with ❤️ by Ryan
       </div>
     </div>
   </footer>
-<!-- end footer -->
+  <!-- end footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- /vendor/ js files -->
+  <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- main.js -->
+  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>
