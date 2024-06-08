@@ -2,7 +2,7 @@
 **There are 2 types of things on this list; ones that are routine and one's that pop out of nowhere, such as website fixes, etc etc.**
 
 ## Things I wanna do (6/8)
-- Index.html contents refresh
+- fix coaches page
 
 ## Routine Fixes
 - Update pictures 
