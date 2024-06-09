@@ -15,7 +15,7 @@ import re
 GITHUB_REPO = 'https://github.com/dareaquatics/dare-website.git'
 FILE_PATH = 'news.html'  # Path relative to the repository root
 NEWS_URL = 'https://www.gomotionapp.com/team/cadas/page/news'
-GITHUB_TOKEN = ${{ secrets.PAT_TOKEN }}  # Read from environment variable
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')  # Read from environment variable
 
 # Setup colored logging
 handler = colorlog.StreamHandler()
