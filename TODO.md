@@ -3,11 +3,11 @@
 
 ## Things I wanna do (6/8)
 - fix coaches page
+- add cron job actions to autosync.py
 
 ## Routine Fixes
 - Update pictures 
 - Update calendar
-- Update news
 
 
 ## Bug Fixes
