@@ -1,10 +1,10 @@
-# .github/workflows/update_news.yml
 name: Update News
 
 on:
   schedule:
     - cron: '0 */2 * * *'
     - cron: '30 */2 * * *'
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   update-news:
@@ -26,6 +26,6 @@ jobs:
 
     - name: Run update script
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         python autosync.py
