@@ -295,6 +295,10 @@ def push_to_github():
         logging.info("Pushing changes to GitHub...")
         repo = Repo(os.getcwd())
 
+        # Set the remote URL to use the token for authentication
+        remote_url = f'https://{GITHUB_TOKEN}@github.com/dareaquatics/dare-website.git'
+        repo.remotes.origin.set_url(remote_url)
+
         if repo.is_dirty(untracked_files=True):
             with tqdm(total=100, desc='Committing changes') as pbar:
                 def update_commit_pbar(cur_count, max_count=None, message=''):
@@ -324,6 +328,7 @@ def push_to_github():
         logging.error(f"Git command error: {e}")
     except Exception as e:
         logging.error(f"Error pushing changes to GitHub: {e}")
+
 
 
 def main():
