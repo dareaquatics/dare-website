@@ -1,33 +1,42 @@
-name: Update News
+name: Update Website
 
 on:
-  schedule:
-    - cron: '0 */2 * * *'
-    - cron: '30 */2 * * *'
-  workflow_dispatch:  # Allows manual triggering of the workflow
+  push:
+    branches:
+      - main
 
 jobs:
-  update-news:
+  update:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PAT_TOKEN }}
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
+    - name: Configure Git
       run: |
-        python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 gitpython cloudscraper colorlog tqdm
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+    - name: Clone repository with authentication
+      env:
+        GH_USERNAME: ${{ secrets.GH_TOKEN }}
+        GH_PAT: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git clone https://${GH_USERNAME}:${GH_PAT}@github.com/dareaquatics/dare-website.git
+        cd dare-website
 
     - name: Run update script
-      env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
-        python autosync.py
+        # Your commands to update the website content
+        # Assuming your script updates the news.html file
+        python update_script.py  # Replace this with your actual update script command
+
+    - name: Commit and push changes
+      env:
+        GH_USERNAME: ${{ secrets.GH_TOKEN }}
+        GH_PAT: ${{ secrets.PAT_TOKEN }}
+      run: |
+        cd dare-website
+        git add news.html
+        git commit -m "Update news.html"
+        git push https://${GH_USERNAME}:${GH_PAT}@github.com/dareaquatics/dare-website.git
