@@ -29,7 +29,7 @@ jobs:
       run: |
         # Your commands to update the website content
         # Assuming your script updates the news.html file
-        python update_script.py  # Replace this with your actual update script command
+        python autosync.py  
 
     - name: Commit and push changes
       env:
