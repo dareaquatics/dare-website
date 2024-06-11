@@ -1,33 +1,31 @@
-name: Sync News/Announcements
+# .github/workflows/update_news.yml
+name: Update News
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # Runs every 2 hours
-  push:
-    branches:
-      - main
-  workflow_dispatch:  # Allows manual triggering
+    - cron: '0 */2 * * *'
+    - cron: '30 */2 * * *'
 
 jobs:
-  sync:
+  update-news:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.12'  # Python 3.12
+        python-version: '3.8'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install cloudscraper beautifulsoup4 gitpython colorlog
+        pip install requests beautifulsoup4 gitpython cloudscraper colorlog tqdm
 
-    - name: Run sync script
+    - name: Run update script
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        python news_autosync.py
+        python autosync.py
