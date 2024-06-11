@@ -12,6 +12,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'  
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt 
+
     - name: Configure Git
       run: |
         git config --global user.name "github-actions"
@@ -27,9 +37,9 @@ jobs:
 
     - name: Run update script
       run: |
-        # Your commands to update the website content
-        # Assuming your script updates the news.html file
-        python autosync.py  
+        # Ensure you're in the correct directory
+        cd dare-website
+        python autosync.py  # Replace this with your actual update script command
 
     - name: Commit and push changes
       env:
