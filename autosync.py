@@ -35,7 +35,131 @@ handler.setFormatter(colorlog.ColoredFormatter(
 ))
 logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
-# Function definitions (same as before, except using PAT_TOKEN)
+
+def check_git_installed():
+    git_path = shutil.which("git")
+    if git_path:
+        logging.info(f"Git found at {git_path}")
+        return True
+    else:
+        logging.warning("Git not found. Attempting to download portable Git.")
+        return False
+
+
+def download_portable_git():
+    os_name = platform.system().lower()
+    git_filename = None
+    git_url = None
+
+    if os_name == 'windows':
+        git_url = 'https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/PortableGit-2.45.1-64-bit.7z.exe'
+        git_filename = 'PortableGit-2.45.1-64-bit.7z.exe'
+    elif os_name == 'linux':
+        git_url = 'https://github.com/git/git/archive/refs/tags/v2.40.0.tar.gz'
+        git_filename = 'git-2.40.0.tar.gz'
+    elif os_name == 'darwin':
+        git_url = 'https://sourceforge.net/projects/git-osx-installer/files/git-2.40.0-intel-universal-mavericks.dmg/download'
+        git_filename = 'git-2.40.0-intel-universal-mavericks.dmg'
+    else:
+        logging.error(f"Unsupported OS: {os_name}")
+        return False
+
+    if not git_url or not git_filename:
+        logging.error("Invalid Git download URL or filename.")
+        return False
+
+    try:
+        response = requests.get(git_url, stream=True)
+        if response.status_code == 200:
+            with open(git_filename, 'wb') as file:
+                for chunk in tqdm(response.iter_content(chunk_size=8192), desc='Downloading Git', unit='B', unit_scale=True, unit_divisor=1024):
+                    file.write(chunk)
+            logging.info(f"Downloaded Git: {git_filename}")
+            return True
+        else:
+            logging.error(f"Failed to download Git. HTTP Status: {response.status_code}")
+            return False
+    except Exception as e:
+        logging.error(f"Error downloading Git: {e}")
+        return False
+
+
+def is_repo_up_to_date(repo_path):
+    try:
+        if not os.path.exists(repo_path):
+            logging.error(f"Repository path does not exist: {repo_path}")
+            return False
+        repo = Repo(repo_path)
+        origin = repo.remotes.origin
+        origin.fetch()  # Fetch latest commits
+
+        local_commit = repo.head.commit
+        remote_commit = repo.commit('origin/main')
+
+        if local_commit.hexsha == remote_commit.hexsha:
+            logging.info("Local repository is up-to-date.")
+            return True
+        else:
+            logging.info("Local repository is not up-to-date.")
+            return False
+    except GitCommandError as e:
+        logging.error(f"Git command error: {e}")
+        return False
+    except Exception as e:
+        logging.error(f"Error checking repository status: {e}")
+        return False
+
+
+def delete_and_reclone_repo(repo_path):
+    try:
+        if os.path.exists(repo_path):
+            for root, dirs, files in os.walk(repo_path):
+                for dir in dirs:
+                    os.chmod(os.path.join(root, dir), 0o777)
+                for file in files:
+                    os.chmod(os.path.join(root, file), 0o777)
+            shutil.rmtree(repo_path)
+            logging.info(f"Deleted existing repository at {repo_path}")
+    except PermissionError as e:
+        logging.error(f"Permission error deleting repository: {e}")
+        return
+    except FileNotFoundError as e:
+        logging.error(f"File not found error deleting repository: {e}")
+        return
+    except Exception as e:
+        logging.error(f"Error deleting repository: {e}")
+        return
+
+    clone_repository()
+
+
+def clone_repository():
+    try:
+        current_dir = os.getcwd()
+        repo_path = os.path.join(current_dir, REPO_NAME)
+        if not os.path.exists(repo_path):
+            with tqdm(total=100, desc='Cloning repository') as pbar:
+                def update_pbar(op_code, cur_count, max_count=None, message=''):
+                    if max_count:
+                        pbar.total = max_count
+                    pbar.update(cur_count - pbar.n)
+                    pbar.set_postfix_str(message)
+
+                Repo.clone_from(GITHUB_REPO, repo_path, progress=update_pbar)
+            logging.info(f"Repository cloned to {repo_path}")
+        else:
+            if not is_repo_up_to_date(repo_path):
+                delete_and_reclone_repo(repo_path)
+            else:
+                logging.info(f"Repository already exists at {repo_path}")
+        os.chdir(repo_path)
+        logging.info(f"Changed working directory to {repo_path}")
+    except GitCommandError as e:
+        logging.error(f"Git command error: {e}")
+    except Exception as e:
+        logging.error(f"Error cloning repository: {e}")
+
+
 def check_github_token_validity():
     try:
         headers = {
@@ -52,7 +176,9 @@ def check_github_token_validity():
     except Exception as e:
         logging.error(f"Error validating GitHub token: {e}")
         exit(1)
-        def fetch_news():
+
+
+def fetch_news():
     try:
         logging.info("Fetching news from TeamUnify using bypass...")
         scraper = cloudscraper.create_scraper()
