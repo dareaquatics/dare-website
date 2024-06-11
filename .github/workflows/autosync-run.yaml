@@ -10,7 +10,6 @@ on:
         default: 'false'
   schedule:
     - cron: '0 */2 * * *'
-    - cron: '30 */2 * * *'
 
 jobs:
   update-news:
@@ -32,6 +31,6 @@ jobs:
 
       - name: Run the script
         env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }} # GitHub PAT Token stored in Actions secrets
         run: |
           python autosync.py
