@@ -15,11 +15,13 @@ import requests
 from tqdm import tqdm
 
 # Constants
-GITHUB_REPO = os.getenv('GITHUB_REPOSITORY', 'https://github.com/dareaquatics/dare-website')
+GITHUB_REPO = 'https://github.com/dareaquatics/dare-website'
 NEWS_URL = 'https://www.gomotionapp.com/team/cadas/page/news'
-PAT_TOKEN = os.getenv('PAT_TOKEN')
 REPO_NAME = 'dare-website'
 NEWS_HTML_FILE = 'news.html'
+
+# GitHub Token is expected to be in environment variable 'PAT_TOKEN'
+GITHUB_TOKEN = os.getenv('PAT_TOKEN')
 
 # Setup colored logging
 handler = colorlog.StreamHandler()
@@ -145,8 +147,7 @@ def clone_repository():
                     pbar.update(cur_count - pbar.n)
                     pbar.set_postfix_str(message)
 
-                git_url_with_token = f'https://{PAT_TOKEN}@github.com/{repo_path}.git'
-                Repo.clone_from(git_url_with_token, repo_path, progress=update_pbar)
+                Repo.clone_from(GITHUB_REPO, repo_path, progress=update_pbar)
             logging.info(f"Repository cloned to {repo_path}")
         else:
             if not is_repo_up_to_date(repo_path):
@@ -164,7 +165,7 @@ def clone_repository():
 def check_github_token_validity():
     try:
         headers = {
-            'Authorization': f'token {PAT_TOKEN}'
+            'Authorization': f'token {GITHUB_TOKEN}'
         }
         repo_path = GITHUB_REPO.replace("https://github.com/", "")
         api_url = f'https://api.github.com/repos/{repo_path}'
@@ -314,7 +315,7 @@ def push_to_github():
                     pbar.update(cur_count - pbar.n)
                     pbar.set_postfix_str(message)
 
-                origin.push(progress=update_push_pbar, refspec=f'https://{PAT_TOKEN}@github.com/{GITHUB_REPO}.git')
+                origin.push(progress=update_push_pbar)
             logging.info("Successfully pushed changes to GitHub.")
         else:
             logging.info("No changes to commit.")
