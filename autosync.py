@@ -145,7 +145,8 @@ def clone_repository():
                     pbar.update(cur_count - pbar.n)
                     pbar.set_postfix_str(message)
 
-                Repo.clone_from(GITHUB_REPO, repo_path, progress=update_pbar)
+                git_url_with_token = f'https://{PAT_TOKEN}@github.com/{repo_path}.git'
+                Repo.clone_from(git_url_with_token, repo_path, progress=update_pbar)
             logging.info(f"Repository cloned to {repo_path}")
         else:
             if not is_repo_up_to_date(repo_path):
@@ -313,7 +314,7 @@ def push_to_github():
                     pbar.update(cur_count - pbar.n)
                     pbar.set_postfix_str(message)
 
-                origin.push(progress=update_push_pbar)
+                origin.push(progress=update_push_pbar, refspec=f'https://{PAT_TOKEN}@github.com/{GITHUB_REPO}.git')
             logging.info("Successfully pushed changes to GitHub.")
         else:
             logging.info("No changes to commit.")
