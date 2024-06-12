@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
+  
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
-    <script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-QXFQXHX3SN');
   </script>
   <!-- Google Analytics End (gtag.js) -->
@@ -16,10 +16,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-
-  <title>DARE Aquatics | Calendar</title>
-  <meta content="dare aquatics website" name="description">
-  <meta content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me" name="keywords">
+  <title>DARE Aquatics | Upcoming Events</title>
+  <meta content="Upcoming events for DARE Aquatics" name="description">
+  <meta content="dare aquatics, events, swimming, swim club, swim events, swim competitions" name="keywords">
 
   <!-- favicons -->
   <link href="assets/img/logo.png" rel="icon">
@@ -36,26 +35,24 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
+  <!-- style.css -->
   <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-  <!-- ======= header ======= -->
+  <!-- header -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
       <div class="logo">
-        <!-- <h1 class="text-light"><a href="/"><span>DARE Aquatics</span></a></h1> -->
         <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto " href="/">Home</a></li>
-          <li><a class="nav-link scrollto " href="coaches">Coaches</a></li>
+          <li><a class="nav-link scrollto" href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
           <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
           <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
           <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
@@ -66,55 +63,77 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
-      <!-- navbar -->
-
     </div>
   </header>
-  <!-- end header -->
-
+  
   <main id="main">
 
-    <!-- breadcrumbs -->
+    <!-- breadcrumbs section -->
     <section class="breadcrumbs">
       <div class="container">
-
         <div class="d-flex justify-content-between align-items-center">
-          <h2>DARE Aquatics Calendar</h2>
+          <h2>Upcoming Events</h2>
           <ol>
             <li><a href="/">Home</a></li>
-            <li>Calendar</li>
+            <li>Upcoming Events</li>
           </ol>
         </div>
-
       </div>
     </section>
     <!-- end breadcrumbs -->
 
-    <br><br>
-    <pre><b>      Events and/or event information are subject to change and are not final.</b></pre>
-    <br>
-    <!-- Calendar script -->
-   <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-  <div class="elfsight-app-5dcf0f95-f236-41b2-989b-f8cf60526edc" data-elfsight-app-lazy></div>
-  <!-- end -->
-    
+    <section class="inner-page">
+      <div class="container">
+
+<!-- START EVENT UPDATES -->
+        
+        <div class="event">
+          <h3><b>Event Title:</b> </h3>
+          <p><b>Event Dates:</b> </p>
+          <p><b>Swim Groups:</b> </p>
+          <button class="btn btn-primary" onclick="attendEvent('Summer Swim Meet')">Attend</button>
+          <button class="btn btn-danger" onclick="declineEvent('Summer Swim Meet')">Decline</button>
+        </div>
+
+        <hr>
+
+        <div class="event">
+          <h3><b>Event Title:</b> </h3>
+          <p><b>Event Dates:</b> </p>
+          <p><b>Swim Groups:</b> </p>
+          <button class="btn btn-primary" onclick="attendEvent('Summer Swim Meet')">Attend</button>
+          <button class="btn btn-danger" onclick="declineEvent('Summer Swim Meet')">Decline</button>
+        </div>
+
+        <hr>
+
+        <div class="event">
+          <h3><b>Event Title:</b> </h3>
+          <p><b>Event Dates:</b> </p>
+          <p><b>Swim Groups:</b> </p>
+          <button class="btn btn-primary" onclick="attendEvent('Summer Swim Meet')">Attend</button>
+          <button class="btn btn-danger" onclick="declineEvent('Summer Swim Meet')">Decline</button>
+        </div>
+
+<!-- END EVENT UPDATES -->
+
+        
+      </div>
+    </section>
+
   </main>
-  <!-- End #main -->
 
-  <!-- ======= Footer ======= -->
+  <!-- footer -->
   <footer id="footer">
-
-  <!-- leave this here or the website looks ugly :( -->
     <div class="footer-newsletter">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6">
-            <h4></h4>
+            <h4>Join our Newsletter</h4>
           </div>
         </div>
       </div>
     </div>
-  <!-- end -->
 
     <div class="footer-top">
       <div class="container">
@@ -142,10 +161,9 @@
               <li><i class="bx bx-chevron-right"></i> <a href="/policy">Team Policy Documents</a></li>
             </ul>
           </div>
-          
+
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
-
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/">USA Swimming</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/safe-sport">Safe Sport</a></li>
@@ -174,7 +192,7 @@
         &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-      Made with ❤️ by Ryan
+        Made with ❤️ by Ryan
       </div>
     </div>
   </footer>
@@ -189,11 +207,22 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- main js file -->
+  <!-- main.js -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Custom script for event actions -->
+  <script>
+    function attendEvent(eventTitle) {
+      alert('You have chosen to attend: ' + eventTitle);
+      // Additional logic for attending the event can be added here.
+    }
+
+    function declineEvent(eventTitle) {
+      alert('You have chosen to decline: ' + eventTitle);
+      // Additional logic for declining the event can be added here.
+    }
+  </script>
 
 </body>
 
 </html>
-
-<!-- I wanna kms -->
