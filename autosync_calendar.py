@@ -278,6 +278,7 @@ def push_to_github():
     try:
         logging.info("Pushing changes to GitHub...")
         repo = Repo(os.getcwd())
+        repo_url = GITHUB_REPO.replace("https://", f"https://{GITHUB_TOKEN}@")
 
         if repo.is_dirty(untracked_files=True):
             with tqdm(total=100, desc='Committing changes') as pbar:
@@ -299,7 +300,7 @@ def push_to_github():
                     pbar.update(cur_count - pbar.n)
                     pbar.set_postfix_str(message)
 
-                origin.push(progress=update_push_pbar)
+                origin.push(repo_url, progress=update_push_pbar)
             logging.info("Successfully pushed changes to GitHub.")
         else:
             logging.info("No changes to commit.")
