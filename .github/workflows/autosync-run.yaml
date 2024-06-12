@@ -1,18 +1,16 @@
 name: Update News
-
-# Add workflow_dispatch for manual trigger and schedule for periodic runs
 on:
   workflow_dispatch:
     inputs:
       force_update:
-        description: 'Force update the news'
+        description: 'Force update the news page'
         required: false
         default: 'false'
   schedule:
     - cron: '0 */2 * * *'
 
 jobs:
-  update-news:
+  update-calendar:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +24,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install cloudscraper beautifulsoup4 gitpython colorlog tqdm
+           python -m pip install --upgrade pip
+           pip install cloudscraper beautifulsoup4 gitpython colorlog tqdm
+          
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/dareaquatics/dare-website.git
 
       - name: Run the script
         env:
