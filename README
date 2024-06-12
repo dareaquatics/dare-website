@@ -2,4 +2,4 @@ DARE Aquatics
 --
 Official website for DARE Aquatics. Hosted on GitHub Pages instance. Licensed under GPLv3.
 
-Uses https://github.com/luryann/sync for syncing 
+Utilizes https://github.com/dareaquatics/sdk/ for syncing and editing.
