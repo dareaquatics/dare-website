@@ -209,23 +209,25 @@ def generate_html(event_items):
           <p><b>Event Start:</b> {item["start"].strftime('%B %d, %Y')}</p>
           <p><b>Event End:</b> {item["end"].strftime('%B %d, %Y')}</p>
           <p><b>Description:</b> Click the button below for more information.</p>
-          <a href="https://www.gomotionapp.com/team/cadas/page/events#/team-events/upcoming" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
+          <a href="{item["url"]}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
         </div>
         <br><hr><br>
         '''
 
-        if item['start'] > current_date:
-            upcoming_events_html += event_html
-        else:
+        # Categorize based on event end date
+        if item['end'] < current_date:
             past_events_html += event_html
+        else:
+            upcoming_events_html += event_html
 
     # Create collapsible section for past events
     if past_events_html:
         past_events_html = f'''
-        <button type="button" class="collapsible">Past Events</button>
+        <button type="button" class="collapsible">Click for Past Events</button>
         <div class="content" style="display: none;">
           {past_events_html}
         </div>
+        <br>
         <script>
         var coll = document.getElementsByClassName("collapsible");
         for (var i = 0; i < coll.length; i++) {{
