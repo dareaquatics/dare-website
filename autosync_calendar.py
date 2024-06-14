@@ -209,7 +209,7 @@ def generate_html(event_items):
           <p><b>Event Start:</b> {item["start"].strftime('%B %d, %Y')}</p>
           <p><b>Event End:</b> {item["end"].strftime('%B %d, %Y')}</p>
           <p><b>Description:</b> Click the button below for more information.</p>
-          <a href="{item["url"]}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
+          <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
         </div>
         <br><hr><br>
         '''
