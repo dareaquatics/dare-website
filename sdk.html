@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    gtag('config', 'G-QXFQXHX3SN');
+  </script>
+  <!-- Google Analytics End (gtag.js) -->
+  
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DARE Aquatics | Developer SDK</title>
+
+  <!-- favicons -->
+  <link href="assets/img/logo.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- gfonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- /vendor/ css files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- style.css -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- header -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto " href="/">Home</a></li>
+          <li><a class="nav-link scrollto " href="coaches">Coaches</a></li>
+          <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
+          <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
+          <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
+          <li><a class="nav-link scrollto" href="news">News</a></li>
+          <li><a class="nav-link scrollto" href="locations">Pool Locations</a></li>
+          <li><a class="nav-link scrollto" href="contact">Contact</a></li>
+          <li><a class="getstarted scrollto" href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true" target="_blank" rel="noopener noreferrer">Sign In</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+
+    </div>
+  </header>
+  <!-- end header -->
+
+  <main id="main">
+
+    <!-- breadcrumbs section  -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Developer SDK</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li>Developer SDK</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+    <!-- end breadcrumbs  -->
+
+    <section class="inner-page">
+      <div class="container">
+        <h2><b>Developer SDK Documentation</b></h2>
+        <p>
+          Welcome to the DARE Aquatics Developer SDK documentation page. Here you will find detailed information about our Python files, GitHub Actions Workflows, and how to contribute. For more information, visit the DARE Aquatics SDK repository, which has more in-depth documentation on each specific file. This page only serves as a basic introduction to the project.</p>
+        <hr><br>
+
+        <h3><b>Python Files</b></h3>
+        <p>Below is a detailed explanation of each Python file included in our SDK:</p>
+        <hr><br>
+        
+        <h4><b>1. manualsync.py</b></h4>
+        <p>This script is responsible for manual synchronization of data between different modules. It ensures that all data points are accurately updated and maintained across the system.</p>
+        <pre><code>
+# manualsync.py
+
+import os
+import shutil
+
+def sync_files(source_dir, target_dir):
+    """
+    Synchronizes files from the source directory to the target directory.
+
+    Args:
+    source_dir (str): The source directory path.
+    target_dir (str): The target directory path.
+    """
+    for item in os.listdir(source_dir):
+        source_path = os.path.join(source_dir, item)
+        target_path = os.path.join(target_dir, item)
+        if os.path.isdir(source_path):
+            shutil.copytree(source_path, target_path, dirs_exist_ok=True)
+        else:
+            shutil.copy2(source_path, target_path)
+
+if __name__ == "__main__":
+    source_directory = "source"
+    target_directory = "target"
+    sync_files(source_directory, target_directory)
+        </code></pre>
+        <p>The <code>sync_files</code> function copies all files and directories from the source directory to the target directory. It uses the <code>shutil</code> module to handle the copying, ensuring that the directory structure is preserved.</p>
+        <hr><br>
+        
+        <h4><b>2. events_autosync.py</b></h4>
+        <p>This script automates the synchronization of event data. It fetches event details from various sources and updates the central database, ensuring that the latest information is always available.</p>
+        <pre><code>
+# events_autosync.py
+
+import requests
+
+def fetch_events(api_url):
+    """
+    Fetches event data from the specified API URL.
+
+    Args:
+    api_url (str): The URL of the events API.
+
+    Returns:
+    list: A list of event data.
+    """
+    response = requests.get(api_url)
+    return response.json()
+
+def update_database(events):
+    """
+    Updates the database with the fetched event data.
+
+    Args:
+    events (list): A list of event data.
+    """
+    # Database update logic here
+    pass
+
+if __name__ == "__main__":
+    events_api_url = "https://api.example.com/events"
+    events = fetch_events(events_api_url)
+    update_database(events)
+        </code></pre>
+        <p>The <code>fetch_events</code> function retrieves event data from an API, while the <code>update_database</code> function handles updating the database with the retrieved data.</p>
+        <hr><br>
+        
+        <h4><b>3. editor.py</b></h4>
+        <p>The editor script provides functionalities to edit and manage various data entries. It includes features for data validation, formatting, and consistency checks.</p>
+        <pre><code>
+# editor.py
+
+def validate_data(data):
+    """
+    Validates the given data.
+
+    Args:
+    data (dict): The data to validate.
+
+    Returns:
+    bool: True if data is valid, False otherwise.
+    """
+    # Validation logic here
+    return True
+
+def format_data(data):
+    """
+    Formats the given data.
+
+    Args:
+    data (dict): The data to format.
+
+    Returns:
+    dict: The formatted data.
+    """
+    # Formatting logic here
+    return data
+
+def save_data(data, filepath):
+    """
+    Saves the given data to a file.
+
+    Args:
+    data (dict): The data to save.
+    filepath (str): The path to the file.
+    """
+    with open(filepath, 'w') as file:
+        file.write(str(data))
+
+if __name__ == "__main__":
+    sample_data = {"name": "Sample", "value": 123}
+    if validate_data(sample_data):
+        formatted_data = format_data(sample_data)
+        save_data(formatted_data, "data.txt")
+        </code></pre>
+        <p>The <code>validate_data</code> function checks the validity of the data, <code>format_data</code> formats it, and <code>save_data</code> saves it to a file.</p>
+        <hr><br>
+        
+        <h4><b>4. autosync-actions.py</b></h4>
+        <p>This script handles the automated actions required for data synchronization. It is designed to perform routine checks and updates, reducing the need for manual intervention.</p>
+        <pre><code>
+# autosync-actions.py
+
+import schedule
+import time
+
+def job():
+    """
+    The job to run on a schedule.
+    """
+    # Job logic here
+    print("Running scheduled job...")
+
+schedule.every().day.at("10:30").do(job)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+        </code></pre>
+        <p>The <code>job</code> function defines the task to be performed, and the <code>schedule</code> module is used to run this task daily at a specified time.</p>
+        <hr><br>
+        
+        <h4><b>5. autosync_calendar.py</b></h4>
+        <p>This script focuses on synchronizing calendar data. It ensures that all scheduled events are accurately reflected in the central calendar system, providing up-to-date information to users.</p>
+        <pre><code>
+# autosync_calendar.py
+
+import calendar
+
+def sync_calendar(events):
+    """
+    Synchronizes the calendar with the given events.
+
+    Args:
+    events (list): A list of events to add to the calendar.
+    """
+    cal = calendar.Calendar()
+    for event in events:
+        # Add event to calendar
+        pass
+
+if __name__ == "__main__":
+    sample_events = [{"date": "2024-06-20", "event": "Sample Event"}]
+    sync_calendar(sample_events)
+        </code></pre>
+        <p>The <code>sync_calendar</code> function takes a list of events and updates the calendar accordingly.</p>
+        <hr><br>
+        
+        <h4><b>6. autosync.py</b></h4>
+        <p>The main script for automatic synchronization, autosync.py coordinates the overall synchronization process. It integrates with other modules to maintain data integrity and consistency across the system.</p>
+        <pre><code>
+# autosync.py
+
+from manualsync import sync_files
+from events_autosync import fetch_events, update_database
+
+def main_sync():
+    """
+    Main synchronization function.
+    """
+    sync_files("source", "target")
+    events = fetch_events("https://api.example.com/events")
+    update_database(events)
+
+if __name__ == "__main__":
+    main_sync()
+        </code></pre>
+        <p>The <code>main_sync</code> function orchestrates the synchronization process by calling functions from other modules.</p>
+        <hr><br>
+
+        <h3><b>GitHub Actions Workflows</b></h3>
+        <p>Our project uses GitHub Actions to automate various workflows. Below is an overview of the workflows defined in our project:</p>
+        <hr><br>
+        
+        <h4><b>1. autosync-run.yaml</b></h4>
+        <pre><code>
+# autosync-run.yaml
+
+name: Auto Sync Run
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run auto sync
+      run: |
+        python autosync.py
+        </code></pre>
+        <p>This workflow runs the <code>autosync.py</code> script on a schedule and when changes are pushed to the main branch. It sets up Python, installs dependencies, and executes the synchronization script.</p>
+        <hr><br>
+        
+        <h4><b>2. autosync_calendar.yaml</b></h4>
+        <pre><code>
+# autosync_calendar.yaml
+
+name: Auto Sync Calendar
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run calendar sync
+      run: |
+        python autosync_calendar.py
+        </code></pre>
+        <p>This workflow runs the <code>autosync_calendar.py</code> script on a schedule and when changes are pushed to the main branch. It sets up Python, installs dependencies, and executes the calendar synchronization script.</p>
+        <hr><br>
+
+        <h3><b>Prerequisites</b></h3>
+        <p>Before using the SDK, ensure you have the following installed:</p>
+        <ul>
+          <li>Python 3.x</li>
+          <li>pip (Python package installer)</li>
+          <li>Git</li>
+        </ul>
+        <hr><br>
+
+        <h3><b>requirements.txt</b></h3>
+        <p>The <code>requirements.txt</code> file lists all the dependencies needed to run the scripts. Here’s a sample <code>requirements.txt</code> file:</p>
+        <pre><code>
+# requirements.txt
+
+requests
+schedule
+        </code></pre>
+        <p>To install the dependencies, run the following command:</p>
+        <pre><code>pip install -r requirements.txt</code></pre>
+        <hr><br>
+
+        <h3><b>Contributing</b></h3>
+        <p>We welcome contributions from the community. Here’s how you can contribute:</p>
+        <ul>
+          <li>Fork the repository on GitHub.</li>
+          <li>Create a new branch with a descriptive name (e.g., feature/your-feature-name).</li>
+          <li>Make your changes and commit them with clear and concise commit messages.</li>
+          <li>Push your changes to your forked repository.</li>
+          <li>Submit a pull request to the main repository. Please include a detailed description of your changes and the reasons behind them.</li>
+	  <li>Please understand that maintainers have their own lives and may be busy. Pull requests may be denied for any reason if requested changes are not acted upon in a timely manner.</li>
+        </ul>
+        <hr><br>
+
+        <h3><b>Additional Information</b></h3>
+        <p>For further information and detailed documentation, please refer to our GitHub repository. If you have any questions or need assistance, feel free to contact the developer contact at <code>git@dareaquatics.com</code>.</p>
+	<hr><br>
+
+	<h3><b>License</b></h3>
+	<p>All code written is licensed under the GNU GENERAL PUBLIC LICENSE VERSION 3.</p>      
+	<hr><br>
+      </div>
+    </section>
+
+  </main>
+  <!-- end #main -->
+
+  <!-- footer -->
+  <footer id="footer">
+
+  <!-- leave this here or the website looks ugly :( -->
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- end -->
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>DARE Aquatics</h3>
+            <p>
+              500 North Palm Avenue <br>
+              Alhambra, California, 91801<br>
+              United States <br><br>
+              <strong>Email:</strong> contact@dareaquatics.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.gomotionapp.com/team/cadas/page/home">Legacy TeamUnify</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy">Privacy Policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://status.dareaquatics.com">Status Page</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/dareaquatics/dare-website">Source Code</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/policy">Team Policy Documents</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/">USA Swimming</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/safe-sport">Safe Sport</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://uscenterforsafesport.org/report-a-concern/">Report a Concern (SafeSport)</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.goswim.tv/">GoSwim</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://www.swimmingworldmagazine.com">Swimming World Online</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://swimmingcoach.org">American Swimming Coaches Association</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Follow our social media to stay updated on latest events!</p>
+            <div class="social-links mt-3">
+              <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="https://www.instagram.com/dareaquatics" class="instagram"><i class="bx bxl-instagram"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+      Made with ❤️ by Ryan
+      </div>
+    </div>
+  </footer>
+  <!-- end footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- /vendor/ js files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- main.js -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
