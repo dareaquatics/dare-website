@@ -73,7 +73,7 @@ def download_portable_git():
     try:
         response = requests.get(git_url, stream=True)
         if response.status_code == 200:
-            with open(git_filename, 'wb') as file:
+            with open(git_filename, 'wb') as file):
                 for chunk in tqdm(response.iter_content(chunk_size=8192), desc='Downloading Git', unit='B', unit_scale=True, unit_divisor=1024):
                     file.write(chunk)
             logging.info(f"Downloaded Git: {git_filename}")
@@ -259,7 +259,13 @@ def fetch_article_content(url):
             content_html = ''
             for element in content_div:
                 if element.name == 'img':
-                    content_html += f'<img src="{element["src"]}" alt="{element.get("alt", "Image")}" style="width: 100%;">'
+                    src = element["src"]
+                    if not src.startswith("http"):
+                        src = f"http://www.gomotionapp.com{src}"
+                    content_html += f'<a href="{src}" target="_blank">Click to see image</a>'
+                elif element.name and element.name.startswith('h'):
+                    # Flatten all heading tags to p tags with the same class for uniform size
+                    content_html += f'<p class="news-paragraph">{element.get_text(strip=True)}</p>'
                 else:
                     content_html += str(element)
         else:
@@ -318,6 +324,17 @@ def generate_html(news_items):
 
 def format_summary(summary):
     try:
+        # Remove newlines and extra whitespace
+        summary = re.sub(r'\s*\n\s*', ' ', summary)
+        summary = re.sub(r'\s\s+', ' ', summary)
+
+        # Flatten any heading tags to paragraphs
+        summary = re.sub(r'<h[1-6][^>]*>', '<p class="news-paragraph">', summary)
+        summary = re.sub(r'</h[1-6]>', '</p>', summary)
+
+        # Ensure all image links are prefixed with "www.gomotionapp.com"
+        summary = re.sub(r'src="/', 'src="http://www.gomotionapp.com/', summary)
+
         # Convert newlines to <br> tags
         summary = summary.replace('\n', '<br>')
 
@@ -331,8 +348,8 @@ def format_summary(summary):
         summary = re.sub(r'(<li>[^<]+)<br>', r'\1</li>', summary)
         summary = re.sub(r'(<li>[^<]+)$', r'\1</li></ul>', summary)
 
-        # Convert image links to img tags
-        summary = re.sub(r'\[img\](https?://\S+)\[/img\]', r'<img src="\1" alt="Image">', summary)
+        # Convert image links to "Click to see image" links
+        summary = re.sub(r'<img src="([^"]+)"[^>]*>', r'<a href="\1" target="_blank">Click to see image</a>', summary)
 
     except re.error as e:
         logging.error(f"Regex error while formatting summary: {e}")
