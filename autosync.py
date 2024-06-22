@@ -1,6 +1,3 @@
-# -----------------------------------------------------------------------------------------------------------------------
-# MODIFIED VERSION OF https://github.com/luryann/sync/blob/main/autosync.py DESIGNED FOR GITHUB ACTIONS WORKFLOWS
-# -----------------------------------------------------------------------------------------------------------------------
 import os
 import shutil
 import platform
@@ -305,7 +302,7 @@ def fetch_article_content(url):
 
 def convert_links_to_clickable(text):
     url_pattern = re.compile(r'(https?://\S+)')
-    return url_pattern.sub(r'<a href="\1">\1</a>', text)
+    return url_pattern.sub(r'<a href="\1" target="_blank">Click here to be redirected to the link</a>', text)
 
 
 def generate_html(news_items):
