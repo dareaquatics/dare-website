@@ -266,7 +266,13 @@ def fetch_article_content(url):
                 elif element.name and element.name.startswith('h'):
                     # Flatten all heading tags to p tags with the same class for uniform size
                     content_html += f'<p class="news-paragraph">{element.get_text(strip=True)}</p>'
+                elif element.name == 'a':
+                    # Ensure links are correctly formatted
+                    href = element.get('href')
+                    if href:
+                        content_html += f'<a href="{href}" target="_blank">{element.get_text(strip=True)}</a>'
                 else:
+                    element.attrs = {}  # Remove all attributes to clean CSS
                     content_html += str(element)
         else:
             logging.warning(f"Content not found for article URL: {url}")
@@ -331,6 +337,9 @@ def format_summary(summary):
         # Flatten any heading tags to paragraphs
         summary = re.sub(r'<h[1-6][^>]*>', '<p class="news-paragraph">', summary)
         summary = re.sub(r'</h[1-6]>', '</p>', summary)
+
+        # Remove any inline styles
+        summary = re.sub(r'style="[^"]*"', '', summary)
 
         # Ensure all image links are prefixed with "www.gomotionapp.com"
         summary = re.sub(r'src="/', 'src="http://www.gomotionapp.com/', summary)
