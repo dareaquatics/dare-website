@@ -233,10 +233,15 @@ def fetch_article_content(url):
         response.raise_for_status()
 
         soup = BeautifulSoup(response.content, 'html.parser')
-        title_element = soup.find('div', class_='NewsItem').find('h1')
-        date_element = soup.find('div', class_='Date').find('span', class_='DateStr')
-        author_element = soup.find('div', class_='Author').find('strong')
-        content_div = soup.find('div', class_='Content')
+        news_item = soup.find('div', class_='NewsItem')
+        if not news_item:
+            logging.warning(f"NewsItem not found for article URL: {url}")
+            return None
+
+        title_element = news_item.find('h1')
+        date_element = news_item.find('span', class_='DateStr')
+        author_element = news_item.find('div', class_='Author').find('strong')
+        content_div = news_item.find('div', class_='Content')
 
         title = title_element.get_text(strip=True) if title_element else 'No Title'
         date_str = date_element.get('data') if date_element else None
@@ -439,5 +444,5 @@ def main():
         logging.info("Update process aborted due to errors.")
 
 
-if __name__ "__main__":
+if __name__ == "__main__":
     main()
