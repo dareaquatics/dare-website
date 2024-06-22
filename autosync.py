@@ -361,7 +361,7 @@ def format_summary(summary):
         summary = re.sub(r'<img src="([^"]+)"[^>]*>', r'<a href="\1" target="_blank">Click to see image</a>', summary)
 
         # Fix broken link formatting
-        summary = re.sub(r'<a href="[^"]*"><a href="([^"]+)"[^>]*>([^<]+)</a></a>', r'<a href="\1" target="_blank">\2</a>', summary)
+        summary = re.sub(r'<a href="([^"]+)"><a href="([^"]+)"[^>]*>([^<]+)</a></a>', r'<a href="\1" target="_blank">\3</a>', summary)
 
     except re.error as e:
         logging.error(f"Regex error while formatting summary: {e}")
