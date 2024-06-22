@@ -278,7 +278,7 @@ def fetch_article_content(url):
         return {
             'title': title,
             'date': formatted_date,
-            'summary': content_html,
+            'summary': remove_duplicate_links(content_html),
             'author': author
         }
 
@@ -298,6 +298,18 @@ def fetch_article_content(url):
             'summary': 'Unexpected error fetching content.',
             'author': 'Unknown Author'
         }
+
+
+def remove_duplicate_links(text):
+    soup = BeautifulSoup(text, 'html.parser')
+    links = set()
+    for a in soup.find_all('a', href=True):
+        if a['href'] in links:
+            a.decompose()
+        else:
+            a.string = "Click here to be redirected to the link"
+            links.add(a['href'])
+    return str(soup)
 
 
 def convert_links_to_clickable(text):
