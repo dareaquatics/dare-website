@@ -202,29 +202,18 @@ def fetch_news():
                 continue
 
             try:
-                title = article.find('h4').text.strip() if article.find('h4') else 'No Title'
-                logging.debug(f"Processing article: {title}")
-                date_element = article.find('span', class_='DateStr')
-                date_str = date_element.get('data') if date_element else None
-                summary = article.find('p').text.strip() if article.find('p') else 'No Summary'
-                author_element = article.find('span', class_='Author')
-                author = author_element.text.strip() if author_element else 'Unknown Author'
+                link_element = article.find('a', href=True)
+                article_url = f"https://www.gomotionapp.com{link_element['href']}" if link_element else None
 
-                if date_str:
-                    date_obj = datetime.utcfromtimestamp(int(date_str) / 1000)
-                    formatted_date = date_obj.strftime('%B %d, %Y')
+                if article_url:
+                    article_details = fetch_article_content(article_url)
+                    if article_details:
+                        news_items.append(article_details)
                 else:
-                    logging.warning(f"Date not found for article with title: {title}")
-                    formatted_date = 'Unknown Date'
+                    logging.warning(f"Article URL not found for article with title: {title}")
 
-                news_items.append({
-                    'title': title,
-                    'date': formatted_date,
-                    'summary': summary,
-                    'author': author
-                })
             except Exception as e:
-                logging.error(f"Error parsing article: {e}")
+                logging.error(f"Error processing article: {e}")
 
         news_items.sort(
             key=lambda x: datetime.strptime(x['date'], '%B %d, %Y') if x['date'] != 'Unknown Date' else datetime.min, reverse=True)
@@ -235,6 +224,66 @@ def fetch_news():
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching news: {e}")
         return []
+
+
+def fetch_article_content(url):
+    try:
+        scraper = cloudscraper.create_scraper()
+        response = scraper.get(url)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        title_element = soup.find('div', class_='NewsItem').find('h1')
+        date_element = soup.find('div', class_='Date').find('span', class_='DateStr')
+        author_element = soup.find('div', class_='Author').find('strong')
+        content_div = soup.find('div', class_='Content')
+
+        title = title_element.get_text(strip=True) if title_element else 'No Title'
+        date_str = date_element.get('data') if date_element else None
+        author = author_element.get_text(strip=True) if author_element else 'Unknown Author'
+
+        if date_str:
+            date_obj = datetime.utcfromtimestamp(int(date_str) / 1000)
+            formatted_date = date_obj.strftime('%B %d, %Y')
+        else:
+            logging.warning(f"Date not found for article at URL: {url}")
+            formatted_date = 'Unknown Date'
+
+        if content_div:
+            # Extract the content and handle images
+            content_html = ''
+            for element in content_div:
+                if element.name == 'img':
+                    content_html += f'<img src="{element["src"]}" alt="{element.get("alt", "Image")}" style="width: 100%;">'
+                else:
+                    content_html += str(element)
+        else:
+            logging.warning(f"Content not found for article URL: {url}")
+            content_html = "Content not available."
+
+        return {
+            'title': title,
+            'date': formatted_date,
+            'summary': content_html,
+            'author': author
+        }
+
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error fetching article content from {url}: {e}")
+        return {
+            'title': 'Error fetching title',
+            'date': 'Unknown Date',
+            'summary': 'Error fetching content.',
+            'author': 'Unknown Author'
+        }
+    except Exception as e:
+        logging.error(f"Unexpected error fetching article content from {url}: {e}")
+        return {
+            'title': 'Error fetching title',
+            'date': 'Unknown Date',
+            'summary': 'Unexpected error fetching content.',
+            'author': 'Unknown Author'
+        }
 
 
 def convert_links_to_clickable(text):
@@ -359,7 +408,6 @@ def push_to_github():
         logging.error(f"Error pushing changes to GitHub: {e}")
 
 
-
 def main():
     try:
         logging.info("Starting update process...")
@@ -391,5 +439,5 @@ def main():
         logging.info("Update process aborted due to errors.")
 
 
-if __name__ == "__main__":
+if __name__ "__main__":
     main()
