@@ -1,3 +1,7 @@
+# -----------------------------------------------------------------------------------------------------------------------
+# MODIFIED VERSION OF https://github.com/luryann/sync/blob/main/autosync.py DESIGNED FOR GITHUB ACTIONS WORKFLOWS        
+# -----------------------------------------------------------------------------------------------------------------------
+
 import os
 import shutil
 import platform
