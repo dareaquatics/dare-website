@@ -266,7 +266,7 @@ def fetch_article_content(url):
                 elif element.name == 'a':
                     href = element.get('href')
                     text = element.get_text(strip=True)
-                    content_html += f'<a href="{href}" target="_blank">Click here to be redirected to the link</a>'
+                    content_html += f'<a href="{href}" target="_blank">{text}</a>'
                 else:
                     # Clean the element from unwanted attributes
                     element.attrs = {}
@@ -313,8 +313,13 @@ def remove_duplicate_links(text):
 
 
 def convert_links_to_clickable(text):
-    url_pattern = re.compile(r'(https?://\S+)')
-    return url_pattern.sub(r'<a href="\1" target="_blank">Click here to be redirected to the link</a>', text)
+    soup = BeautifulSoup(text, 'html.parser')
+    for a in soup.find_all('a', href=True):
+        if not a.string or a.string.strip() == "":
+            a.string = "Click here to be redirected to the link"
+        else:
+            a.string = "Click here to be redirected to the link"
+    return str(soup)
 
 
 def generate_html(news_items):
