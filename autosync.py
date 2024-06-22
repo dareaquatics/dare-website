@@ -267,12 +267,12 @@ def fetch_article_content(url):
                     # Flatten all heading tags to p tags with the same class for uniform size
                     content_html += f'<p class="news-paragraph">{element.get_text(strip=True)}</p>'
                 elif element.name == 'a':
-                    # Ensure links are correctly formatted
                     href = element.get('href')
-                    if href:
-                        content_html += f'<a href="{href}" target="_blank">{element.get_text(strip=True)}</a>'
+                    text = element.get_text(strip=True)
+                    content_html += f'<a href="{href}" target="_blank">{text}</a>'
                 else:
-                    element.attrs = {}  # Remove all attributes to clean CSS
+                    # Clean the element from unwanted attributes
+                    element.attrs = {}
                     content_html += str(element)
         else:
             logging.warning(f"Content not found for article URL: {url}")
@@ -359,6 +359,9 @@ def format_summary(summary):
 
         # Convert image links to "Click to see image" links
         summary = re.sub(r'<img src="([^"]+)"[^>]*>', r'<a href="\1" target="_blank">Click to see image</a>', summary)
+
+        # Fix broken link formatting
+        summary = re.sub(r'<a href="[^"]*"><a href="([^"]+)"[^>]*>([^<]+)</a></a>', r'<a href="\1" target="_blank">\2</a>', summary)
 
     except re.error as e:
         logging.error(f"Regex error while formatting summary: {e}")
