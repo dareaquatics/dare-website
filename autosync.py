@@ -248,17 +248,46 @@ def generate_html(news_items):
 
     for item in news_items:
         summary_with_links = convert_links_to_clickable(item["summary"])
+        formatted_summary = format_summary(summary_with_links)
         news_html += f'''
         <div class="news-item">
             <h2 class="news-title"><strong>{item["title"]}</strong></h2>
             <p class="news-date">Author: {item["author"]}</p>
             <p class="news-date">Published on {item["date"]}</p>
-            <p class="news-content">{summary_with_links}</p>
+            <div class="news-content">{formatted_summary}</div>
         </div>
         '''
 
     logging.info("Successfully generated HTML.")
     return news_html
+
+
+def format_summary(summary):
+    try:
+        # Convert newlines to <br> tags
+        summary = summary.replace('\n', '<br>')
+
+        # Convert numbered lists
+        summary = re.sub(r'(\d+)\. ', r'<li>\1. ', summary)
+        summary = re.sub(r'(<li>\d+\. [^<]+)<br>', r'\1</li>', summary)
+
+        # Convert bulleted lists
+        summary = re.sub(r'^\* ', r'<ul><li>', summary)
+        summary = re.sub(r'<br>\* ', r'</li><li>', summary)
+        summary = re.sub(r'(<li>[^<]+)<br>', r'\1</li>', summary)
+        summary = re.sub(r'(<li>[^<]+)$', r'\1</li></ul>', summary)
+
+        # Convert image links to img tags
+        summary = re.sub(r'\[img\](https?://\S+)\[/img\]', r'<img src="\1" alt="Image">', summary)
+
+    except re.error as e:
+        logging.error(f"Regex error while formatting summary: {e}")
+        summary += "<br><em>Formatting error occurred. Displaying raw content.</em>"
+    except Exception as e:
+        logging.error(f"Unexpected error while formatting summary: {e}")
+        summary += "<br><em>Unexpected error occurred. Displaying raw content.</em>"
+
+    return summary
 
 
 def update_html_file(news_html):
