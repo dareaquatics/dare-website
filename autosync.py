@@ -263,7 +263,7 @@ def fetch_article_content(url):
                     src = element["src"]
                     if not src.startswith("http"):
                         src = f"http://www.gomotionapp.com{src}"
-                    content_html += f'<a href="{src}" target="_blank">Click to see image</a>'
+                    content_html += f'<a href="{src}" target="_blank"><img src="{src}" style="max-width:100%; height:auto;" alt="Image"/></a>'
                 elif element.name and element.name.startswith('h'):
                     # Flatten all heading tags to p tags with the same class for uniform size
                     content_html += f'<p class="news-paragraph">{element.get_text(strip=True)}</p>'
