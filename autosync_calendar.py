@@ -209,7 +209,8 @@ def generate_html(event_items):
           <p><b>Event Start:</b> {item["start"].strftime('%B %d, %Y')}</p>
           <p><b>Event End:</b> {item["end"].strftime('%B %d, %Y')}</p>
           <p><b>Description:</b> Click the button below for more information.</p>
-          <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
+          <a href="{item['url']}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
+          <button class="copy-link btn btn-secondary" data-url="{item['url']}">Copy Link</button>
         </div>
         <br><hr><br>
         '''
@@ -239,6 +240,18 @@ def generate_html(event_items):
             }} else {{
               content.style.display = "block";
             }}
+          }});
+        }}
+        
+        var copyButtons = document.getElementsByClassName("copy-link");
+        for (var i = 0; i < copyButtons.length; i++) {{
+          copyButtons[i].addEventListener("click", function() {{
+            var url = this.getAttribute("data-url");
+            navigator.clipboard.writeText(url).then(function() {{
+              alert('Link copied to clipboard');
+            }}, function(err) {{
+              alert('Failed to copy link');
+            }});
           }});
         }}
         </script>
