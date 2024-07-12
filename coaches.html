@@ -29,7 +29,8 @@
 
   <style>
     .coach-box {
-      text-align: left;
+      display: flex;
+      align-items: center;
       padding: 20px;
       border-radius: 5px;
       transition: transform 0.3s ease-in-out;
@@ -42,26 +43,30 @@
     .coach-box img {
       border: 3px solid #FFA07A; /* Light orange border */
       border-radius: 5px;
-      margin-bottom: 15px;
+      margin-right: 20px;
     }
 
-    .coach-box h3 {
+    .coach-info {
+      flex-grow: 1;
+    }
+
+    .coach-info h3 {
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .coach-box p {
+    .coach-info p {
       font-size: 1rem;
       margin-bottom: 5px;
     }
 
-    .coach-box a {
+    .coach-info a {
       color: #007bff;
       text-decoration: none;
     }
 
-    .coach-box a:hover {
+    .coach-info a:hover {
       text-decoration: underline;
     }
 
@@ -126,51 +131,63 @@
       <div class="container">
         <div class="coach-box">
           <img src="assets/coaches/joy-lim.jpg" class="img-fluid" alt="Joy Lim" width="150" height="183">
-          <h3>Joy Lim</h3>
-          <p>Head Coach</p>
-          <p><strong>Email:</strong> <a href="mailto:joy@dareaquatics.com">joy@dareaquatics.com</a></p>
-          <hr class="coach-separator">
+          <div class="coach-info">
+            <h3>Joy Lim</h3>
+            <p>Head Coach</p>
+            <p><strong>Email:</strong> <a href="mailto:joy@dareaquatics.com">joy@dareaquatics.com</a></p>
+          </div>
         </div>
+        <hr class="coach-separator">
 
         <div class="coach-box">
           <img src="assets/coaches/yvonne-jo.jpg" class="img-fluid" alt="Yvonne Jo" width="150" height="183">
-          <h3>Yvonne Jo</h3>
-          <p>DARE Devils (Pre-Comp)</p>
-          <p><strong>Email:</strong> <a href="mailto:yvonne@dareaquatics.com">yvonne@dareaquatics.com</a></p>
-          <hr class="coach-separator">
+          <div class="coach-info">
+            <h3>Yvonne Jo</h3>
+            <p>DARE Devils (Pre-Comp)</p>
+            <p><strong>Email:</strong> <a href="mailto:yvonne@dareaquatics.com">yvonne@dareaquatics.com</a></p>
+          </div>
         </div>
+        <hr class="coach-separator">
 
         <div class="coach-box">
           <img src="assets/coaches/andrew-kim.jpg" class="img-fluid" alt="Andrew Kim" width="150" height="183">
-          <h3>Andrew Kim</h3>
-          <p>Coach</p>
-          <p><strong>Email:</strong> <a href="mailto:andrew@dareaquatics.com">andrew@dareaquatics.com</a></p>
-          <hr class="coach-separator">
+          <div class="coach-info">
+            <h3>Andrew Kim</h3>
+            <p>Coach</p>
+            <p><strong>Email:</strong> <a href="mailto:andrew@dareaquatics.com">andrew@dareaquatics.com</a></p>
+          </div>
         </div>
+        <hr class="coach-separator">
 
         <div class="coach-box">
           <img src="assets/coaches/joseph-kim.jpg" class="img-fluid" alt="Joseph Kim" width="150" height="183">
-          <h3>Joseph Kim</h3>
-          <p>Head Age Group Coach</p>
-          <p><strong>Email:</strong> <a href="mailto:joseph@dareaquatics.com">joseph@dareaquatics.com</a></p>
-          <hr class="coach-separator">
+          <div class="coach-info">
+            <h3>Joseph Kim</h3>
+            <p>Head Age Group Coach</p>
+            <p><strong>Email:</strong> <a href="mailto:joseph@dareaquatics.com">joseph@dareaquatics.com</a></p>
+          </div>
         </div>
+        <hr class="coach-separator">
 
         <div class="coach-box">
           <img src="assets/coaches/samuel-jo.jpg" class="img-fluid" alt="Samuel Jo" width="150" height="183">
-          <h3>Samuel Jo</h3>
-          <p>Sr. Development</p>
-          <p><strong>Email:</strong> <a href="mailto:sam@dareaquatics.com">sam@dareaquatics.com</a></p>
-          <hr class="coach-separator">
+          <div class="coach-info">
+            <h3>Samuel Jo</h3>
+            <p>Sr. Development</p>
+            <p><strong>Email:</strong> <a href="mailto:sam@dareaquatics.com">sam@dareaquatics.com</a></p>
+          </div>
         </div>
+        <hr class="coach-separator">
 
         <div class="coach-box">
           <img src="assets/coaches/tevin-pak.jpg" class="img-fluid" alt="Tevin Pak" width="150" height="183">
-          <h3>Tevin Pak</h3>
-          <p>Age Group 1</p>
-          <p><strong>Email:</strong> <a href="mailto:tevin@dareaquatics.com">tevin@dareaquatics.com</a></p>
-          <hr class="coach-separator">
+          <div class="coach-info">
+            <h3>Tevin Pak</h3>
+            <p>Age Group 1</p>
+            <p><strong>Email:</strong> <a href="mailto:tevin@dareaquatics.com">tevin@dareaquatics.com</a></p>
+          </div>
         </div>
+        <hr class="coach-separator">
       </div>
     </section>
 
