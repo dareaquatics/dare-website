@@ -34,28 +34,50 @@
       margin: 20px 0;
     }
 
-    .map-container {
-      margin: 40px 0;
-      border: 1px solid #ddd;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .location-card {
+      background: #fff;
       border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
       overflow: hidden;
+      transition: transform 0.3s;
     }
 
-    .location-info {
+    .location-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .location-card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .location-card-body {
+      padding: 20px;
       text-align: center;
-      margin: 20px 0;
     }
 
-    .location-info h3 {
+    .location-card-body h3 {
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .location-info p {
+    .location-card-body p {
       font-size: 1.1rem;
       color: #555;
+    }
+
+    .location-card iframe {
+      border: 0;
+      width: 100%;
+      height: 350px;
+    }
+
+    .breadcrumbs ol li+li:before {
+      content: ">";
+      margin: 0 5px;
+      color: #333;
     }
 
     .container {
@@ -66,10 +88,15 @@
       padding: 40px 0;
     }
 
-    .breadcrumbs ol li+li:before {
-      content: ">";
-      margin: 0 5px;
-      color: #333;
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .card-container .location-card {
+      flex: 1 1 calc(50% - 20px);
+      margin: 10px;
     }
   </style>
 </head>
@@ -119,24 +146,26 @@
       <div class="container">
         <p>Practice is usually held at these two sites. If scheduling a tryout, please reach out to us via the contact form or via email.</p><br><hr><br>
 
-        <!-- Location 1 -->
-        <div class="location-info">
-          <h3><b>Alhambra Park Pool</b></h3>
-          <p>500 N Palm Ave, Alhambra, CA 91801</p>
-        </div>
-        <div class="map-container text-center">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.9238625211174!2d-118.14836772378301!3d34.09709087314014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c588d954c781%3A0xc3cf37bb693dceb3!2sAlhambra%20Park%20Pool!5e0!3m2!1sen!2sus!4v1694492509520!5m2!1sen!2sus" width="100%" height="350" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+        <div class="card-container">
+          <!-- Location 1 -->
+          <div class="location-card">
+            <img src="assets/img/alhambra-park-pool.jpg" alt="Alhambra Park Pool">
+            <div class="location-card-body">
+              <h3>Alhambra Park Pool</h3>
+              <p>500 N Palm Ave, Alhambra, CA 91801</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.9238625211174!2d-118.14836772378301!3d34.09709087314014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c588d954c781%3A0xc3cf37bb693dceb3!2sAlhambra%20Park%20Pool!5e0!3m2!1sen!2sus!4v1694492509520!5m2!1sen!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
 
-        <hr>
-
-        <!-- Location 2 -->
-        <div class="location-info">
-          <h3><b>Granada Pool</b></h3>
-          <p>2233 Whitney Dr, Alhambra, CA 91803</p>
-        </div>
-        <div class="map-container text-center">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.098027516108!2d-118.14792692378424!3d34.067001273151476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c536aaaaaaab%3A0xa8a9667deac41d80!2sGranada%20Pool!5e0!3m2!1sen!2sus!4v1694492555797!5m2!1sen!2sus" width="100%" height="350" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- Location 2 -->
+          <div class="location-card">
+            <img src="assets/img/granada-pool.jpg" alt="Granada Pool">
+            <div class="location-card-body">
+              <h3>Granada Pool</h3>
+              <p>2233 Whitney Dr, Alhambra, CA 91803</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.098027516108!2d-118.14792692378424!3d34.067001273151476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c536aaaaaaab%3A0xa8a9667deac41d80!2sGranada%20Pool!5e0!3m2!1sen!2sus!4v1694492555797!5m2!1sen!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
         </div>
       </div>
     </section>
