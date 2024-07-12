@@ -87,6 +87,23 @@
       border-radius: 10px;
       margin-bottom: 20px;
     }
+
+    /* Ensure header and footer are not centered */
+    #header .container, #footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #footer .footer-top .container {
+      display: block;
+    }
+
+    #footer .footer-top .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
   </style>
 </head>
 
