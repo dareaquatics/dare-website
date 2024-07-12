@@ -1,3 +1,5 @@
+# autosync for calendar (calendar.html)
+
 import os
 import shutil
 import platform
