@@ -102,7 +102,21 @@
     #footer .footer-top .row {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: flex-start;
+    }
+
+    #footer .footer-top .footer-contact, #footer .footer-top .footer-links {
+      flex: 1 1 25%;
+    }
+
+    #header .logo {
+      flex-grow: 1;
+    }
+
+    #navbar {
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 3;
     }
   </style>
 </head>
@@ -110,7 +124,7 @@
 <body>
 
   <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex justify-content-between">
+    <div class="container d-flex">
       <div class="logo">
         <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
       </div>
