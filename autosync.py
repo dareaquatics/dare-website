@@ -1,6 +1,4 @@
-# -----------------------------------------------------------------------------------------------------------------------
-# MODIFIED VERSION OF https://github.com/luryann/sync/blob/main/autosync.py DESIGNED FOR GITHUB ACTIONS WORKFLOWS        
-# -----------------------------------------------------------------------------------------------------------------------
+# autosync for news events (news.html)
 
 import os
 import shutil
