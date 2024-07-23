@@ -2,8 +2,9 @@
 Backend:
 - [ ] [Aquify](https://github.com/luryann/aquify)
 - [ ] Server side code execution via GitHub Pages for in-house contact form.
-- [ ] Google Analytics report?
-
+- [x] Google Analytics report?
+  - Share reports from GA 
+  
 Next season modifications:
 - [ ] Coaches Pictures
 - [x] Coaches Page overhaul
