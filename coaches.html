@@ -28,63 +28,72 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <style>
-    .coach-box {
-      display: flex;
-      align-items: center;
-      padding: 20px;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    }
+.coach-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
 
-    .coach-box:hover {
-      transform: translateY(-5px);
-      background-color: #fff;
-    }
+.coach-box:hover {
+  transform: translateY(-5px);
+  background-color: #fff;
+}
 
-    .coach-box img {
-      border: 3px solid #FFA07A; /* Light orange border */
-      border-radius: 5px;
-      margin-right: 20px;
-    }
+.coach-box img {
+  border: 3px solid #FFA07A;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  max-width: 150px;
+  height: auto;
+}
 
-    .coach-info {
-      flex-grow: 1;
-      max-width: 70%; /* Adjusted to fill more horizontal space */
-    }
+.coach-info {
+  width: 100%;
+  text-align: center;
+}
 
-    .coach-info h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
+.coach-info h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
 
-    .coach-info p {
-      font-size: 1rem;
-      margin-bottom: 5px;
-    }
+.coach-info p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
 
-    .coach-info a {
-      color: #007bff;
-      text-decoration: none;
-    }
+.coach-info a {
+  color: #007bff;
+  text-decoration: none;
+  word-break: break-all;
+}
 
-    .coach-info a:hover {
-      text-decoration: underline;
-    }
+.coach-info a:hover {
+  text-decoration: underline;
+}
 
-    .coach-separator {
-      margin: 30px 0;
-      border: 0;
-      border-top: 1px solid #eee;
-    }
+@media (min-width: 768px) {
+  .coach-box {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
 
-    .inner-page p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
+  .coach-box img {
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+
+  .coach-info {
+    text-align: left;
+  }
+}
   </style>
 </head>
 
