@@ -1,6 +1,6 @@
 (function() {
   function checkMaintenanceStatus() {
-    fetch('/maintenance-status.json?nocache=' + new Date().getTime())
+    fetch('/maintenanceStatusToggle.json?nocache=' + new Date().getTime())
       .then(response => response.json())
       .then(data => {
         if (data.maintenanceMode) {
