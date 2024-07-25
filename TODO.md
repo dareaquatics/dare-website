@@ -12,6 +12,6 @@ Next season modifications:
 - [ ] Check FAQ page, update if required
 - [ ] Confirm Swim Group page's contents
 - [ ] Check Pool location
-- [ ] Change "About Us" statements on index.html
+- [x] Change "About Us" statements on index.html
 - [ ] Verify team policy documents
 - [x] locations.html revamp
