@@ -13,16 +13,95 @@
   </script>
   <!-- Google Analytics End (gtag.js) -->
 
-  <!-- "if swipe = boolean" ahh code -->
-  <!-- This code is here because mobile users see the hero image in a very ugly way and we don't want that. -->
+
   <style>
+    /* Hero section styles */
+
+      @media (max-width: 768px) {
+      main {
+        padding-top: 0px;
+      }
+
+      .swimmer-illustration {
+        width: 90%;
+        max-width: 400px; /* Prevent it from becoming too large on wider mobile screens */
+      }
+    }
+
+
+    #hero {
+      width: 100%;
+      padding: 60px 0;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    #hero .hero-img {
+      text-align: center;
+    }
+
+    #hero .hero-img img {
+      width: 70%;
+      max-width: 300px;
+    }
+
+    #hero h1 {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 56px;
+      margin: 0 0 20px 0;
+    }
+
+    #hero h5 {
+      color: #5c8eb0;
+      margin-bottom: 30px;
+    }
+
+    #hero .btn-get-started {
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 3px;
+      transition: 0.5s;
+      color: #fff;
+      background: #ff9900;
+    }
+
+    /* Media queries for responsiveness */
+    @media (max-width: 991px) {
+      #hero {
+        text-align: center;
+      }
+
+      #hero .hero-img {
+        margin-top: 40px;
+      }
+
+      #hero .hero-img img {
+        width: 60%;
+      }
+    }
+
     @media (max-width: 768px) {
-      .hero-img {
-        display: none;
+      #hero h1 {
+        font-size: 36px;
+        line-height: 42px;
+      }
+
+      #hero h5 {
+        font-size: 18px;
+        line-height: 24px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      #hero .hero-img img {
+        width: 80%;
       }
     }
   </style>
-
 
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -84,25 +163,24 @@
   <main id="main">
 
   <br>
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container">
-      <div class="row gy-4">
-        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>DARE Aquatics</h1>
-          <br>
-          <h5>A year round competitive swim team offering high quality coaching and technique instruction for all ages and abilities.
-          <br><br>
-          Go DARE!🧡</h5>
-          <div>
-            <a href=contact class="btn-get-started scrollto" target="_blank" rel="noopener noreferrer">Contact Us</a>
+    <section id="hero" class="d-flex align-items-center">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h1>DARE Aquatics</h1>
+            <h5>A year round competitive swim team offering high quality coaching and technique instruction for all ages and abilities.
+            <br><br>
+            Go DARE!🧡</h5>
+            <div>
+              <a href="contact" class="btn-get-started scrollto">Contact Us</a>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img">
+            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Person swimming butterfly">
           </div>
         </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img">
-          <img src="assets/img/hero-img.png" style="width: 29vw; min-width: 300px;" class="img-fluid animated" alt="Person swimming butterfly">
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 <!-- end hero section -->
 
   <main id="main">
@@ -119,19 +197,18 @@
             <h3 data-aos="fade-up">What is DARE Aquatics?</h3>
             <br>
             <p data-aos="fade-up" data-aos-delay="100">
-              DARE Aquatics is a dedicated competitive swim team that's all about the thrill of racing in the water. We're a close-knit group who are passionate about improving our skills and achieving our best in the pool. Our team offers a supportive and encouraging environment for swimmers of all ages and levels, from beginners looking to refine their strokes to experienced athletes with dreams of reaching the highest levels of competition. With experienced coaches and a focus on technique, endurance, and teamwork, we're committed to helping our members excel in the exciting world of competitive swimming.
+                DARE Aquatics is more than just a swim team - we're a community dedicated to excellence in competitive swimming. Our expert coaches coach talent at every level, from beginners to elite athletes. We blend cutting-edge training techniques with a supportive environment, fostering not just swimming skills, but also confidence, discipline, and lifelong friendships. Join us to experience the thrill of competition, the joy of personal achievement, and the strength of a team that feels like family.
             </p>
             <div class="row">
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <i class="bx bx-receipt"></i>
-                <h4>Enhanced Physical Fitness</h4>
-                <p>Professional coaching helps refine swimming techniques, ensuring safe and effective swimming skills that last a lifetime.</p>
-              </div>
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <i class="bx bx-cube-alt"></i>
-                <h4>Team Spirit</h4>
-                <p>Being part of a club fosters teamwork, camaraderie, and lifelong friendships, which are invaluable for personal growth.</p>
-              </div>
+                <i class="bx bx-chalkboard"></i>
+                <h4>Expert Coaching</h4>
+                <p>Our certified coaches use state-of-the-art techniques to enhance your child's swimming progress, ensuring skills that lead to success both in and out of the pool.</p>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <i class="bx bx-leaf"></i>
+                <h4>Character Building</h4>
+              <p>Beyond swimming, we instill values of perseverance, teamwork, and sportsmanship, shaping well-rounded individuals ready for life's challenges.</p>              <div>
             </div>
           </div>
         </div>
@@ -151,34 +228,32 @@
         <div class="row">
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <div class="icon"><i class="bx bx-swim"></i></div>
               <h4 class="title"><a href="">Fitness</a></h4>
-              <p class="description">Dive into fitness fun with our swim team, shaping healthy habits for life.</p>
-            </div>
+              <p class="description">Develop strength, endurance, and flexibility through our comprehensive swim program, promoting lifelong health and wellness.</p>
+          </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Teamwork</a></h4>
-              <p class="description">Become part of a close-knit swimming community, where friendships grow and team goals are achieved together.</p>
-            </div>
+              <div class="icon"><i class="bx bx-unite"></i></div>
+              <h4 class="title"><a href="">Team Unity</a></h4>
+              <p class="description">Experience the power of unity in our close-knit swimming community, where individual growth fuels collective success.</p>
+          </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4 class="title"><a href="">Endurance</a></h4>
-              <p class="description">Enhance your strength and resilience by swimming, overcoming challenges, and setting new personal records.</p>
-            </div>
+              <div class="icon"><i class="bx bx-brain"></i></div>
+              <h4 class="title"><a href="">Mental Toughness</a></h4>
+              <p class="description">Build resilience and focus through challenging workouts and competitions, developing a champion's mindset for all areas of life.</p>            </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="400">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4 class="title"><a href="">Competition</a></h4>
-              <p class="description">Feel the excitement of friendly competition, growing in confidence and skill in a supportive environment.</p>
-            </div>
+              <div class="icon"><i class="bx bx-trophy"></i></div>
+              <h4 class="title"><a href="">Competitive Edge</a></h4>
+              <p class="description">Gain valuable experience in local and national competitions, preparing swimmers for success at college and/or professional levels.</p>            <div>
           </div>
 
         </div>
