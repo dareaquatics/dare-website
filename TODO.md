@@ -7,11 +7,14 @@ Backend:
   
 Next season modifications:
 - [ ] Coaches Pictures
-- [x] Coaches Page overhaul
 - [ ] Add experience/certs to coaches.html
 - [ ] Check FAQ page, update if required
 - [ ] Confirm Swim Group page's contents
+    -  PreNat/Nat group splitting?
+    -  HS Swim groups vs other group??
+    - [ ] Confim groups with Coach Joy
 - [ ] Check Pool location
-- [x] Change "About Us" statements on index.html
 - [ ] Verify team policy documents
 - [x] locations.html revamp
+- [x] Change "About Us" statements on index.html
+- [x] Coaches Page overhaul
