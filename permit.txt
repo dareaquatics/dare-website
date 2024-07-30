@@ -1,0 +1,2 @@
+ivan = pass
+adam = barely pass 
