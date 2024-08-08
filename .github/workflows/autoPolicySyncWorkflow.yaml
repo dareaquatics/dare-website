@@ -20,7 +20,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 tenacity PyPDF2
+          pip install requests beautifulsoup4 selenium webdriver_manager PyPDF2
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
       - name: Download and update policy documents
         env:
@@ -28,21 +33,27 @@ jobs:
           TU_PASSWORD: ${{ secrets.TU_PASSWORD }}
         run: |
           import os
+          import time
           import requests
-          from bs4 import BeautifulSoup
+          import logging
+          import json
           import re
           import hashlib
-          from datetime import datetime
-          import logging
-          from tenacity import retry, stop_after_attempt, wait_exponential
-          import urllib.parse
           import mimetypes
-          import json
+          import urllib.parse
+          from bs4 import BeautifulSoup
+          from selenium import webdriver
+          from selenium.webdriver.chrome.service import Service
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.support.ui import WebDriverWait
+          from selenium.webdriver.support import expected_conditions as EC
+          from selenium.common.exceptions import TimeoutException, NoSuchElementException
+          from webdriver_manager.chrome import ChromeDriverManager
           from PyPDF2 import PdfReader
-          import time
 
           # Set up logging
-          logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+          logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
           logger = logging.getLogger()
 
           # Configuration
@@ -58,99 +69,89 @@ jobs:
               logger.error("Login credentials not provided")
               exit(1)
 
-          session = requests.Session()
+          def setup_driver():
+              chrome_options = Options()
+              chrome_options.add_argument("--headless")
+              chrome_options.add_argument("--no-sandbox")
+              chrome_options.add_argument("--disable-dev-shm-usage")
+              service = Service(ChromeDriverManager().install())
+              driver = webdriver.Chrome(service=service, options=chrome_options)
+              return driver
 
-          def login():
+          def login(driver):
               try:
-                  # First, get the login page
-                  response = session.get(LOGIN_URL)
-                  soup = BeautifulSoup(response.text, 'html.parser')
+                  logger.info(f"Navigating to login page: {LOGIN_URL}")
+                  driver.get(LOGIN_URL)
                   
-                  # Find the login form
-                  login_form = soup.find('form', {'id': 'new_user'})
+                  logger.info("Waiting for email input field")
+                  email_input = WebDriverWait(driver, 10).until(
+                      EC.presence_of_element_located((By.ID, "user_login"))
+                  )
+                  logger.info(f"Entering email: {USERNAME}")
+                  email_input.send_keys(USERNAME)
                   
-                  if not login_form:
-                      logger.error("Login form not found. Page content:")
-                      logger.error(response.text[:1000])  # Log the first 1000 characters of the page
-                      return False
+                  logger.info("Looking for continue button")
+                  continue_button = driver.find_element(By.CSS_SELECTOR, "input[type='submit']")
+                  logger.info("Clicking continue button")
+                  continue_button.click()
+                  
+                  logger.info("Waiting for password input field")
+                  password_input = WebDriverWait(driver, 10).until(
+                      EC.presence_of_element_located((By.ID, "user_password"))
+                  )
+                  logger.info("Entering password")
+                  password_input.send_keys(PASSWORD)
+                  
+                  logger.info("Looking for sign in button")
+                  sign_in_button = WebDriverWait(driver, 10).until(
+                      EC.element_to_be_clickable((By.XPATH, "//input[@type='submit' and @value='Sign in']"))
+                  )
+                  logger.info("Clicking sign in button")
+                  sign_in_button.click()
 
-                  # Extract form action URL
-                  form_action = login_form.get('action')
-                  if form_action:
-                      login_url = urllib.parse.urljoin(LOGIN_URL, form_action)
-                  else:
-                      login_url = LOGIN_URL
+                  logger.info("Waiting for login process to complete")
+                  WebDriverWait(driver, 20).until(
+                      EC.url_contains("gomotionapp.com")
+                  )
 
-                  # Extract CSRF token
-                  csrf_token = login_form.find('input', {'name': 'authenticity_token'})['value']
+                  logger.info(f"Current URL after login: {driver.current_url}")
 
-                  # Prepare login data
-                  login_data = {
-                      'authenticity_token': csrf_token,
-                      'user[login]': USERNAME,
-                      'user[password]': PASSWORD,
-                      'commit': 'Continue'
-                  }
+                  logger.info(f"Navigating to policies page: {POLICIES_PAGE_URL}")
+                  driver.get(POLICIES_PAGE_URL)
 
-                  # Submit the login form
-                  response = session.post(login_url, data=login_data, allow_redirects=True)
-                  
-                  # Check if login was successful
-                  if "Invalid Email or password" in response.text:
-                      logger.error("Login failed: Invalid credentials")
-                      return False
-                  
-                  # Navigate to the policies page
-                  response = session.get(POLICIES_PAGE_URL, allow_redirects=True)
-                  
-                  if "DARE Aquatics - Policies" in response.text:
-                      logger.info("Successfully navigated to policies page")
-                      return True
-                  else:
-                      logger.error("Failed to reach policies page after login")
-                      return False
-                  
+                  logger.info("Waiting for policies page to load")
+                  WebDriverWait(driver, 20).until(
+                      EC.presence_of_element_located((By.XPATH, "//h3[contains(text(), 'Team Policy Documents')]"))
+                  )
+
+                  logger.info("Successfully logged in and navigated to policies page")
+                  return True
+              except TimeoutException as e:
+                  logger.error(f"Timeout error during login: {str(e)}")
+                  logger.error(f"Current URL: {driver.current_url}")
+                  logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
+                  return False
+              except NoSuchElementException as e:
+                  logger.error(f"Element not found during login: {str(e)}")
+                  logger.error(f"Current URL: {driver.current_url}")
+                  logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
+                  return False
               except Exception as e:
-                  logger.error(f"Error during login: {str(e)}")
+                  logger.error(f"Unexpected error during login: {str(e)}")
+                  logger.error(f"Current URL: {driver.current_url}")
+                  logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
                   return False
 
-          def is_valid_url(url):
+          def get_policy_documents(driver):
               try:
-                  result = urllib.parse.urlparse(url)
-                  return all([result.scheme, result.netloc])
-              except ValueError:
-                  return False
-
-          def validate_date(date_string):
-              try:
-                  datetime.strptime(date_string, '%m/%d/%Y')
-                  return True
-              except ValueError:
-                  return False
-
-          def is_valid_pdf(file_path):
-              if not mimetypes.guess_type(file_path)[0] == 'application/pdf':
-                  return False
-              try:
-                  PdfReader(file_path)
-                  return True
-              except:
-                  return False
-
-          @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
-          def fetch_url(url):
-              if not is_valid_url(url):
-                  raise ValueError(f"Invalid URL: {url}")
-              response = session.get(url, timeout=30)
-              response.raise_for_status()
-              time.sleep(1)  # Simple rate limiting
-              return response
-
-          def get_policy_documents():
-              try:
-                  response = fetch_url(POLICIES_PAGE_URL)
-                  soup = BeautifulSoup(response.content, 'html.parser')
+                  # Wait for the policy table to be present
+                  policy_table = WebDriverWait(driver, 10).until(
+                      EC.presence_of_element_located((By.XPATH, "//table[@style='width:600px;']"))
+                  )
+                  
+                  soup = BeautifulSoup(driver.page_source, 'html.parser')
                   policy_table = soup.find('table', {'style': 'width:600px;'})
+                  
                   if not policy_table:
                       logger.error("Policy table not found on the page")
                       return []
@@ -166,15 +167,30 @@ jobs:
                               if not url.startswith('http'):
                                   url = urllib.parse.urljoin(POLICIES_PAGE_URL, url)
                               last_updated = cols[1].text.strip()
-                              if validate_date(last_updated) and is_valid_url(url):
-                                  policies.append({'name': name, 'url': url, 'last_updated': last_updated})
-                              else:
-                                  logger.warning(f"Skipping invalid policy: {name}")
+                              policies.append({'name': name, 'url': url, 'last_updated': last_updated})
                   
                   return policies
               except Exception as e:
                   logger.error(f"Error fetching policy documents: {str(e)}")
                   return []
+
+          def download_policy(session, url):
+              try:
+                  response = session.get(url, timeout=30)
+                  response.raise_for_status()
+                  return response.content
+              except Exception as e:
+                  logger.error(f"Error downloading policy from {url}: {str(e)}")
+                  return None
+
+          def is_valid_pdf(file_path):
+              if not mimetypes.guess_type(file_path)[0] == 'application/pdf':
+                  return False
+              try:
+                  PdfReader(file_path)
+                  return True
+              except:
+                  return False
 
           def get_file_hash(file_path):
               try:
@@ -202,105 +218,116 @@ jobs:
                   logger.error(f"Error writing to file {file_path}: {str(e)}")
                   return False
 
-          if not login():
-              logger.error("Failed to log in. Exiting.")
-              exit(1)
+          driver = setup_driver()
+          try:
+              if not login(driver):
+                  logger.error("Failed to log in. Exiting.")
+                  exit(1)
 
-          os.makedirs(GITHUB_POLICIES_DIR, exist_ok=True)
+              policies = get_policy_documents(driver)
+              if not policies:
+                  logger.error("No policies found or error occurred while fetching policies")
+                  exit(1)
 
-          policies = get_policy_documents()
-          if not policies:
-              logger.error("No policies found or error occurred while fetching policies")
-              exit(1)
+              os.makedirs(GITHUB_POLICIES_DIR, exist_ok=True)
 
-          updated_files = []
-          changes = {}
+              session = requests.Session()
+              for cookie in driver.get_cookies():
+                  session.cookies.set(cookie['name'], cookie['value'], domain=cookie['domain'])
 
-          for policy in policies:
-              try:
-                  response = fetch_url(policy['url'])
-                  
-                  matching_file = find_matching_file(GITHUB_POLICIES_DIR, policy['name'])
-                  
-                  if matching_file:
-                      file_path = os.path.join(GITHUB_POLICIES_DIR, matching_file)
+              updated_files = []
+              changes = {}
+
+              for policy in policies:
+                  try:
+                      content = download_policy(session, policy['url'])
+                      if content is None:
+                          continue
+
+                      matching_file = find_matching_file(GITHUB_POLICIES_DIR, policy['name'])
                       
-                      temp_file = 'temp_policy.pdf'
-                      if safe_file_write(temp_file, response.content):
-                          if is_valid_pdf(temp_file):
-                              old_hash = get_file_hash(file_path)
-                              new_hash = get_file_hash(temp_file)
-                              if old_hash != new_hash:
-                                  if os.path.exists(file_path):
-                                      os.remove(file_path)
-                                  os.rename(temp_file, file_path)
-                                  logger.info(f"Updated {matching_file}")
-                                  updated_files.append({'name': policy['name'], 'file': matching_file, 'last_updated': policy['last_updated']})
-                                  changes[matching_file] = {'old_hash': old_hash, 'new_hash': new_hash}
+                      if matching_file:
+                          file_path = os.path.join(GITHUB_POLICIES_DIR, matching_file)
+                          
+                          temp_file = 'temp_policy.pdf'
+                          if safe_file_write(temp_file, content):
+                              if is_valid_pdf(temp_file):
+                                  old_hash = get_file_hash(file_path)
+                                  new_hash = get_file_hash(temp_file)
+                                  if old_hash != new_hash:
+                                      if os.path.exists(file_path):
+                                          os.remove(file_path)
+                                      os.rename(temp_file, file_path)
+                                      logger.info(f"Updated {matching_file}")
+                                      updated_files.append({'name': policy['name'], 'file': matching_file, 'last_updated': policy['last_updated']})
+                                      changes[matching_file] = {'old_hash': old_hash, 'new_hash': new_hash}
+                                  else:
+                                      os.remove(temp_file)
+                                      logger.info(f"No changes for {matching_file}")
                               else:
                                   os.remove(temp_file)
-                                  logger.info(f"No changes for {matching_file}")
-                          else:
-                              os.remove(temp_file)
-                              logger.warning(f"Skipped invalid PDF file: {policy['name']}")
-                  else:
-                      new_name = re.sub(r'[^a-zA-Z0-9]+', '-', policy['name'].lower()) + '.pdf'
-                      file_path = os.path.join(GITHUB_POLICIES_DIR, new_name)
-                      if safe_file_write(file_path, response.content):
-                          if is_valid_pdf(file_path):
-                              logger.info(f"Created new file: {new_name}")
-                              updated_files.append({'name': policy['name'], 'file': new_name, 'last_updated': policy['last_updated']})
-                              changes[new_name] = {'old_hash': None, 'new_hash': get_file_hash(file_path)}
-                          else:
-                              os.remove(file_path)
-                              logger.warning(f"Skipped invalid PDF file: {policy['name']}")
-              except Exception as e:
-                  logger.error(f"Error processing policy {policy['name']}: {str(e)}")
+                                  logger.warning(f"Skipped invalid PDF file: {policy['name']}")
+                      else:
+                          new_name = re.sub(r'[^a-zA-Z0-9]+', '-', policy['name'].lower()) + '.pdf'
+                          file_path = os.path.join(GITHUB_POLICIES_DIR, new_name)
+                          if safe_file_write(file_path, content):
+                              if is_valid_pdf(file_path):
+                                  logger.info(f"Created new file: {new_name}")
+                                  updated_files.append({'name': policy['name'], 'file': new_name, 'last_updated': policy['last_updated']})
+                                  changes[new_name] = {'old_hash': None, 'new_hash': get_file_hash(file_path)}
+                              else:
+                                  os.remove(file_path)
+                                  logger.warning(f"Skipped invalid PDF file: {policy['name']}")
+                  except Exception as e:
+                      logger.error(f"Error processing policy {policy['name']}: {str(e)}")
 
-          if updated_files:
-              try:
-                  with open('policies.html', 'w', encoding='utf-8') as f:
-                      f.write('''
-                      <html>
-                      <head>
-                          <title>DARE Aquatics - Policies</title>
-                          <style>
-                              body { font-family: Arial, sans-serif; }
-                              table { border-collapse: collapse; width: 100%; }
-                              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                              th { background-color: #f2f2f2; }
-                          </style>
-                      </head>
-                      <body>
-                          <h1>DARE Aquatics - Policies</h1>
-                          <table>
-                              <tr>
-                                  <th>Policy</th>
-                                  <th>Last Updated</th>
-                              </tr>
-                      ''')
-                      for policy in updated_files:
-                          f.write(f'''
-                          <tr>
-                              <td><a href="assets/policies/{policy['file']}">{policy['name']}</a></td>
-                              <td>{policy['last_updated']}</td>
-                          </tr>
+              if updated_files:
+                  try:
+                      with open('policies.html', 'w', encoding='utf-8') as f:
+                          f.write('''
+                          <html>
+                          <head>
+                              <title>DARE Aquatics - Policies</title>
+                              <style>
+                                  body { font-family: Arial, sans-serif; }
+                                  table { border-collapse: collapse; width: 100%; }
+                                  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                                  th { background-color: #f2f2f2; }
+                              </style>
+                          </head>
+                          <body>
+                              <h1>DARE Aquatics - Policies</h1>
+                              <table>
+                                  <tr>
+                                      <th>Policy</th>
+                                      <th>Last Updated</th>
+                                  </tr>
                           ''')
-                      f.write('''
-                          </table>
-                      </body>
-                      </html>
-                      ''')
-                  logger.info("Updated policies.html")
-                  
-                  # Write changes to a JSON file
-                  with open('policy_changes.json', 'w') as f:
-                      json.dump(changes, f, indent=2)
-                  logger.info("Recorded policy changes in policy_changes.json")
-              except IOError as e:
-                  logger.error(f"Error writing update files: {str(e)}")
-          else:
-              logger.info("No updates to policies needed")
+                          for policy in updated_files:
+                              f.write(f'''
+                              <tr>
+                                  <td><a href="assets/policies/{policy['file']}">{policy['name']}</a></td>
+                                  <td>{policy['last_updated']}</td>
+                              </tr>
+                              ''')
+                          f.write('''
+                              </table>
+                          </body>
+                          </html>
+                          ''')
+                      logger.info("Updated policies.html")
+                      
+                      # Write changes to a JSON file
+                      with open('policy_changes.json', 'w') as f:
+                          json.dump(changes, f, indent=2)
+                      logger.info("Recorded policy changes in policy_changes.json")
+                  except IOError as e:
+                      logger.error(f"Error writing update files: {str(e)}")
+              else:
+                  logger.info("No updates to policies needed")
+
+          finally:
+              driver.quit()
 
         shell: python
 
