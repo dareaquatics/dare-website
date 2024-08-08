@@ -1,0 +1,241 @@
+name: Update Policy Documents
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Runs weekly on Monday at midnight UTC
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update-policies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 tenacity PyPDF2
+
+      - name: Download and update policy documents
+        run: |
+          import os
+          import requests
+          from bs4 import BeautifulSoup
+          import re
+          import hashlib
+          from datetime import datetime
+          import logging
+          from tenacity import retry, stop_after_attempt, wait_exponential
+          import urllib.parse
+          import mimetypes
+          import json
+          from PyPDF2 import PdfReader
+          import time
+
+          # Set up logging
+          logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+          logger = logging.getLogger()
+
+          # Configuration
+          BASE_URL = "https://www.teamunify.com"
+          POLICIES_PAGE_URL = f"{BASE_URL}/team/cadas/page/newsletter"
+          GITHUB_POLICIES_DIR = 'assets/policies'
+
+          def is_valid_url(url):
+              try:
+                  result = urllib.parse.urlparse(url)
+                  return all([result.scheme, result.netloc])
+              except ValueError:
+                  return False
+
+          def validate_date(date_string):
+              try:
+                  datetime.strptime(date_string, '%m/%d/%Y')
+                  return True
+              except ValueError:
+                  return False
+
+          def is_valid_pdf(file_path):
+              if not mimetypes.guess_type(file_path)[0] == 'application/pdf':
+                  return False
+              try:
+                  PdfReader(file_path)
+                  return True
+              except:
+                  return False
+
+          @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+          def fetch_url(url):
+              if not is_valid_url(url):
+                  raise ValueError(f"Invalid URL: {url}")
+              response = requests.get(url, timeout=30)
+              response.raise_for_status()
+              time.sleep(1)  # Simple rate limiting
+              return response
+
+          def get_policy_documents():
+              try:
+                  response = fetch_url(POLICIES_PAGE_URL)
+                  soup = BeautifulSoup(response.content, 'html.parser')
+                  policy_table = soup.find('table', {'style': 'width:600px;'})
+                  if not policy_table:
+                      logger.error("Policy table not found on the page")
+                      return []
+                  
+                  policies = []
+                  for row in policy_table.find_all('tr')[1:]:  # Skip header row
+                      cols = row.find_all('td')
+                      if len(cols) >= 2:
+                          link = cols[0].find('a')
+                          if link:
+                              name = link.text.strip()
+                              url = link.get('href')
+                              if not url.startswith('http'):
+                                  url = f"{BASE_URL}{url}"
+                              last_updated = cols[1].text.strip()
+                              if validate_date(last_updated) and is_valid_url(url):
+                                  policies.append({'name': name, 'url': url, 'last_updated': last_updated})
+                              else:
+                                  logger.warning(f"Skipping invalid policy: {name}")
+                  
+                  return policies
+              except Exception as e:
+                  logger.error(f"Error fetching policy documents: {str(e)}")
+                  return []
+
+          def get_file_hash(file_path):
+              try:
+                  with open(file_path, 'rb') as f:
+                      return hashlib.md5(f.read()).hexdigest()
+              except IOError as e:
+                  logger.error(f"Error reading file {file_path}: {str(e)}")
+                  return None
+
+          def find_matching_file(directory, policy_name):
+              try:
+                  for filename in os.listdir(directory):
+                      if filename.lower().replace(' ', '-') == policy_name.lower().replace(' ', '-'):
+                          return filename
+              except OSError as e:
+                  logger.error(f"Error accessing directory {directory}: {str(e)}")
+              return None
+
+          def safe_file_write(file_path, content):
+              try:
+                  with open(file_path, 'wb') as f:
+                      f.write(content)
+                  return True
+              except IOError as e:
+                  logger.error(f"Error writing to file {file_path}: {str(e)}")
+                  return False
+
+          os.makedirs(GITHUB_POLICIES_DIR, exist_ok=True)
+
+          policies = get_policy_documents()
+          if not policies:
+              logger.error("No policies found or error occurred while fetching policies")
+              exit(1)
+
+          updated_files = []
+          changes = {}
+
+          for policy in policies:
+              try:
+                  response = fetch_url(policy['url'])
+                  
+                  matching_file = find_matching_file(GITHUB_POLICIES_DIR, policy['name'])
+                  
+                  if matching_file:
+                      file_path = os.path.join(GITHUB_POLICIES_DIR, matching_file)
+                      
+                      temp_file = 'temp_policy.pdf'
+                      if safe_file_write(temp_file, response.content):
+                          if is_valid_pdf(temp_file):
+                              old_hash = get_file_hash(file_path)
+                              new_hash = get_file_hash(temp_file)
+                              if old_hash != new_hash:
+                                  if os.path.exists(file_path):
+                                      os.remove(file_path)
+                                  os.rename(temp_file, file_path)
+                                  logger.info(f"Updated {matching_file}")
+                                  updated_files.append({'name': policy['name'], 'file': matching_file, 'last_updated': policy['last_updated']})
+                                  changes[matching_file] = {'old_hash': old_hash, 'new_hash': new_hash}
+                              else:
+                                  os.remove(temp_file)
+                                  logger.info(f"No changes for {matching_file}")
+                          else:
+                              os.remove(temp_file)
+                              logger.warning(f"Skipped invalid PDF file: {policy['name']}")
+                  else:
+                      new_name = re.sub(r'[^a-zA-Z0-9]+', '-', policy['name'].lower()) + '.pdf'
+                      file_path = os.path.join(GITHUB_POLICIES_DIR, new_name)
+                      if safe_file_write(file_path, response.content):
+                          if is_valid_pdf(file_path):
+                              logger.info(f"Created new file: {new_name}")
+                              updated_files.append({'name': policy['name'], 'file': new_name, 'last_updated': policy['last_updated']})
+                              changes[new_name] = {'old_hash': None, 'new_hash': get_file_hash(file_path)}
+                          else:
+                              os.remove(file_path)
+                              logger.warning(f"Skipped invalid PDF file: {policy['name']}")
+              except Exception as e:
+                  logger.error(f"Error processing policy {policy['name']}: {str(e)}")
+
+          if updated_files:
+              try:
+                  with open('policies.html', 'w', encoding='utf-8') as f:
+                      f.write('''
+                      <html>
+                      <head>
+                          <title>DARE Aquatics - Policies</title>
+                          <style>
+                              body { font-family: Arial, sans-serif; }
+                              table { border-collapse: collapse; width: 100%; }
+                              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                              th { background-color: #f2f2f2; }
+                          </style>
+                      </head>
+                      <body>
+                          <h1>DARE Aquatics - Policies</h1>
+                          <table>
+                              <tr>
+                                  <th>Policy</th>
+                                  <th>Last Updated</th>
+                              </tr>
+                      ''')
+                      for policy in updated_files:
+                          f.write(f'''
+                          <tr>
+                              <td><a href="assets/policies/{policy['file']}">{policy['name']}</a></td>
+                              <td>{policy['last_updated']}</td>
+                          </tr>
+                          ''')
+                      f.write('''
+                          </table>
+                      </body>
+                      </html>
+                      ''')
+                  logger.info("Updated policies.html")
+                  
+                  # Write changes to a JSON file
+                  with open('policy_changes.json', 'w') as f:
+                      json.dump(changes, f, indent=2)
+                  logger.info("Recorded policy changes in policy_changes.json")
+              except IOError as e:
+                  logger.error(f"Error writing update files: {str(e)}")
+          else:
+              logger.info("No updates to policies needed")
+
+        shell: python
+
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update policy documents" && git push)
