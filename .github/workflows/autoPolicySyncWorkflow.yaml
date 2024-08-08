@@ -46,9 +46,8 @@ jobs:
           logger = logging.getLogger()
 
           # Configuration
-          BASE_URL = "https://www.teamunify.com"
-          LOGIN_URL = f"{BASE_URL}/UserLogin"
-          POLICIES_PAGE_URL = f"{BASE_URL}/team/cadas/page/newsletter"
+          LOGIN_URL = "https://user.sportngin.com/users/sign_in"
+          POLICIES_PAGE_URL = "https://www.gomotionapp.com/team/cadas/page/newsletter?team=cadas"
           GITHUB_POLICIES_DIR = 'assets/policies'
 
           # Get login credentials from environment variables
@@ -63,13 +62,24 @@ jobs:
 
           def login():
               try:
+                  # First, get the login page
                   response = session.get(LOGIN_URL)
                   soup = BeautifulSoup(response.text, 'html.parser')
+                  
+                  # Find the login form
                   login_form = soup.find('form', {'id': 'new_user'})
                   
                   if not login_form:
-                      logger.error("Login form not found")
+                      logger.error("Login form not found. Page content:")
+                      logger.error(response.text[:1000])  # Log the first 1000 characters of the page
                       return False
+
+                  # Extract form action URL
+                  form_action = login_form.get('action')
+                  if form_action:
+                      login_url = urllib.parse.urljoin(LOGIN_URL, form_action)
+                  else:
+                      login_url = LOGIN_URL
 
                   # Extract CSRF token
                   csrf_token = login_form.find('input', {'name': 'authenticity_token'})['value']
@@ -79,18 +89,27 @@ jobs:
                       'authenticity_token': csrf_token,
                       'user[login]': USERNAME,
                       'user[password]': PASSWORD,
-                      'commit': 'Sign in'
+                      'commit': 'Continue'
                   }
 
                   # Submit the login form
-                  response = session.post(LOGIN_URL, data=login_data)
+                  response = session.post(login_url, data=login_data, allow_redirects=True)
                   
+                  # Check if login was successful
                   if "Invalid Email or password" in response.text:
-                      logger.error("Login failed")
+                      logger.error("Login failed: Invalid credentials")
                       return False
                   
-                  logger.info("Login successful")
-                  return True
+                  # Navigate to the policies page
+                  response = session.get(POLICIES_PAGE_URL, allow_redirects=True)
+                  
+                  if "DARE Aquatics - Policies" in response.text:
+                      logger.info("Successfully navigated to policies page")
+                      return True
+                  else:
+                      logger.error("Failed to reach policies page after login")
+                      return False
+                  
               except Exception as e:
                   logger.error(f"Error during login: {str(e)}")
                   return False
@@ -145,7 +164,7 @@ jobs:
                               name = link.text.strip()
                               url = link.get('href')
                               if not url.startswith('http'):
-                                  url = f"{BASE_URL}{url}"
+                                  url = urllib.parse.urljoin(POLICIES_PAGE_URL, url)
                               last_updated = cols[1].text.strip()
                               if validate_date(last_updated) and is_valid_url(url):
                                   policies.append({'name': name, 'url': url, 'last_updated': last_updated})
