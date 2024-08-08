@@ -37,4 +37,4 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }} # GitHub PAT Token stored in Actions secrets
         run: |
-          python autosync.py
+          python autosyncNewsWorkflow.py
