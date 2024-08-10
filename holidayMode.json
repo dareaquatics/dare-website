@@ -1,22 +1,24 @@
+// NOT COMPLETE. Will NOT run with this comment in the file. CSS needs to be updated significantly before using.
+
 {
-  "enabled": true,
+  "enabled": false, 
   "currentHoliday": "halloween",
   "message": "",
   "theme": "default",
   "holidays": [
     {
       "name": "christmas",
-      "message": "Merry Christmas! Join us for our holiday swim event!",
+      "message": "Merry Christmas!",
       "theme": "christmas"
     },
     {
       "name": "halloween",
-      "message": "Happy Halloween! Don't miss our spooky pool party!",
+      "message": "Happy Halloween!",
       "theme": "halloween"
     },
     {
       "name": "summer",
-      "message": "Welcome to our Summer Splash! Enjoy extended pool hours!",
+      "message": "Happy Summer!!",
       "theme": "summer"
     },
     {
@@ -26,7 +28,7 @@
     },
     {
       "name": "valentine",
-      "message": "Happy Valentine's Day! Bring your loved one for a couples' swim lesson!",
+      "message": "Happy Valentine's Day!",
       "theme": "valentine"
     }
   ]
