@@ -1,8 +1,10 @@
+# TODO: Login form fix 
+
 name: Update Policy Documents
 
 on:
-  schedule:
-    - cron: '0 0 * * 1'  # Runs weekly on Monday at midnight UTC
+ # schedule:
+ #   - cron: '0 0 * * 1'  # Runs weekly on Monday at midnight UTC
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
