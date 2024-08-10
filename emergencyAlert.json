@@ -3,21 +3,17 @@
     {
       "id": "pool-closure-1",
       "active": false,
-      "message": "Main pool closed for emergency maintenance.",
+      "message": "Alhambra Park Pool closed for emergency maintenance.",
       "severity": "warning",
       "icon": "🏊",
       "startTime": "2024-08-09T10:00:00Z",
       "endTime": "2024-08-09T18:00:00Z",
-      "dismissible": true,
-      "link": {
-        "url": "/pool-status",
-        "text": "Check Status"
-      }
+      "dismissible": true
     },
     {
       "id": "weather-alert-1",
       "active": false,
-      "message": "Severe thunderstorm warning in effect. Outdoor facilities closed.",
+      "message": "Severe thunderstorm in effect. Outdoor facilities closed. Please come pick up your child ASAP.",
       "severity": "danger",
       "icon": "⛈️",
       "startTime": "2024-08-09T14:00:00Z",
