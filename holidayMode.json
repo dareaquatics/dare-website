@@ -1,6 +1,6 @@
 {
-  "enabled": false,
-  "currentHoliday": "christmas",
+  "enabled": true,
+  "currentHoliday": "halloween",
   "message": "",
   "theme": "default",
   "holidays": [
