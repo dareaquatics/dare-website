@@ -1,32 +1,42 @@
 name: Update News
+
 on:
   workflow_dispatch:
-    inputs:
-      force_update:
-        description: 'Force update the news page'
-        required: false
-        default: 'false'
   schedule:
     - cron: '0 */2 * * *'
 
 jobs:
-  update-calendar:
+  update-news:
     runs-on: ubuntu-latest
+    
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for .GitInfo and .Lastmod
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/autosyncNewsLogic.py') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
-           python -m pip install --upgrade pip
-           pip install cloudscraper beautifulsoup4 gitpython colorlog tqdm
-          
+          python -m pip install --upgrade pip
+          pip install cloudscraper beautifulsoup4 gitpython colorlog tqdm
+
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -34,7 +44,30 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/dareaquatics/dare-website.git
 
       - name: Run the script
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }} # GitHub PAT Token stored in Actions secrets
+        run: python autosyncNewsLogic.py
+        continue-on-error: true
+        id: run_script
+
+      - name: Check for script errors
+        if: steps.run_script.outcome == 'failure'
         run: |
-          python autosyncNewsLogic.py
+          echo "Script failed. Check the logs for more information."
+          exit 1
+
+      - name: Commit and push if changed
+        run: |
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update news page [skip codeql]" && git push)
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              title: 'Workflow failed: Update News',
+              body: 'The Update News workflow failed. Please check the [workflow run](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}) for more details.'
+            })
