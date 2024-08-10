@@ -1,0 +1,33 @@
+{
+  "enabled": false,
+  "currentHoliday": "none",
+  "message": "",
+  "theme": "default",
+  "holidays": [
+    {
+      "name": "christmas",
+      "message": "Merry Christmas! Join us for our holiday swim event!",
+      "theme": "christmas"
+    },
+    {
+      "name": "halloween",
+      "message": "Happy Halloween! Don't miss our spooky pool party!",
+      "theme": "halloween"
+    },
+    {
+      "name": "summer",
+      "message": "Welcome to our Summer Splash! Enjoy extended pool hours!",
+      "theme": "summer"
+    },
+    {
+      "name": "newyear",
+      "message": "Happy New Year! Start your resolutions with a refreshing swim!",
+      "theme": "newyear"
+    },
+    {
+      "name": "valentine",
+      "message": "Happy Valentine's Day! Bring your loved one for a couples' swim lesson!",
+      "theme": "valentine"
+    }
+  ]
+}
