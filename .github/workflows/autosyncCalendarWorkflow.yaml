@@ -17,7 +17,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history for .GitInfo and .Lastmod
+          token: ${{ secrets.PAT_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -41,7 +42,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/dareaquatics/dare-website.git
 
       - name: Run the script
         run: python autosyncCalendarLogic.py
@@ -56,8 +56,8 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update calendar [skip codeql]" && git push)
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update calendar [skip ci]" && git push)
 
       - name: Create issue on failure
         if: failure()
