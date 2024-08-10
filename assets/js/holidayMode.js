@@ -19,16 +19,14 @@
     if (!messageElement) {
       messageElement = document.createElement('div');
       messageElement.id = 'holiday-message';
-      document.body.prepend(messageElement);
+      document.body.appendChild(messageElement);
     }
     messageElement.textContent = holiday.message;
 
-    // Apply holiday theme
-    document.body.classList.add('holiday-mode');
-    document.body.classList.add(`holiday-${holiday.theme}`);
-
-    // Add holiday-specific elements
-    addHolidayElements(holiday.theme);
+    // Add holiday-specific elements (pumpkins for Halloween)
+    if (holiday.theme === 'halloween') {
+      addHalloweenElements();
+    }
   }
 
   function removeHolidayMode() {
@@ -36,35 +34,14 @@
     if (messageElement) {
       messageElement.remove();
     }
-    document.body.classList.remove('holiday-mode');
-    document.body.classList.remove('holiday-christmas', 'holiday-halloween', 'holiday-summer', 'holiday-newyear', 'holiday-valentine');
     removeHolidayElements();
   }
 
-  function addHolidayElements(theme) {
+  function addHalloweenElements() {
     const container = document.createElement('div');
     container.id = 'holiday-elements';
-    container.className = `holiday-${theme}-elements`;
-    
-    // Add theme-specific elements
-    switch(theme) {
-      case 'christmas':
-        container.innerHTML = '<div class="snowflake">❄</div>'.repeat(10);
-        break;
-      case 'halloween':
-        container.innerHTML = '<div class="pumpkin">🎃</div>'.repeat(5);
-        break;
-      case 'summer':
-        container.innerHTML = '<div class="sun">☀</div><div class="palm-tree">🌴</div>'.repeat(3);
-        break;
-      case 'newyear':
-        container.innerHTML = '<div class="firework">🎆</div>'.repeat(7);
-        break;
-      case 'valentine':
-        container.innerHTML = '<div class="heart">❤</div>'.repeat(10);
-        break;
-    }
-    
+    container.className = 'holiday-halloween-elements';
+    container.innerHTML = '<div class="pumpkin">🎃</div>'.repeat(5);
     document.body.appendChild(container);
   }
 
