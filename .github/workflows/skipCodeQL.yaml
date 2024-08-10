@@ -1,0 +1,49 @@
+name: CodeQL Control
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '30 1 * * 0'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check commit message
+      id: skip_check
+      run: |
+        commit_message=$(git log --format=%B -n 1 ${{ github.sha }})
+        if [[ $commit_message == *"[skip ci]"* ]]; then
+          echo "skip_analysis=true" >> $GITHUB_OUTPUT
+        else
+          echo "skip_analysis=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      if: steps.skip_check.outputs.skip_analysis == 'false'
+      with:
+        languages: [ 'python', 'javascript' ]
+        queries: security-and-quality
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+      if: steps.skip_check.outputs.skip_analysis == 'false'
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      if: steps.skip_check.outputs.skip_analysis == 'false'
+      with:
+        category: "/language:python,/language:javascript"
