@@ -1,4 +1,4 @@
-name: CodeQL Control
+name: CI
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze and Lint
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -45,3 +45,13 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       if: steps.skip_check.outputs.skip_analysis == 'false'
+
+    - name: HTML Linting
+      if: steps.skip_check.outputs.skip_analysis == 'false'
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' 
+    - run: |
+        npm install -g htmlhint
+        htmlhint "**/*.html" || true
+      continue-on-error: true
