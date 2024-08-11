@@ -35,7 +35,7 @@ jobs:
       uses: github/codeql-action/init@v2
       if: steps.skip_check.outputs.skip_analysis == 'false'
       with:
-        languages: [ 'python', 'javascript' ]
+        languages: javascript, python
         queries: security-and-quality
 
     - name: Autobuild
