@@ -101,6 +101,37 @@
         width: 80%;
       }
     }
+
+    .sponsor-logo {
+    width: 200px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  #sponsors .sponsor-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0 40px;  /* Added horizontal margin */
+  }
+
+  #sponsors .sponsors-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: -20px -40px;  /* Negative margin to counteract sponsor-item padding/margin */
+  }
+
+  @media (max-width: 768px) {
+    #sponsors .sponsor-item {
+      margin: 0 20px;  /* Reduced margin for smaller screens */
+    }
+    #sponsors .sponsors-container {
+      margin: -20px -20px;
+    }
+  }
+
   </style>
 
   <meta charset="utf-8">
@@ -171,19 +202,18 @@
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1>DARE Aquatics</h1>
-	    <br>
-            <h5>A year round competitive swim team offering high quality coaching and technique instruction for all ages and abilities.
-            <br><br>
-            Go DARE!🧡</h5>
+	          <br>
+            <h5>A year round competitive swim team offering high quality coaching and technique instruction for all ages and abilities.</h5>
+            <h5>Go DARE!🧡</h5>
             <div>
-              <a href="contact" class="btn-get-started scrollto">Contact Us</a>
+            <a href="contact" class="btn-get-started scrollto">Contact Us</a>
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img">
-            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Person swimming butterfly">
-          </div>
+          <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Person swimming butterfly">
         </div>
       </div>
+    </div>
     </section>
 <!-- end hero section -->
 
@@ -400,24 +430,38 @@
       </div>
     </section>
     <!-- end portfolio section -->
+    
+    <!-- Sponsors Section  -->
+    <section id="sponsors" class="sponsors section-bg">
+      <div class="container" data-aos="fade-up">
 
+        <div class="section-title">
+          <p>Sponsors and Partners</p>
+          <br>
+        </div>
+
+        <div class="sponsors-container">
+          <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="100">
+            <img src="/assets/sponsors/the-swim-guy.png" class="sponsor-logo" alt="The Swim Guy">
+          </div>
+
+          <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="200">
+            <img src="/assets/sponsors/scs-logo.png" class="sponsor-logo" alt="Southern California Swimming">
+          </div>
+
+          <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="300">
+            <img src="/assets/sponsors/speedo.png" class="sponsor-logo" alt="Speedo">
+          </div>
+        </div>
+        <!-- End Sponsors -->
+
+      </div>
+    </section>
   </main>
   <!-- end #main -->
 
   <!-- footer -->
   <footer id="footer">
-
-  <!-- leave this here or the website looks ugly :( -->
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4></h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- end -->
 
     <div class="footer-top">
       <div class="container">
