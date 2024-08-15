@@ -1,0 +1,41 @@
+#  Announcement Configuration
+# Set to 'yes' to display the announcement, 'no' to hide it
+active: yes
+
+# Type of announcement: 'popup' or 'banner'. Generally want to use popup.
+type: popup
+# The message to display
+message: "We are on a break until Monday, August 19th, 2024. Close this window by clicking the 'X'"
+# Unique identifier for this announcement (change this to create a new instance)
+# Use the current date and time in YYYY-MM-DD HH:MM 24HRTIME format
+instance: "2024-08-14 10:35"
+
+
+
+# Visual style
+style:
+  # Background color (use standard color names or hex codes)
+  # #bb2124 = Red         = Severe
+  # #ff8f00 = Orange      = Warning 
+  # #5bc0de = Light Blue  = Info
+  background_color: "#ff8f00"
+  
+  # Text color
+  text_color: "white"
+  
+  # Font size (include units like px, em, rem)
+  font_size: "16px"
+  
+  # Additional CSS styles (optional)
+  custom_css: ""
+    # Example:
+    # custom_css: "font-weight: bold; text-decoration: underline;"
+
+
+
+# Advanced settings (optional)
+advanced:
+  # Custom CSS class for the announcement
+  custom_class: ""
+  # Priority level (higher number = higher priority)
+  priority: 1
