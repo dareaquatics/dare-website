@@ -1,11 +1,14 @@
 #  Announcement Configuration
+
 # Set to 'yes' to display the announcement, 'no' to hide it
-active: yes
+active: no
 
 # Type of announcement: 'popup' or 'banner'. Generally want to use popup.
 type: popup
+
 # The message to display
 message: "We are on a break until Monday, August 19th, 2024. Close this window by clicking the 'X'"
+
 # Unique identifier for this announcement (change this to create a new instance)
 # Use the current date and time in YYYY-MM-DD HH:MM 24HRTIME format
 instance: "2024-08-14 10:35"
