@@ -1,11 +1,11 @@
-# TODO: Login form fix 
+# Broken TU login results in Selenium being unable to find the login form correctly. I'll work on this at some point. When my AP Lang teacher stops assigning homework. Which is probably never.
 
 name: Update Policy Documents
 
 on:
- # schedule:
- #   - cron: '0 0 * * 1'  # Runs weekly on Monday at midnight UTC
-  workflow_dispatch:  # Allows manual triggering
+ # schedule:                                                            # Disabled so it doesn't run for no reason
+ #   - cron: '0 0 * * 1'  # Runs weekly on Monday at midnight UTC       # Disabled so it doeesn't run when it's broken
+  workflow_dispatch:  # Allows manual triggering                        # Enabled for manual testing for now (if I work on it)
 
 jobs:
   update-policies:

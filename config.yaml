@@ -18,7 +18,7 @@ style:
   # #bb2124 = Red         = Severe
   # #ff8f00 = Orange      = Warning 
   # #5bc0de = Light Blue  = Info
-  background_color: "#ff8f00"
+  background_color: "#5bc0de"
   
   # Text color
   text_color: "white"
