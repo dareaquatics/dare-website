@@ -1,3 +1,4 @@
+# Allow all user agents (bots) by default
 User-agent: *
 Allow: /
 
@@ -7,3 +8,8 @@ Disallow: /instagram.html
 Disallow: /privacy-policy.html
 Disallow: /inner-page.html
 Disallow: /license.html
+
+# READ THIS! 
+# robots.txt is a suggestion for well-behaved bots.
+# It does not prevent access to these resources by humans or malicious bots.
+# Use proper authentication and authorization for sensitive areas.
