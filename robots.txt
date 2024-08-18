@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow specific pages
+Disallow: /facebook.html
+Disallow: /instagram.html
+Disallow: /privacy-policy.html
+Disallow: /inner-page.html
+Disallow: /license.html
