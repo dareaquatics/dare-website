@@ -6,6 +6,7 @@ Backend:
   - Share reports from GA 
   
 Next season modifications:
+- [ ] **Fix security advisories** 
 - [ ] Coaches Pictures
 - [ ] Add experience/certs to coaches.html
 - [ ] Check FAQ page, update if required
@@ -13,7 +14,7 @@ Next season modifications:
     -  PreNat/Nat group splitting?
     -  HS Swim groups vs other group??
     - [ ] Confim groups with Coach Joy
-- [ ] Check Pool location
+- [x] Check Pool location
 - [ ] Verify team policy documents
 - [x] locations.html revamp
 - [x] Change "About Us" statements on index.html
