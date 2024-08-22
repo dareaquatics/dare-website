@@ -1,37 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        .news-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #ccc;
-        }
-        .news-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .news-title {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        .news-date {
-            color: #666;
-            font-size: 14px;
-        }
-        .news-content {
-            color: #444;
-            font-size: 16px;
-        }
+    .news-container {
+        max-width: 1290px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    .news-item {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #eee;
+    }
+    .news-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .news-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .news-date {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 5px;
+    }
+    .news-content {
+        color: #444;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .news-content a {
+        color: #ffa07a;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .news-content a:hover {
+        color: #ff7f50;
+    }
+    .section-title {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 32px;
+        position: relative;
+    }
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 3px;
+        background-color: #ffa07a;
+        margin: 10px auto;
+    }
 </style>
 <head>
 
@@ -124,47 +149,45 @@
     </section>
 <!-- end breadcrumbs -->
 
-    <section class="inner-page">
-      <div class="container">
-      <div class="container">
-        <h1>Latest News & Updates</h1>
-        <br><hr><br>
-        <!-- START UNDER HERE -->
+<section class="inner-page">
+  <div class="container">
+      <h1 class="section-title">Latest News & Updates</h1>
+      <div class="news-container">
+          <!-- START UNDER HERE -->
 
-        <div class="news-item">
-            <h2 class="news-title"><strong>Pool Closure Announcement</strong></h2>
-            <p class="news-date">Author: Joy Lim</p>
-            <p class="news-date">Published on March 18, 2024</p>
-            <div class="news-content"> BOTH POOLS ARE CLOSED (4pm) <div> <br/> </div> <div> The city of Alhambra announced the pool closure due to unexpected thunderstorm. </div> <div> <br/> </div> </div>
-        </div>
-        
-        <div class="news-item">
-            <h2 class="news-title"><strong>ATTN!! POOL CLOSURE - Fri 03/14</strong></h2>
-            <p class="news-date">Author: Joy Lim</p>
-            <p class="news-date">Published on March 15, 2024</p>
-            <div class="news-content"> ATTN ALL PARENTS <div> <br/> </div> <div> Both Alhambra and Granada pool are closed by the city due to multiple thunders. </div> <div> All group practice hereafter are now canceled </div> </div>
-        </div>
-        
-        <div class="news-item">
-            <h2 class="news-title"><strong>TRAINING CANCELED - Thursday, March 7</strong></h2>
-            <p class="news-date">Author: Joy Lim</p>
-            <p class="news-date">Published on March 07, 2024</p>
-            <div class="news-content"> <b>ATTN ALL TRAINING GROUPS </b> <div> <br/> </div> <div> The City of Alhambra has shut down both Alhambra and Granada for the rest of the day due to thundering. </div> <div> Training is canceled for all groups today. <br/> <div> <div> <br/> </div> <div> <br/> </div> </div> </div> </div>
-        </div>
-        
-        <div class="news-item">
-            <h2 class="news-title"><strong>REGISTER FOR AUGUST!!</strong></h2>
-            <p class="news-date">Author: Joy Lim</p>
-            <p class="news-date">Published on July 28, 2023</p>
-            <div class="news-content"> Parents and swimmers, <div> <br/> </div> <div> Starting from August, the city of Alhambra will keep close watch on monthly registration. </div> <div> Fail to register for the month will result in denied entry at the gate by the city staffs. </div> <div> Let’s get on the computer and complete registration! </div> <div> <br/> </div> <div> <a href="https://secure.rec1.com/CA/city-of-alhambra/catalog/group/981/142890/e34ca2b6dbd7557b553ff077d7b77c43" target="_blank">Click here to be redirected to the link</a> <br/> </div> <div> <br/> </div> <div> Thanks for your cooperation in advance. </div> <div> <br/> </div> <div> Coach Joy </div> </div>
-        </div>
-        
-<!-- END AUTOMATION SCRIPT -->
-    </div>
-    </div>
-    </section>
-
-  </main>
+          <div class="news-item">
+              <h2 class="news-title"><strong>Pool Closure Announcement</strong></h2>
+              <p class="news-date">Author: Joy Lim</p>
+              <p class="news-date">Published on March 18, 2024</p>
+              <div class="news-content"> BOTH POOLS ARE CLOSED (4pm) <div> <br/> </div> <div> The city of Alhambra announced the pool closure due to unexpected thunderstorm. </div> <div> <br/> </div> </div>
+          </div>
+          
+          <div class="news-item">
+              <h2 class="news-title"><strong>ATTN!! POOL CLOSURE - Fri 03/14</strong></h2>
+              <p class="news-date">Author: Joy Lim</p>
+              <p class="news-date">Published on March 15, 2024</p>
+              <div class="news-content"> ATTN ALL PARENTS <div> <br/> </div> <div> Both Alhambra and Granada pool are closed by the city due to multiple thunders. </div> <div> All group practice hereafter are now canceled </div> </div>
+          </div>
+          
+          <div class="news-item">
+              <h2 class="news-title"><strong>TRAINING CANCELED - Thursday, March 7</strong></h2>
+              <p class="news-date">Author: Joy Lim</p>
+              <p class="news-date">Published on March 07, 2024</p>
+              <div class="news-content"> <b>ATTN ALL TRAINING GROUPS </b> <div> <br/> </div> <div> The City of Alhambra has shut down both Alhambra and Granada for the rest of the day due to thundering. </div> <div> Training is canceled for all groups today. <br/> <div> <div> <br/> </div> <div> <br/> </div> </div> </div> </div>
+          </div>
+          
+          <div class="news-item">
+              <h2 class="news-title"><strong>REGISTER FOR AUGUST!!</strong></h2>
+              <p class="news-date">Author: Joy Lim</p>
+              <p class="news-date">Published on July 28, 2023</p>
+              <div class="news-content"> Parents and swimmers, <div> <br/> </div> <div> Starting from August, the city of Alhambra will keep close watch on monthly registration. </div> <div> Fail to register for the month will result in denied entry at the gate by the city staffs. </div> <div> Let's get on the computer and complete registration! </div> <div> <br/> </div> <div> <a href="https://secure.rec1.com/CA/city-of-alhambra/catalog/group/981/142890/e34ca2b6dbd7557b553ff077d7b77c43" target="_blank">Click here to be redirected to the link</a> <br/> </div> <div> <br/> </div> <div> Thanks for your cooperation in advance. </div> <div> <br/> </div> <div> Coach Joy </div> </div>
+          </div>
+          
+          <!-- END AUTOMATION SCRIPT -->
+      </div>
+  </div>
+</section>
+</main>
 <!-- end #main -->
 
   <!-- footer -->
