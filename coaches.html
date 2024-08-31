@@ -29,75 +29,96 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <style>
-.coach-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-}
-
-.coach-box:hover {
-  transform: translateY(-5px);
-  background-color: #fff;
-}
-
-.coach-box img {
-  border: 3px solid #FFA07A;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  max-width: 150px;
-  height: auto;
-}
-
-.coach-info {
-  width: 100%;
-  text-align: center;
-}
-
-.coach-info h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.coach-info p {
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-.coach-info a {
-  color: #007bff;
-  text-decoration: none;
-  word-break: break-all;
-}
-
-.coach-info a:hover {
-  text-decoration: underline;
-}
-
-@media (min-width: 768px) {
-  .coach-box {
-    flex-direction: row;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .coach-box img {
-    margin-right: 20px;
-    margin-bottom: 0;
-  }
-
-  .coach-info {
-    text-align: left;
-  }
-}
-  </style>
+    .coaches-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 40px;
+        position: relative;
+    }
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 3px;
+        background-color: #FFA07A;
+        margin: 20px auto 0;
+    }
+    .intro-text {
+        text-align: center;
+        max-width: 850px;
+        margin: 0 auto 40px;
+        font-size: 1.1rem;
+        color: #666;
+        line-height: 1.6;
+    }
+    .coaches-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .coach-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .coach-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .coach-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px 0 0 10px;
+    }
+    .coach-info {
+        padding: 20px;
+        flex-grow: 1;
+    }
+    .coach-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    .coach-title {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 10px;
+    }
+    .coach-email {
+        font-size: 0.9rem;
+        color: #007bff;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 5px;
+    }
+    .coach-email:hover {
+        text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+        .coach-item {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .coach-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px 10px 0 0;
+        }
+    }
+</style>
 </head>
-
 <body>
 
   <!-- header -->
@@ -125,126 +146,65 @@
   </header><!-- end header -->
 
   <main id="main">
-
-    <!-- breadcrumbs section -->
-    <section class="breadcrumbs">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Meet the Coaches</h2>
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li>Meet the Coaches</li>
-          </ol>
+    <section class="coaches-section">
+        <div class="coaches-container">
+            <h1 class="section-title">Meet Our Coaches</h1>
+            <p class="intro-text">
+                At DARE Aquatics, our coaches are passionate about swimming and dedicated to helping our athletes reach their full potential. Get to know the talented individuals who make our team great!
+            </p>
+            <ul class="coaches-list">
+                <li class="coach-item">
+                    <img src="assets/coaches/joy-lim.jpg" alt="Joy Lim" class="coach-image">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Joy Lim</h3>
+                        <p class="coach-title">Head Coach, Pre-National & National Coach</p>
+                        <a href="mailto:joy@dareaquatics.com" class="coach-email">joy@dareaquatics.com</a>
+                    </div>
+                </li>
+                <li class="coach-item">
+                    <img src="assets/coaches/yvonne-jo.jpg" alt="Yvonne Jo" class="coach-image">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Yvonne Jo</h3>
+                        <p class="coach-title">DARE Devils (Pre-Comp)</p>
+                        <a href="mailto:yvonne@dareaquatics.com" class="coach-email">yvonne@dareaquatics.com</a>
+                    </div>
+                </li>
+                <li class="coach-item">
+                    <img src="assets/coaches/andrew-kim.jpg" alt="Andrew Kim" class="coach-image">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Andrew Kim</h3>
+                        <p class="coach-title">Age Group 1</p>
+                        <a href="mailto:andrew@dareaquatics.com" class="coach-email">andrew@dareaquatics.com</a>
+                    </div>
+                </li>
+                <li class="coach-item">
+                    <img src="assets/coaches/joseph-kim.jpg" alt="Joseph Kim" class="coach-image">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Joseph Kim</h3>
+                        <p class="coach-title">Age Group Elite Coach</p>
+                        <a href="mailto:joseph@dareaquatics.com" class="coach-email">joseph@dareaquatics.com</a>
+                    </div>
+                </li>
+                <li class="coach-item">
+                    <img src="assets/coaches/samuel-jo.jpg" alt="Samuel Jo" class="coach-image">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Samuel Jo</h3>
+                        <p class="coach-title">Sr. Development Coach</p>
+                        <a href="mailto:sam@dareaquatics.com" class="coach-email">sam@dareaquatics.com</a>
+                    </div>
+                </li>
+                <li class="coach-item">
+                    <img src="assets/coaches/tevin-pak.jpg" alt="Tevin Pak" class="coach-image">
+                    <div class="coach-info">
+                        <h3 class="coach-name">Tevin Pak</h3>
+                        <p class="coach-title">Age Group 1</p>
+                        <a href="mailto:tevin@dareaquatics.com" class="coach-email">tevin@dareaquatics.com</a>
+                    </div>
+                </li>
+            </ul>
         </div>
-      </div>
     </section>
-    <!-- end breadcrumbs -->
-
-    <!-- welcome message -->
-    <section class="inner-page">
-      <div class="container">
-        <p>Welcome to our "Meet the Coaches" page! Here, you can learn more about the talented and dedicated individuals who are the heart and soul of DARE Aquatics. Get to know our coaches and feel free to reach out to them with any questions or concerns.</p>
-
-    <!-- Coaches Section -->
-    <section class="inner-page">
-      <div class="container">
-        <div class="coach-box">
-          <img src="assets/coaches/joy-lim.jpg" class="img-fluid" alt="Joy Lim" width="150" height="183">
-          <div class="coach-info">
-            <h3>Joy Lim</h3>
-            <p>Head Coach, Pre-National & National Coach</p>
-            <p><strong>Email:</strong> <a href="mailto:joy@dareaquatics.com">joy@dareaquatics.com</a></p>
-            <!-- <p><strong>Experience:</strong> 15 years coaching competitive swimming</p>
-            <p><strong>Certifications:</strong> ASCA Level 5, USA Swimming Coach</p> -->
-          </div>
-        </div>
-        <hr class="coach-separator">
-
-        <div class="coach-box">
-          <img src="assets/coaches/yvonne-jo.jpg" class="img-fluid" alt="Yvonne Jo" width="150" height="183">
-          <div class="coach-info">
-            <h3>Yvonne Jo</h3>
-            <p>DARE Devils (Pre-Comp)</p>
-            <p><strong>Email:</strong> <a href="mailto:yvonne@dareaquatics.com">yvonne@dareaquatics.com</a></p>
-            <!-- <p><strong>Experience:</strong> 10 years coaching pre-competitive swimmers</p>
-            <p><strong>Certifications:</strong> ASCA Level 3, USA Swimming Coach</p> -->
-          </div>
-        </div>
-        <hr class="coach-separator">
-
-        <div class="coach-box">
-          <img src="assets/coaches/andrew-kim.jpg" class="img-fluid" alt="Andrew Kim" width="150" height="183">
-          <div class="coach-info">
-            <h3>Andrew Kim</h3>
-            <p>Age Group 1</p>
-            <p><strong>Email:</strong> <a href="mailto:andrew@dareaquatics.com">andrew@dareaquatics.com</a></p>
-            <!-- <p><strong>Experience:</strong> 8 years coaching various swim groups</p>
-            <p><strong>Certifications:</strong> ASCA Level 2, USA Swimming Coach</p> -->
-          </div>
-        </div>
-        <hr class="coach-separator">
-
-        <div class="coach-box">
-          <img src="assets/coaches/joseph-kim.jpg" class="img-fluid" alt="Joseph Kim" width="150" height="183">
-          <div class="coach-info">
-            <h3>Joseph Kim</h3>
-            <p>Age Group Elite Coach</p>
-            <p><strong>Email:</strong> <a href="mailto:joseph@dareaquatics.com">joseph@dareaquatics.com</a></p>
-            <!-- <p><strong>Experience:</strong> 12 years coaching age group swimmers</p>
-            <p><strong>Certifications:</strong> ASCA Level 4, USA Swimming Coach</p> -->
-          </div>
-        </div>
-        <hr class="coach-separator">
-
-        <div class="coach-box">
-          <img src="assets/coaches/samuel-jo.jpg" class="img-fluid" alt="Samuel Jo" width="150" height="183">
-          <div class="coach-info">
-            <h3>Samuel Jo</h3>
-            <p>Sr. Development Coach</p>
-            <p><strong>Email:</strong> <a href="mailto:sam@dareaquatics.com">sam@dareaquatics.com</a></p>
-            <!-- <p><strong>Experience:</strong> 9 years coaching senior development swimmers</p>
-            <p><strong>Certifications:</strong> ASCA Level 3, USA Swimming Coach</p> -->
-          </div>
-        </div>
-        <hr class="coach-separator">
-
-        <div class="coach-box">
-          <img src="assets/coaches/tevin-pak.jpg" class="img-fluid" alt="Tevin Pak" width="150" height="183">
-          <div class="coach-info">
-            <h3>Tevin Pak</h3>
-            <p>Age Group 1</p>
-            <p><strong>Email:</strong> <a href="mailto:tevin@dareaquatics.com">tevin@dareaquatics.com</a></p>
-            <!-- <p><strong>Experience:</strong> 6 years coaching age group swimmers</p>
-            <p><strong>Certifications:</strong> ASCA Level 2, USA Swimming Coach</p> -->
-          </div>
-        </div>
-        <hr class="coach-separator">
-        <!--
-        <div class="coach-box"> 
-          <img src="assets/coaches/default.jpg" class="img-fluid" alt="" width="150" height="183">
-          <div class="coach-info">
-            <h3>Madison (Maddie) Quan</h3>
-            <p>DARE Devils (Summer Coach)</p>
-            <p><strong>Email:</strong> <a href="mailto:maddie@dareaquatics.com">maddie@dareaquatics.com</a></p>
-          </div>
-        </div>
-        <hr class="coach-separator">
-
-        <div class="coach-box">
-          <img src="assets/coaches/default.jpg" class="img-fluid" alt="" width="150" height="183">
-          <div class="coach-info">
-            <h3>Jezabel Aguilar</h3>
-            <p>DARE Devils (Summer Coach)</p>
-            <p><strong>Email:</strong> <a href="mailto:jezabel@dareaquatics.com">jezabel@dareaquatics.com</a></p>
-          </div> 
-        -->
-        </div>
-      </div>
-    </section>
-  </div>
-  </section>
-
-  </main>
+</main>
   <!-- end #main -->
 
   <!-- footer -->
