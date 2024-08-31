@@ -210,10 +210,11 @@ def generate_html(event_items):
           <h2><strong>{item["title"]}</strong></h2>
           <p><b>Event Start:</b> {item["start"].strftime('%B %d, %Y')}</p>
           <p><b>Event End:</b> {item["end"].strftime('%B %d, %Y')}</p>
-          <p><b>Description:</b> Click the button below for more information.</p>
-          <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Info</a>
+          <br>
+          <p>Click the button below for more information.</p>
+          <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" target="_blank" rel="noopener noreferrer" class="btn btn-primary">More Details</a>
         </div>
-        <br><hr><br>
+        <br><br>
         '''
 
         # Categorize based on event end date
