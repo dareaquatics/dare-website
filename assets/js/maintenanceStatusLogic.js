@@ -1,17 +1,17 @@
-(function() {
-  function checkMaintenanceStatus() {
-    fetch('/maintenanceStatusToggle.json?nocache=' + new Date().getTime())
-      .then(response => response.json())
-      .then(data => {
-        if (data.maintenanceMode) {
-          displayMaintenancePage();
-        }
-      })
-      .catch(error => console.error('Error checking maintenance status:', error));
-  }
+(function () {
+    function checkMaintenanceStatus() {
+        fetch('/maintenanceStatusToggle.json?nocache=' + new Date().getTime())
+            .then(response => response.json())
+            .then(data => {
+                if (data.maintenanceMode) {
+                    displayMaintenancePage();
+                }
+            })
+            .catch(error => console.error('Error checking maintenance status:', error));
+    }
 
-  function displayMaintenancePage() {
-    document.body.innerHTML = `
+    function displayMaintenancePage() {
+        document.body.innerHTML = `
       <style>
         body {
             font-family: Arial, sans-serif;
@@ -113,7 +113,7 @@
         </div>
       </div>
     `;
-  }
+    }
 
-  checkMaintenanceStatus();
+    checkMaintenanceStatus();
 })();

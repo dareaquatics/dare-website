@@ -3,7 +3,7 @@ name: Update News
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *' # Runs every 2 hours
+    - cron: "0 */2 * * *" # Runs every 2 hours
 
 jobs:
   update-news:
@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: Install dependencies
         run: |

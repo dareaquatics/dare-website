@@ -13,28 +13,25 @@ message: "We are on a break until Monday, August 19th, 2024. Close this window b
 # Use the current date and time in YYYY-MM-DD HH:MM 24HRTIME format
 instance: "2024-08-14 10:35"
 
-
-
 # Visual style
 style:
   # Background color (use standard color names or hex codes)
   # #bb2124 = Red         = Severe
-  # #ff8f00 = Orange      = Warning 
+  # #ff8f00 = Orange      = Warning
   # #5bc0de = Light Blue  = Info
   background_color: "#5bc0de"
-  
+
   # Text color
   text_color: "white"
-  
+
   # Font size (include units like px, em, rem)
   font_size: "16px"
-  
+
   # Additional CSS styles (optional)
-  custom_css: ""
+  custom_css:
+    ""
     # Example:
     # custom_css: "font-weight: bold; text-decoration: underline;"
-
-
 
 # Advanced settings (optional)
 advanced:

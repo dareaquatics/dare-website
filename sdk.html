@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,176 +9,201 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
 </head>
 <style>
-:root {
-    --bg: #0a192f;
-    --fg: #e6f1ff;
-    --accent: #64ffda;
-    --accent-light: #64ffda80;
-    --selection: #172a45;
-    --comment: #8892b0;
-    --guide: #1d4ed8;
-    --heading: #ccd6f6;
-    --tag: #5eead4;
-    --func: #c792ea;
-    --entity: #82aaff;
-    --string: #a8ff60;
-    --operator: #ff79c6;
-    --code-fg: #f8f8f2;
-}
+    :root {
+        --bg: #0a192f;
+        --fg: #e6f1ff;
+        --accent: #64ffda;
+        --accent-light: #64ffda80;
+        --selection: #172a45;
+        --comment: #8892b0;
+        --guide: #1d4ed8;
+        --heading: #ccd6f6;
+        --tag: #5eead4;
+        --func: #c792ea;
+        --entity: #82aaff;
+        --string: #a8ff60;
+        --operator: #ff79c6;
+        --code-fg: #f8f8f2;
+    }
 
-body {
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    line-height: 1.6;
-    color: var(--fg);
-    background-color: var(--bg);
-    margin: 0;
-    padding: 0;
-}
+    body {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        line-height: 1.6;
+        color: var(--fg);
+        background-color: var(--bg);
+        margin: 0;
+        padding: 0;
+    }
 
-.content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
+    .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--heading);
-    font-weight: 600;
-    line-height: 1.25;
-    margin-top: 2em;
-    margin-bottom: 1em;
-}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--heading);
+        font-weight: 600;
+        line-height: 1.25;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
 
-h1 {
-    font-size: 2.5em;
-    border-bottom: 2px solid var(--guide);
-    padding-bottom: 0.3em;
-}
+    h1 {
+        font-size: 2.5em;
+        border-bottom: 2px solid var(--guide);
+        padding-bottom: 0.3em;
+    }
 
-.toc {
-    background-color: var(--selection);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-}
+    .toc {
+        background-color: var(--selection);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
 
-.toc h2 {
-    margin-top: 0;
-    color: var(--accent);
-}
+    .toc h2 {
+        margin-top: 0;
+        color: var(--accent);
+    }
 
-.toc ul {
-    padding-left: 20px;
-}
+    .toc ul {
+        padding-left: 20px;
+    }
 
-.toc a {
-    color: var(--fg);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+    .toc a {
+        color: var(--fg);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
 
-.toc a:hover {
-    color: var(--accent);
-}
+    .toc a:hover {
+        color: var(--accent);
+    }
 
-code {
-    background-color: var(--selection);
-    color: var(--code-fg);
-    border-radius: 3px;
-    font-size: 85%;
-    padding: 0.2em 0.4em;
-}
+    code {
+        background-color: var(--selection);
+        color: var(--code-fg);
+        border-radius: 3px;
+        font-size: 85%;
+        padding: 0.2em 0.4em;
+    }
 
-pre[class*="language-"] {
-    background-color: var(--selection);
-    border-radius: 8px;
-    padding: 1em;
-    overflow: auto;
-}
+    pre[class*="language-"] {
+        background-color: var(--selection);
+        border-radius: 8px;
+        padding: 1em;
+        overflow: auto;
+    }
 
-.copy-button {
-    background-color: var(--accent);
-    color: var(--bg);
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .copy-button {
+        background-color: var(--accent);
+        color: var(--bg);
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.copy-button:hover {
-    background-color: var(--accent-light);
-}
+    .copy-button:hover {
+        background-color: var(--accent-light);
+    }
 
-#search-container {
-    margin-bottom: 30px;
-}
+    #search-container {
+        margin-bottom: 30px;
+    }
 
-#search-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--guide);
-    background-color: var(--selection);
-    color: var(--fg);
-    border-radius: 4px;
-    font-size: 16px;
-}
+    #search-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--guide);
+        background-color: var(--selection);
+        color: var(--fg);
+        border-radius: 4px;
+        font-size: 16px;
+    }
 
-#search-results {
-    list-style-type: none;
-    padding: 0;
-    background-color: var(--selection);
-    border: 1px solid var(--guide);
-    border-radius: 4px;
-    max-height: 300px;
-    overflow-y: auto;
-}
+    #search-results {
+        list-style-type: none;
+        padding: 0;
+        background-color: var(--selection);
+        border: 1px solid var(--guide);
+        border-radius: 4px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
 
-#search-results li {
-    padding: 10px;
-    border-bottom: 1px solid var(--guide);
-}
+    #search-results li {
+        padding: 10px;
+        border-bottom: 1px solid var(--guide);
+    }
 
-#search-results li:last-child {
-    border-bottom: none;
-}
+    #search-results li:last-child {
+        border-bottom: none;
+    }
 
-footer {
-    margin-top: 40px;
-    text-align: center;
-    color: var(--comment);
-    font-size: 0.9em;
-}
+    footer {
+        margin-top: 40px;
+        text-align: center;
+        color: var(--comment);
+        font-size: 0.9em;
+    }
 
-/* Syntax highlighting adjustments */
-.token.comment { color: var(--comment); }
-.token.punctuation { color: var(--fg); }
-.token.property,
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted { color: var(--tag); }
-.token.string,
-.token.char,
-.token.attr-value,
-.token.builtin,
-.token.inserted { color: var(--string); }
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string { color: var(--operator); }
-.token.atrule,
-.token.keyword { color: var(--func); }
-.token.function,
-.token.class-name { color: var(--entity); }
+    /* Syntax highlighting adjustments */
+    .token.comment {
+        color: var(--comment);
+    }
+
+    .token.punctuation {
+        color: var(--fg);
+    }
+
+    .token.property,
+    .token.tag,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+        color: var(--tag);
+    }
+
+    .token.string,
+    .token.char,
+    .token.attr-value,
+    .token.builtin,
+    .token.inserted {
+        color: var(--string);
+    }
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string {
+        color: var(--operator);
+    }
+
+    .token.atrule,
+    .token.keyword {
+        color: var(--func);
+    }
+
+    .token.function,
+    .token.class-name {
+        color: var(--entity);
+    }
 </style>
 
 <body>
     <div class="content">
         <h1>DARE Aquatics Website Editing SDK Documentation</h1>
-        
+
         <div id="search-container">
             <input type="text" id="search-input" placeholder="Search documentation...">
             <ul id="search-results"></ul>
@@ -215,11 +241,14 @@ footer {
         </div>
 
         <h2 id="introduction">1. Introduction</h2>
-        <p>The DARE Aquatics Website Editing SDK is a comprehensive toolkit designed to streamline the management and updating of the DARE Aquatics website. This SDK offers a suite of Python scripts and a graphical user interface (GUI) application that automate content synchronization, facilitate easy editing, and manage version control through GitHub integration.</p>
-        
+        <p>The DARE Aquatics Website Editing SDK is a comprehensive toolkit designed to streamline the management and
+            updating of the DARE Aquatics website. This SDK offers a suite of Python scripts and a graphical user
+            interface (GUI) application that automate content synchronization, facilitate easy editing, and manage
+            version control through GitHub integration.</p>
+
         <h3>Key Features</h3>
         <div class="mermaid">
-        graph TD
+            graph TD
             A[DARE Aquatics SDK] --> B[Automated Sync]
             A --> C[GUI Editor]
             A --> D[Version Control]
@@ -284,7 +313,8 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`</code></pre>
         <h2 id="components">4. Components</h2>
 
         <h3 id="autosyncpy">4.1 autosync.py</h3>
-        <p><code>autosync.py</code> is responsible for automating the synchronization of news content from the TeamUnify platform to the DARE Aquatics website.</p>
+        <p><code>autosync.py</code> is responsible for automating the synchronization of news content from the TeamUnify
+            platform to the DARE Aquatics website.</p>
         <h4>Key Features:</h4>
         <ul>
             <li>Fetches news articles from TeamUnify</li>
@@ -308,7 +338,8 @@ def push_to_github():
         <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
 
         <h3 id="autosync_calendarpy">4.2 autosync_calendar.py</h3>
-        <p><code>autosync_calendar.py</code> automates the synchronization of calendar events from an ICS file to the DARE Aquatics website.</p>
+        <p><code>autosync_calendar.py</code> automates the synchronization of calendar events from an ICS file to the
+            DARE Aquatics website.</p>
         <h4>Key Features:</h4>
         <ul>
             <li>Fetches events from an ICS file</li>
@@ -328,7 +359,8 @@ def generate_html(event_items: List[Dict]) -> str:
         <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
 
         <h3 id="editorpy">4.3 editor.py</h3>
-        <p><code>editor.py</code> is a GUI application for editing the DARE Aquatics website content, providing a user-friendly interface for content management.</p>
+        <p><code>editor.py</code> is a GUI application for editing the DARE Aquatics website content, providing a
+            user-friendly interface for content management.</p>
         <h4>Key Features:</h4>
         <ul>
             <li>HTML file selection and editing</li>
@@ -483,7 +515,8 @@ jobs:
                 </ul>
             </li>
         </ol>
-        <p class="note">For automated regular updates, consider setting up a cron job (Linux/macOS) or Task Scheduler (Windows) to run the script periodically.</p>
+        <p class="note">For automated regular updates, consider setting up a cron job (Linux/macOS) or Task Scheduler
+            (Windows) to run the script periodically.</p>
 
         <h3>6.2 Automated Calendar Synchronization</h3>
         <ol>
@@ -500,7 +533,8 @@ jobs:
                 </ul>
             </li>
         </ol>
-        <p class="note">Similar to news synchronization, you can automate this process using cron jobs or Task Scheduler.</p>
+        <p class="note">Similar to news synchronization, you can automate this process using cron jobs or Task
+            Scheduler.</p>
 
         <h3>6.3 Using the GUI Editor</h3>
         <ol>
@@ -562,13 +596,15 @@ def push_to_github()</code></pre>
         </ul>
 
         <h3>8.3 GUI Configuration (editor.py)</h3>
-        <p>The GUI layout and behavior can be customized by modifying the <code>create_widgets()</code> method in the <code>TextEditorApp</code> class.</p>
+        <p>The GUI layout and behavior can be customized by modifying the <code>create_widgets()</code> method in the
+            <code>TextEditorApp</code> class.</p>
 
         <h2 id="best-practices">9. Best Practices</h2>
 
         <h3>9.1 Version Control</h3>
         <ul>
-            <li>Always pull the latest changes before making edits to ensure you're working with the most up-to-date content.</li>
+            <li>Always pull the latest changes before making edits to ensure you're working with the most up-to-date
+                content.</li>
             <li>Use meaningful and descriptive commit messages.</li>
             <li>Regularly review the commit history to track changes.</li>
         </ul>
@@ -589,7 +625,8 @@ def push_to_github()</code></pre>
 
         <h3>9.4 Automation</h3>
         <ul>
-            <li>Set up automated runs of <code>autosync.py</code> and <code>autosync_calendar.py</code> at appropriate intervals.</li>
+            <li>Set up automated runs of <code>autosync.py</code> and <code>autosync_calendar.py</code> at appropriate
+                intervals.</li>
             <li>Monitor logs regularly to catch and address any synchronization issues.</li>
         </ul>
 
@@ -641,7 +678,9 @@ def push_to_github()</code></pre>
         </ul>
 
         <h3>Logging</h3>
-        <p>Both <code>autosync.py</code> and <code>autosync_calendar.py</code> use Python's <code>logging</code> module to record operations and errors. Check the console output or log files for detailed information about script execution.</p>
+        <p>Both <code>autosync.py</code> and <code>autosync_calendar.py</code> use Python's <code>logging</code> module
+            to record operations and errors. Check the console output or log files for detailed information about script
+            execution.</p>
         <p>The GUI application (<code>editor.py</code>) displays logs in a dedicated console within the interface.</p>
 
         <h3>Debugging</h3>
@@ -670,7 +709,8 @@ def push_to_github()</code></pre>
         <p>Please refer to the <code>CONTRIBUTING.md</code> file in the repository for detailed guidelines.</p>
 
         <h2 id="license">12. License</h2>
-        <p>This project is licensed under the MIT License. See the <code>LICENSE</code> file in the repository for the full license text.</p>
+        <p>This project is licensed under the MIT License. See the <code>LICENSE</code> file in the repository for the
+            full license text.</p>
 
         <h2 id="changelog">13. Changelog</h2>
         <h3>Version 1.0.0 (2023-05-01)</h3>
@@ -694,7 +734,8 @@ def push_to_github()</code></pre>
         <ol>
             <li>Check the documentation thoroughly, especially the Troubleshooting section.</li>
             <li>Search for existing issues on the GitHub repository.</li>
-            <li>If your issue is not addressed, create a new issue on the GitHub repository with the following information:
+            <li>If your issue is not addressed, create a new issue on the GitHub repository with the following
+                information:
                 <ul>
                     <li>SDK version</li>
                     <li>Python version</li>
@@ -704,13 +745,16 @@ def push_to_github()</code></pre>
                     <li>Any relevant log output</li>
                 </ul>
             </li>
-            <li>For urgent matters or security concerns, contact the development team directly at github@dareaquatics.com.</li>
+            <li>For urgent matters or security concerns, contact the development team directly at
+                github@dareaquatics.com.</li>
         </ol>
 
         <h2 id="advanced-topics">15. Advanced Topics</h2>
 
         <h3>15.1 Customizing the HTML Generation</h3>
-        <p>Both <code>autosync.py</code> and <code>autosync_calendar.py</code> use the <code>generate_html()</code> function to create HTML content. You can customize this function to change the layout or styling of the generated content.</p>
+        <p>Both <code>autosync.py</code> and <code>autosync_calendar.py</code> use the <code>generate_html()</code>
+            function to create HTML content. You can customize this function to change the layout or styling of the
+            generated content.</p>
         <p>Example of customizing the news HTML generation in <code>autosync.py</code>:</p>
         <pre><code class="language-python">def generate_html(news_items):
     news_html = '&lt;div class="news-container"&gt;'
@@ -727,7 +771,8 @@ def push_to_github()</code></pre>
         <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
 
         <h3>15.2 Extending the GUI Editor</h3>
-        <p>The <code>editor.py</code> script uses Tkinter for its GUI. You can extend its functionality by adding new features or modifying existing ones. Here's an example of how to add a new tab for managing metadata:</p>
+        <p>The <code>editor.py</code> script uses Tkinter for its GUI. You can extend its functionality by adding new
+            features or modifying existing ones. Here's an example of how to add a new tab for managing metadata:</p>
         <pre><code class="language-python">def create_metadata_tab(self):
     metadata_tab = ttk.Frame(self.tabs)
     self.tabs.add(metadata_tab, text="Metadata")
@@ -749,7 +794,8 @@ self.create_metadata_tab()</code></pre>
         <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
 
         <h3>15.3 Implementing Custom Logging</h3>
-        <p>While the SDK uses Python's built-in logging module, you might want to implement a custom logging solution for specific needs. Here's an example of how to create a custom logger:</p>
+        <p>While the SDK uses Python's built-in logging module, you might want to implement a custom logging solution
+            for specific needs. Here's an example of how to create a custom logger:</p>
         <pre><code class="language-python">import logging
 from logging.handlers import RotatingFileHandler
 
@@ -772,7 +818,8 @@ logger.info("This is an info message")</code></pre>
         <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
 
         <h3>15.4 Optimizing Performance</h3>
-        <p>For larger websites or frequent updates, you might need to optimize the performance of the synchronization scripts. Here are some tips:</p>
+        <p>For larger websites or frequent updates, you might need to optimize the performance of the synchronization
+            scripts. Here are some tips:</p>
         <ul>
             <li>Use async operations for network requests to fetch news and events concurrently.</li>
             <li>Implement caching to avoid unnecessary API calls or file operations.</li>
@@ -852,4 +899,5 @@ asyncio.run(main())</code></pre>
         });
     </script>
 </body>
+
 </html>
