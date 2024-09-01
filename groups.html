@@ -1,513 +1,687 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Google Analytics (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-QXFQXHX3SN");
+    </script>
 
-<head>
-  <!-- Google Analytics (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-QXFQXHX3SN');
-  </script>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>DARE Aquatics | Swim Groups</title>
+    <meta
+      content="DARE Aquatics swim groups and training programs for all ages and abilities"
+      name="description"
+    />
+    <meta
+      content="dare aquatics, swimming, swim groups, alhambra, monterey park, california, swim club, competitive swimming"
+      name="keywords"
+    />
 
-  <title>DARE Aquatics | Swim Groups</title>
-  <meta content="DARE Aquatics swim groups and training programs for all ages and abilities" name="description">
-  <meta
-    content="dare aquatics, swimming, swim groups, alhambra, monterey park, california, swim club, competitive swimming"
-    name="keywords">
+    <!-- Favicons -->
+    <link href="assets/img/logo.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <!-- Favicons -->
-  <link href="assets/img/logo.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <p style="display: none">
+      &#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;
+    </p>
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
-    rel="stylesheet">
-    <p style="display:none;">&#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;</p>
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/holidayStyle.css">
+    <!--  Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/loadingAnimation.css" rel="stylesheet" />
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    <!-- Additional styles -->
+    <style>
+      :root {
+        --brand-color: #ff8858;
+        --check-color: #007bff;
+      }
 
-  <!-- Additional styles -->
-  <style>
-    :root {
-      --brand-color: #ff8858;
-      --check-color: #007bff;
-    }
+      .group-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
 
-    .group-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .group-card {
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .group-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .group-card h3 {
-      color: var(--brand-color);
-      border-bottom: 2px solid var(--brand-color);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    .group-info p {
-      margin-bottom: 8px;
-    }
-
-    .group-requirements,
-    .group-description {
-      background-color: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .group-requirements h4,
-    .group-description h4 {
-      color: var(--brand-color);
-      margin-bottom: 15px;
-    }
-
-    .group-requirements ul,
-    .group-description ul {
-      padding-left: 25px;
-      list-style-type: none;
-    }
-
-    .group-requirements ul li,
-    .group-description ul li {
-      margin-bottom: 10px;
-      position: relative;
-    }
-
-    .group-requirements ul li:before,
-    .group-description ul li:before {
-      content: "\F26A";
-      font-family: "bootstrap-icons";
-      color: var(--check-color);
-      position: absolute;
-      left: -25px;
-      top: 2px;
-    }
-
-    .equipment-needed {
-      background-color: #e9ecef;
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .equipment-needed h4 {
-      color: var(--brand-color);
-      margin-bottom: 15px;
-    }
-
-    @media (max-width: 768px) {
       .group-card {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .group-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .group-card h3 {
+        color: var(--brand-color);
+        border-bottom: 2px solid var(--brand-color);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .group-info p {
+        margin-bottom: 8px;
+      }
+
+      .group-requirements,
+      .group-description {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .group-requirements h4,
+      .group-description h4 {
+        color: var(--brand-color);
+        margin-bottom: 15px;
+      }
+
+      .group-requirements ul,
+      .group-description ul {
+        padding-left: 25px;
+        list-style-type: none;
+      }
+
+      .group-requirements ul li,
+      .group-description ul li {
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      .group-requirements ul li:before,
+      .group-description ul li:before {
+        content: "\F26A";
+        font-family: "bootstrap-icons";
+        color: var(--check-color);
+        position: absolute;
+        left: -25px;
+        top: 2px;
+      }
+
+      .equipment-needed {
+        background-color: #e9ecef;
+        border-radius: 10px;
         padding: 20px;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <!-- Header -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-      <div class="logo">
-        <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
-      </div>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="/">Home</a></li>
-          <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
-          <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
-          <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
-          <li><a class="nav-link scrollto active" href="groups">Swim Groups</a></li>
-          <li><a class="nav-link scrollto" href="news">News</a></li>
-          <li><a class="nav-link scrollto" href="locations">Pool Locations</a></li>
-          <li><a class="nav-link scrollto" href="pbc">PBC</a></li>
-          <li><a class="nav-link scrollto" href="contact">Contact</a></li>
-          <li><a class="getstarted scrollto"
-              href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
-              target="_blank" rel="noopener noreferrer">Sign In</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
-    </div>
-  </header>
+      .equipment-needed h4 {
+        color: var(--brand-color);
+        margin-bottom: 15px;
+      }
 
-  <main id="main">
-    <!-- Breadcrumbs -->
-    <section class="breadcrumbs">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>DARE Aquatics Swim Groups</h2>
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li>Swim Groups</li>
-          </ol>
-        </div>
-      </div>
-    </section>
+      @media (max-width: 768px) {
+        .group-card {
+          padding: 20px;
+        }
+      }
+    </style>
 
-    <!-- Swim Groups Section -->
-    <section class="inner-page">
-      <div class="container group-container">
-        <p class="text-center mb-5">DARE Aquatics offers training and practice groups for swimmers of all ages and
-          ability levels. Our goal is to provide age-specific training for all athletes, challenging and developing each
-          individual to the best of their abilities. Please <a href="https://dareaquatics.com/contact">contact us</a> or
-          email <code>contact@dareaquatics.com</code> to schedule a tryout or request more information.</p>
-
-        <!-- DARE Devils Group -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>DARE Devils</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Yvonne</p>
-            <p><b>Email: </b><code>yvonne@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Preferably water safe</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>Focus on water safety</li>
-              <li>Learn swim fundamentals</li>
-              <li>Learn backstroke and freestyle</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Age Group 1 -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Age Group 1</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Andrew</p>
-            <p><b>Email: </b><code>andrew@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Must know backstroke and freestyle</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>Will be introduced to basic swim team experience including swim meets</li>
-              <li>Will refine backstroke & freestyle skills</li>
-              <li>Will introduce breaststroke & butterfly kicks</li>
-              <li>Must be committed to compete at least 2 swim meets (including Metro Committee Championships) per year
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Pre Age Group Elite -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Pre Age Group Elite</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Tevin</p>
-            <p><b>Email: </b><code>tevin@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Must know all 4 strokes</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>Will be introduced to swim meets</li>
-              <li>Refining all four strokes (learning new drills / technique focus)</li>
-              <li>Will learn to work on turns, smooth transitions between strokes</li>
-              <li>1 hour practice (dryland twice a week)</li>
-              <li>Must be 10 years old or older.</li>
-              <li>Must attend one swim meet per month.</li>
-              <li>Must be committed to 3 practices a week</li>
-            </ul>
-          </div>
-          <div class="equipment-needed">
-            <h4>Equipment Needed:</h4>
-            <ul>
-              <li>Kickboard</li>
-              <li>Fins</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Age Group 2 -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Age Group 2</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Joseph</p>
-            <p><b>Email: </b><code>joseph@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Must have swim team / swim meet experience</li>
-              <li>Must be committed to compete year-round</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>Will polish all 4 strokes</li>
-              <li>Will learn proper turns and dive off the block and other necessary skills to compete</li>
-              <li>Must be committed to compete at least 4 swim meets (Metro Champs mandatory)</li>
-              <li>1 hour daily wet training</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Age Group Elite -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Age Group Elite</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Joseph</p>
-            <p><b>Email: </b><code>joseph@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Year-round training commitment</li>
-              <li>Must meet age group championship meet standard</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>12 & Under championship group (JAG/WAG/JOs)</li>
-              <li>1.5 hr daily wet training 30 min dryland training (TBA)</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Sr. Development Group -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Sr. Development Group</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Sam</p>
-            <p><b>Email: </b><code>sam@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Must be committed to train and compete year-round</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>13 & Over age ABC level who wants to prepare to swim for high school swim team</li>
-              <li>1.5 hr daily wet training & 1 hr dryland, seasonal AM practice</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Pre-National -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Pre-National</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Joy</p>
-            <p><b>Email: </b><code>joy@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Must be committed to train and compete year-round</li>
-              <li>Must have at least 1 JAG/WAG qualifying time</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>13 & Over Championship level group</li>
-              <li>1.5 hour daily wet training & 30-minute dryland</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- National Group -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>National Group</h3>
-          <div class="group-info">
-            <p><b>Coach:</b> Joy</p>
-            <p><b>Email: </b><code>joy@dareaquatics.com</code></p>
-          </div>
-          <div class="group-requirements">
-            <h4>Requirements:</h4>
-            <ul>
-              <li>Must be committed to train and compete year-round</li>
-              <li>Must have at least 1 Sectionals or higher standard event</li>
-              <li>Must meet age group championship meet standard</li>
-              <li>Must hold current USA Swimming membership upon joining</li>
-            </ul>
-          </div>
-          <div class="group-description">
-            <h4>Group Description:</h4>
-            <ul>
-              <li>13 & Over Sectionals and above group</li>
-              <li>1.5-hour wet training and 30 min dryland training</li>
-              <li>College swim team prep</li>
-            </ul>
-          </div>
-          <p><b>NOTE: ANY 18 & Older swimmers must complete Safe Sport online course BEFORE joining</b></p>
-        </div>
-
-        <!-- Seasonal Summer/Winter Program -->
-        <div class="group-card" data-aos="fade-up">
-          <h3>Seasonal Summer/Winter Program</h3>
-          <div class="group-description">
-            <h4>Program Details:</h4>
-            <ul>
-              <li>Account set up fee $120 applies each returning for this particular group (Returning Seniors are
-                exempt)</li>
-              <li>Must have at least 1 Sectionals or higher standard event</li>
-              <li>Must hold current USA Swimming membership</li>
-              <li>18 & Older swimmers must have completed Safe Sport online course</li>
-              <li>For any additional information, please contact us at: <code>contact@dareaquatics.com</code></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer id="footer">
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-          </div>
-        </div>
+    <div id="loading-screen">
+      <div class="bouncing-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
     </div>
+  </head>
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>DARE Aquatics</h3>
+  <body>
+    <!-- Header -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+      <div class="container d-flex align-items-center justify-content-between">
+        <div class="logo">
+          <a href="/"
+            ><img
+              src="assets/img/logo.png"
+              alt="DARE Aquatics Logo"
+              class="img-fluid"
+          /></a>
+        </div>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto" href="/">Home</a></li>
+            <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
+            <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
+            <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
+            <li>
+              <a class="nav-link scrollto active" href="groups">Swim Groups</a>
+            </li>
+            <li><a class="nav-link scrollto" href="news">News</a></li>
+            <li>
+              <a class="nav-link scrollto" href="locations">Pool Locations</a>
+            </li>
+            <li><a class="nav-link scrollto" href="pbc">PBC</a></li>
+            <li><a class="nav-link scrollto" href="contact">Contact</a></li>
+            <li>
+              <a
+                class="getstarted scrollto"
+                href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Sign In</a
+              >
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Breadcrumbs -->
+      <section class="breadcrumbs">
+        <div class="container">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>DARE Aquatics Swim Groups</h2>
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li>Swim Groups</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Swim Groups Section -->
+      <section class="inner-page">
+        <div class="container group-container">
+          <p class="text-center mb-5">
+            DARE Aquatics offers training and practice groups for swimmers of
+            all ages and ability levels. Our goal is to provide age-specific
+            training for all athletes, challenging and developing each
+            individual to the best of their abilities. Please
+            <a href="https://dareaquatics.com/contact">contact us</a> or email
+            <code>contact@dareaquatics.com</code> to schedule a tryout or
+            request more information.
+          </p>
+
+          <!-- DARE Devils Group -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>DARE Devils</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Yvonne</p>
+              <p><b>Email: </b><code>yvonne@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Preferably water safe</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>Focus on water safety</li>
+                <li>Learn swim fundamentals</li>
+                <li>Learn backstroke and freestyle</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Age Group 1 -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Age Group 1</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Andrew</p>
+              <p><b>Email: </b><code>andrew@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Must know backstroke and freestyle</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>
+                  Will be introduced to basic swim team experience including
+                  swim meets
+                </li>
+                <li>Will refine backstroke & freestyle skills</li>
+                <li>Will introduce breaststroke & butterfly kicks</li>
+                <li>
+                  Must be committed to compete at least 2 swim meets (including
+                  Metro Committee Championships) per year
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Pre Age Group Elite -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Pre Age Group Elite</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Tevin</p>
+              <p><b>Email: </b><code>tevin@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Must know all 4 strokes</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>Will be introduced to swim meets</li>
+                <li>
+                  Refining all four strokes (learning new drills / technique
+                  focus)
+                </li>
+                <li>
+                  Will learn to work on turns, smooth transitions between
+                  strokes
+                </li>
+                <li>1 hour practice (dryland twice a week)</li>
+                <li>Must be 10 years old or older.</li>
+                <li>Must attend one swim meet per month.</li>
+                <li>Must be committed to 3 practices a week</li>
+              </ul>
+            </div>
+            <div class="equipment-needed">
+              <h4>Equipment Needed:</h4>
+              <ul>
+                <li>Kickboard</li>
+                <li>Fins</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Age Group 2 -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Age Group 2</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Joseph</p>
+              <p><b>Email: </b><code>joseph@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Must have swim team / swim meet experience</li>
+                <li>Must be committed to compete year-round</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>Will polish all 4 strokes</li>
+                <li>
+                  Will learn proper turns and dive off the block and other
+                  necessary skills to compete
+                </li>
+                <li>
+                  Must be committed to compete at least 4 swim meets (Metro
+                  Champs mandatory)
+                </li>
+                <li>1 hour daily wet training</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Age Group Elite -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Age Group Elite</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Joseph</p>
+              <p><b>Email: </b><code>joseph@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Year-round training commitment</li>
+                <li>Must meet age group championship meet standard</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>12 & Under championship group (JAG/WAG/JOs)</li>
+                <li>1.5 hr daily wet training 30 min dryland training (TBA)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Sr. Development Group -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Sr. Development Group</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Sam</p>
+              <p><b>Email: </b><code>sam@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Must be committed to train and compete year-round</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>
+                  13 & Over age ABC level who wants to prepare to swim for high
+                  school swim team
+                </li>
+                <li>
+                  1.5 hr daily wet training & 1 hr dryland, seasonal AM practice
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Pre-National -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Pre-National</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Joy</p>
+              <p><b>Email: </b><code>joy@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Must be committed to train and compete year-round</li>
+                <li>Must have at least 1 JAG/WAG qualifying time</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>13 & Over Championship level group</li>
+                <li>1.5 hour daily wet training & 30-minute dryland</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- National Group -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>National Group</h3>
+            <div class="group-info">
+              <p><b>Coach:</b> Joy</p>
+              <p><b>Email: </b><code>joy@dareaquatics.com</code></p>
+            </div>
+            <div class="group-requirements">
+              <h4>Requirements:</h4>
+              <ul>
+                <li>Must be committed to train and compete year-round</li>
+                <li>
+                  Must have at least 1 Sectionals or higher standard event
+                </li>
+                <li>Must meet age group championship meet standard</li>
+                <li>Must hold current USA Swimming membership upon joining</li>
+              </ul>
+            </div>
+            <div class="group-description">
+              <h4>Group Description:</h4>
+              <ul>
+                <li>13 & Over Sectionals and above group</li>
+                <li>1.5-hour wet training and 30 min dryland training</li>
+                <li>College swim team prep</li>
+              </ul>
+            </div>
             <p>
-              110 West 6th Street P.O Box 256 <br>
-              Azuza, California 91702 <br>
-              United States <br><br>
-              <strong>Email:</strong> <a href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a><br>
+              <b
+                >NOTE: ANY 18 & Older swimmers must complete Safe Sport online
+                course BEFORE joining</b
+              >
             </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
-              </li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.gomotionapp.com/team/cadas/page/home"
-                  target="_blank" rel="noopener noreferrer">TeamUnify</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy" target="_blank"
-                  rel="noopener noreferrer">Privacy Policy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://status.dareaquatics.com" target="_blank"
-                  rel="noopener noreferrer">Status Page</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/dareaquatics/dare-website"
-                  target="_blank" rel="noopener noreferrer">Source Code</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="/policy" target="_blank" rel="noopener noreferrer">Team
-                  Policy Documents</a></li>
-            </ul>
+          <!-- Seasonal Summer/Winter Program -->
+          <div class="group-card" data-aos="fade-up">
+            <h3>Seasonal Summer/Winter Program</h3>
+            <div class="group-description">
+              <h4>Program Details:</h4>
+              <ul>
+                <li>
+                  Account set up fee $120 applies each returning for this
+                  particular group (Returning Seniors are exempt)
+                </li>
+                <li>
+                  Must have at least 1 Sectionals or higher standard event
+                </li>
+                <li>Must hold current USA Swimming membership</li>
+                <li>
+                  18 & Older swimmers must have completed Safe Sport online
+                  course
+                </li>
+                <li>
+                  For any additional information, please contact us at:
+                  <code>contact@dareaquatics.com</code>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+      </section>
+    </main>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/" target="_blank"
-                  rel="noopener noreferrer">USA Swimming</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/safe-sport" target="_blank"
-                  rel="noopener noreferrer">Safe Sport</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://uscenterforsafesport.org/report-a-concern/"
-                  target="_blank" rel="noopener noreferrer">Report a Concern (SafeSport)</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.goswim.tv/" target="_blank"
-                  rel="noopener noreferrer">GoSwim</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="http://www.swimmingworldmagazine.com" target="_blank"
-                  rel="noopener noreferrer">Swimming World Online</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://swimmingcoach.org" target="_blank"
-                  rel="noopener noreferrer">American Swimming Coaches Association</a></li>
-            </ul>
+    <!-- Footer -->
+    <footer id="footer">
+      <div class="footer-newsletter">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6"></div>
           </div>
+        </div>
+      </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Follow our social media to stay updated on latest events!</p>
-            <div class="social-links mt-3">
-              <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw" class="facebook"><i
-                  class="bx bxl-facebook"></i></a>
-              <a href="https://www.instagram.com/dareaquatics" class="instagram"><i class="bx bxl-instagram"></i></a>
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>DARE Aquatics</h3>
+              <p>
+                110 West 6th Street P.O Box 256 <br />
+                Azuza, California 91702 <br />
+                United States <br /><br />
+                <strong>Email:</strong>
+                <a href="mailto:contact@dareaquatics.com"
+                  >contact@dareaquatics.com</a
+                ><br />
+              </p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://www.gomotionapp.com/team/cadas/page/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >TeamUnify</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://status.dareaquatics.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Status Page</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://github.com/dareaquatics/dare-website"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Source Code</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="/policy" target="_blank" rel="noopener noreferrer"
+                    >Team Policy Documents</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://www.usaswimming.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >USA Swimming</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://www.usaswimming.org/safe-sport"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Safe Sport</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://uscenterforsafesport.org/report-a-concern/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Report a Concern (SafeSport)</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://www.goswim.tv/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >GoSwim</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="http://www.swimmingworldmagazine.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Swimming World Online</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://swimmingcoach.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >American Swimming Coaches Association</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Social Networks</h4>
+              <p>Follow our social media to stay updated on latest events!</p>
+              <div class="social-links mt-3">
+                <a
+                  href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw"
+                  class="facebook"
+                  ><i class="bx bxl-facebook"></i
+                ></a>
+                <a
+                  href="https://www.instagram.com/dareaquatics"
+                  class="instagram"
+                  ><i class="bx bxl-instagram"></i
+                ></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved. Licensed under the <a
-          href="license">GPLv3.</a>
+      <div class="container py-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>DARE Aquatics</span></strong
+          >. All Rights Reserved. Licensed under the
+          <a href="license">GPLv3.</a>
+        </div>
+        <div class="credits">Made with ❤️ by Ryan</div>
       </div>
-      <div class="credits">
-        Made with ❤️ by Ryan
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!--  Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/maintenanceStatusLogic.js"></script>
-</body>
-
+    <!--  Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/maintenanceStatusLogic.js"></script>
+    <script src="assets/js/loaderLogic.js"></script>
+  </body>
 </html>
