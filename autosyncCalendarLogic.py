@@ -295,7 +295,7 @@ def push_to_github():
                     pbar.set_postfix_str(message)
 
                 repo.git.add(EVENTS_HTML_FILE)
-                repo.index.commit('automated commit: sync TeamUnify calendar')
+                repo.index.commit('automated commit: sync TeamUnify calendar [skip ci]')
                 pbar.update(100)
 
             with tqdm(total=100, desc='Pushing changes') as pbar:

@@ -436,7 +436,7 @@ def push_to_github():
                     pbar.set_postfix_str(message)
 
                 repo.git.add(NEWS_HTML_FILE)
-                repo.index.commit('automated commit: sync TeamUnify news articles')
+                repo.index.commit('automated commit: sync TeamUnify news articles [skip ci]')
                 pbar.update(100)
 
             origin = repo.remote(name='origin')
