@@ -2,136 +2,138 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>DARE Aquatics | PBC</title>
+  <meta content="Meet the PBC members of DARE Aquatics" name="description" />
+  <meta content="DARE Aquatics, PBC, swim team, swimming, training, Monterey, Park, Alhambra, California"
+    name="keywords" />
 
-  <!-- Google Analytics (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-QXFQXHX3SN');
-  </script>
-  <!-- Google Analytics End (gtag.js) -->
-
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>DARE Aquatics | Parent Booster Club Board</title>
-  <meta content="DARE Aquatics Parent Booster Club Board" name="description">
-  <meta content="dare aquatics, parent booster club, swimming, swim club, los angeles, volunteer" name="keywords">
-
-  <!-- favicons -->
+  <!-- Favicons -->
   <link rel="icon" href="assets/img/logo.png">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <!-- gfonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
-    rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Raleway:300,400,600,700"
+    rel="stylesheet" />
 
-  <!-- /vendor/ css files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/css/loadingAnimation.css" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
-
-  <!-- style.css -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Main Style CSS -->
+  <link href="assets/css/style.css" rel="stylesheet" />
+  <link href="assets/css/loadingAnimation.css" rel="stylesheet" />
 
   <style>
-    .board-members {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 30px 0;
-    }
-
-    .member {
-      background-color: #fff;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      text-align: center;
-      width: 300px;
-      transition: all 0.3s ease;
-    }
-
-    .member:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .member img {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border: 5px solid #f8f9fa;
-      transition: all 0.3s ease;
-    }
-
-    .member:hover img {
-      border-color: #007bff;
-    }
-
-    .member h3 {
-      font-size: 22px;
-      margin-bottom: 5px;
-      color: #ff8858;
-    }
-
-    .member p {
-      font-size: 16px;
-      color: #6c757d;
-      margin-bottom: 15px;
-    }
-
-    .member .email {
-      font-size: 14px;
-      color: #28a745;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .member .email:hover {
-      color: #218838;
+    .memberes-container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
     .section-title {
       text-align: center;
-      padding-bottom: 30px;
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 40px;
+      position: relative;
     }
 
-    .section-title h2 {
-      font-size: 32px;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      color: #ff7c47;
-      line-height: 1.2;
-      word-spacing: 2px;
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #ffa07a;
+      margin: 20px auto 0;
     }
 
-    .section-title p {
-      margin-bottom: 0;
-      font-size: 18px;
-      color: #000000;
+    .intro-text {
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto 40px;
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.6;
     }
 
-    @media (max-width: 767px) {
-      .section-title h2 {
-        font-size: 24px;
-        padding-bottom: 10px;
+    .memberes-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .member-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-image {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .member-info {
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .member-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .member-title {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .member-email {
+      font-size: 0.9rem;
+      color: #007bff;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .member-email:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .member-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .member-image {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px 10px 0 0;
       }
     }
   </style>
+
   <div id="loading-screen">
     <div class="bouncing-dots">
       <div class="dot"></div>
@@ -142,107 +144,103 @@
 </head>
 
 <body>
-
-  <!-- header -->
+  <!-- Header -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
       <div class="logo">
-        <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
+        <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid" /></a>
+        <p style="display: none">
+          &#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;
+        </p>
       </div>
-
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="/">Home</a></li>
-          <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
+          <li>
+            <a class="nav-link scrollto" href="coaches">Coaches</a>
+          </li>
           <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
           <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
           <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
           <li><a class="nav-link scrollto" href="news">News</a></li>
-          <li><a class="nav-link scrollto" href="locations">Pool Locations</a></li>
+          <li>
+            <a class="nav-link scrollto" href="locations">Pool Locations</a>
+          </li>
           <li><a class="nav-link scrollto active" href="pbc">PBC</a></li>
           <li><a class="nav-link scrollto" href="contact">Contact</a></li>
-          <li><a class="getstarted scrollto"
+          <li>
+            <a class="getstarted scrollto"
               href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
-              target="_blank" rel="noopener noreferrer">Sign In</a></li>
+              target="_blank" rel="noopener noreferrer">Sign In</a>
+          </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
       <!-- .navbar -->
-
     </div>
   </header>
-  <!-- end header -->
+  <!-- End Header -->
 
   <main id="main">
-
-    <!-- breadcrumbs section  -->
-    <section class="breadcrumbs">
-      <div class="container">
-
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Parent Booster Club Board</h2>
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li>Parent Booster Club Board</li>
-          </ol>
-        </div>
-
+    <section class="memberes-section">
+      <div class="memberes-container">
+        <h1 class="section-title">Parent Booster Club</h1>
+        <p class="intro-text">Our dedicated Parent Booster Club Board members work tirelessly to support DARE Aquatics
+          and enhance the
+          swimming experience for all our athletes.</p>
+        <ul class="memberes-list">
+          <li class="member-item">
+            <div class="member-info">
+              <h3 class="member-name">Vincent Tsan</h3>
+              <p class="member-title">
+                President
+              </p>
+              <a href="mailto:president@dareaquatics.com" class="member-email">president@dareaquatics.com</a>
+            </div>
+          </li>
+          <li class="member-item">
+            <div class="member-info">
+              <h3 class="member-name">Quin Zhang</h3>
+              <p class="member-title">Co-President</p>
+              <a href="mailto:copresident@dareaquatics.com" class="member-email">copresident@dareaquatics.com</a>
+            </div>
+          </li>
+          <li class="member-item">
+            <div class="member-info">
+              <h3 class="member-name">Patty Hsu</h3>
+              <p class="member-title">Secretary</p>
+              <a href="mailto:secretary@dareaquatics.com" class="member-email">secretary@dareaquatics.com</a>
+            </div>
+          </li>
+          <li class="member-item">
+            <div class="member-info">
+              <h3 class="member-name">Ashley Wu</h3>
+              <p class="member-title">Treasurer</p>
+              <a href="mailto:treasurer@dareaquatics.com" class="member-email">treasurerdareaquatics.com</a>
+            </div>
+          </li>
+          <li class="member-item">
+            <div class="member-info">
+              <h3 class="member-name">Christine Wong</h3>
+              <p class="member-title">At Large Director</p>
+              <a href="mailto:atlarge1@dareaquatics.com" class="member-email">atlarge1@dareaquatics.com</a>
+            </div>
+          </li>
+          <li class="member-item">
+            <div class="member-info">
+              <h3 class="member-name">Grace Lin</h3>
+              <p class="member-title">At Large Director</p>
+              <a href="mailto:atlarge2@dareaquatics.com" class="member-email">atlarge2@dareaquatics.com</a>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
-    <!-- end breadcrumbs  -->
-
-    <section class="inner-page">
-      <div class="container">
-        <div class="section-title">
-          <h2>Meet Our Parent Booster Club Board</h2>
-          <p>Our dedicated Parent Booster Club Board members work tirelessly to support DARE Aquatics and enhance the
-            swimming experience for all our athletes.</p>
-        </div>
-
-        <div class="board-members">
-          <div class="member" data-aos="fade-up">
-
-            <h3>Vincent Tsan</h3>
-            <p>President</p>
-            <a href="mailto:president@dareaquatics.com" class="email">president@dareaquatics.com</a>
-          </div>
-          <div class="member" data-aos="fade-up" data-aos-delay="100">
-            <h3>Quin Zhang</h3>
-            <p>Co-President</p>
-            <a href="mailto:copresident@dareaquatics.com" class="email">copresident@dareaquatics.com</a>
-          </div>
-          <div class="member" data-aos="fade-up" data-aos-delay="200">
-            <h3>Patty Hsu</h3>
-            <p>Secretary</p>
-            <a href="mailto:secretary@dareaquatics.com" class="email">secretary@dareaquatics.com</a>
-          </div>
-          <div class="member" data-aos="fade-up" data-aos-delay="300">
-            <h3>Ashely Wu</h3>
-            <p>Treasurer</p>
-            <a href="mailto:treasurer@dareaquatics.com" class="email">treasurer@dareaquatics.com</a>
-          </div>
-          <div class="member" data-aos="fade-up" data-aos-delay="400">
-            <h3>Christine Wong</h3>
-            <p>At Large</p>
-            <a href="mailto:atlarge1@dareaquatics.com" class="email">atlarge1@dareaquatics.com</a>
-          </div>
-          <div class="member" data-aos="fade-up" data-aos-delay="500">
-            <h3>Grace Lin</h3>
-            <p>At Large</p>
-            <a href="mailto:atlarge2@dareaquatics.com" class="email">atlarge2@dareaquatics.com</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
-  <!-- end #main -->
+  <!-- End Main -->
 
-  <!-- footer -->
+  <!-- Footer -->
   <footer id="footer">
-
-    <!-- leave this here or the website looks ugly :( -->
     <div class="footer-newsletter">
       <div class="container">
         <div class="row justify-content-center">
@@ -252,101 +250,121 @@
         </div>
       </div>
     </div>
-    <!-- end -->
-
     <div class="footer-top">
       <div class="container">
         <div class="row">
-
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>DARE Aquatics</h3>
             <p>
-              110 West 6th Street P.O Box 256 <br>
-              Azuza, California 91702 <br>
-              United States <br><br>
-              <strong>Email:</strong><a href="mailto:contact@dareaquatics.com"> contact@dareaquatics.com</a><br>
+              110 West 6th Street P.O Box 256 <br />
+              Azusa, California 91702 <br />
+              United States <br /><br />
+              <strong>Email:</strong>
+              <a href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a><br />
             </p>
           </div>
-
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
               </li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.gomotionapp.com/team/cadas/page/home"
-                  target="_blank" rel="noopener noreferrer">TeamUnify</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy" target="_blank"
-                  rel="noopener noreferrer">Privacy Policy</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://status.dareaquatics.com" target="_blank"
-                  rel="noopener noreferrer">Status Page</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/dareaquatics/dare-website"
-                  target="_blank" rel="noopener noreferrer">Source Code</a></li>
-              <l i><i class="bx bx-chevron-right"></i> <a href="/policy" target="_blank" rel="noopener noreferrer">Team
-                  Policy Documents</a></li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.gomotionapp.com/team/cadas/page/home" target="_blank"
+                  rel="noopener noreferrer">TeamUnify</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://status.dareaquatics.com" target="_blank" rel="noopener noreferrer">Status Page</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://github.com/dareaquatics/dare-website" target="_blank" rel="noopener noreferrer">Source
+                  Code</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="/policy" target="_blank" rel="noopener noreferrer">Team Policy Documents</a>
+              </li>
             </ul>
-            <p style="display:none;">
-              &#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;
-            </p>
           </div>
-
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
-
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/" target="_blank"
-                  rel="noopener noreferrer">USA Swimming</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/safe-sport" target="_blank"
-                  rel="noopener noreferrer">Safe Sport</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://uscenterforsafesport.org/report-a-concern/"
-                  target="_blank" rel="noopener noreferrer">Report a Concern (SafeSport)</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.goswim.tv/" target="_blank"
-                  rel="noopener noreferrer">GoSwim</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="http://www.swimmingworldmagazine.com" target="_blank"
-                  rel="noopener noreferrer">Swimming World Online</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://swimmingcoach.org" target="_blank"
-                  rel="noopener noreferrer">American Swimming Coaches Association</a></li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.usaswimming.org/" target="_blank" rel="noopener noreferrer">USA Swimming</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.usaswimming.org/safe-sport" target="_blank" rel="noopener noreferrer">Safe
+                  Sport</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://uscenterforsafesport.org/report-a-concern/" target="_blank"
+                  rel="noopener noreferrer">Report a Concern (SafeSport)</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.goswim.tv/" target="_blank" rel="noopener noreferrer">GoSwim</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="http://www.swimmingworldmagazine.com" target="_blank" rel="noopener noreferrer">Swimming World
+                  Online</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://swimmingmember.org" target="_blank" rel="noopener noreferrer">American Swimming
+                  Coaches
+                  Association</a>
+              </li>
             </ul>
           </div>
-
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Social Networks</h4>
             <p>Follow our social media to stay updated on latest events!</p>
             <div class="social-links mt-3">
-              <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw" class="facebook"><i
-                  class="bx bxl-facebook"></i></a>
-              <a href="https://www.instagram.com/dareaquatics" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw" class="facebook"
+                target="_blank" rel="noopener noreferrer"><i class="bx bxl-facebook"></i></a>
+              <a href="https://www.instagram.com/dareaquatics" class="instagram" target="_blank"
+                rel="noopener noreferrer"><i class="bx bxl-instagram"></i></a>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-
     <div class="container py-4">
       <div class="copyright">
-        &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved. Licensed under the <a
-          href="license">GPLv3.</a>
+        &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved. Licensed under the
+        <a href="license">GPLv3.</a>
       </div>
-      <div class="credits">
-        <div class="credits">
-          Made with ❤️ by Ryan
-        </div>
-      </div>
+      <div class="credits">Made with ❤️ by Ryan</div>
+    </div>
   </footer>
-  <!-- end footer -->
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
-  <!-- /vendor/ js files -->
+  <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- main.js -->
+  <!-- Main JS -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/maintenanceStatusLogic.js"></script>
   <script src="assets/js/loaderLogic.js"></script>
 </body>
+
+</html>
