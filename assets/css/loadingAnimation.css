@@ -41,7 +41,7 @@ body {
   .dot {
     width: 16px;
     height: 16px;
-    background-color: #ffa07a; 
+    background-color: #eb5d1e; 
     border-radius: 50%;
     animation: bounce 1.4s infinite ease-in-out;
   }
