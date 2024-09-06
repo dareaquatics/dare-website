@@ -1775,67 +1775,67 @@
     return;
   }
 
-  function slideVideo(slide, data, index, callback) {
-    var _this = this;
+  // function slideVideo(slide, data, index, callback) {
+  //   var _this = this;
 
-    var slideContainer = slide.querySelector('.ginner-container');
-    var videoID = 'gvideo' + index;
-    var slideMedia = slide.querySelector('.gslide-media');
-    var videoPlayers = this.getAllPlayers();
-    addClass(slideContainer, 'gvideo-container');
-    slideMedia.insertBefore(createHTML('<div class="gvideo-wrapper"></div>'), slideMedia.firstChild);
-    var videoWrapper = slide.querySelector('.gvideo-wrapper');
-    injectAssets(this.settings.plyr.css, 'Plyr');
-    var url = data.href;
-    var provider = data === null || data === void 0 ? void 0 : data.videoProvider;
-    var customPlaceholder = false;
-    slideMedia.style.maxWidth = data.width;
-    injectAssets(this.settings.plyr.js, 'Plyr', function () {
-      if (!provider && url.match(/vimeo\.com\/([0-9]*)/)) {
-        provider = 'vimeo';
-      }
+  //   var slideContainer = slide.querySelector('.ginner-container');
+  //   var videoID = 'gvideo' + index;
+  //   var slideMedia = slide.querySelector('.gslide-media');
+  //   var videoPlayers = this.getAllPlayers();
+  //   addClass(slideContainer, 'gvideo-container');
+  //   slideMedia.insertBefore(createHTML('<div class="gvideo-wrapper"></div>'), slideMedia.firstChild);
+  //   var videoWrapper = slide.querySelector('.gvideo-wrapper');
+  //   injectAssets(this.settings.plyr.css, 'Plyr');
+  //   var url = data.href;
+  //   var provider = data === null || data === void 0 ? void 0 : data.videoProvider;
+  //   var customPlaceholder = false;
+  //   slideMedia.style.maxWidth = data.width;
+  //   injectAssets(this.settings.plyr.js, 'Plyr', function () {
+  //     // if (!provider && url.match(/vimeo\.com\/([0-9]*)/)) {
+  //       provider = 'vimeo';
+  //     }
 
-      if (!provider && (url.match(/(youtube\.com|youtube-nocookie\.com)\/watch\?v=([a-zA-Z0-9\-_]+)/) || url.match(/youtu\.be\/([a-zA-Z0-9\-_]+)/) || url.match(/(youtube\.com|youtube-nocookie\.com)\/embed\/([a-zA-Z0-9\-_]+)/))) {
-        provider = 'youtube';
-      }
+  //     // if (!provider && (url.match(/(youtube\.com|youtube-nocookie\.com)\/watch\?v=([a-zA-Z0-9\-_]+)/) || url.match(/youtu\.be\/([a-zA-Z0-9\-_]+)/) || url.match(/(youtube\.com|youtube-nocookie\.com)\/embed\/([a-zA-Z0-9\-_]+)/))) {
+  //       // provider = 'youtube';
+  //     // }
 
-      if (provider === 'local' || !provider) {
-        provider = 'local';
-        var html = '<video id="' + videoID + '" ';
-        html += "style=\"background:#000; max-width: ".concat(data.width, ";\" ");
-        html += 'preload="metadata" ';
-        html += 'x-webkit-airplay="allow" ';
-        html += 'playsinline ';
-        html += 'controls ';
-        html += 'class="gvideo-local">';
-        html += "<source src=\"".concat(url, "\">");
-        html += '</video>';
-        customPlaceholder = createHTML(html);
-      }
+  //     if (provider === 'local' || !provider) {
+  //       provider = 'local';
+  //       var html = '<video id="' + videoID + '" ';
+  //       html += "style=\"background:#000; max-width: ".concat(data.width, ";\" ");
+  //       html += 'preload="metadata" ';
+  //       html += 'x-webkit-airplay="allow" ';
+  //       html += 'playsinline ';
+  //       html += 'controls ';
+  //       html += 'class="gvideo-local">';
+  //       html += "<source src=\"".concat(url, "\">");
+  //       html += '</video>';
+  //       customPlaceholder = createHTML(html);
+  //     }
 
-      var placeholder = customPlaceholder ? customPlaceholder : createHTML("<div id=\"".concat(videoID, "\" data-plyr-provider=\"").concat(provider, "\" data-plyr-embed-id=\"").concat(url, "\"></div>"));
-      addClass(videoWrapper, "".concat(provider, "-video gvideo"));
-      videoWrapper.appendChild(placeholder);
-      videoWrapper.setAttribute('data-id', videoID);
-      videoWrapper.setAttribute('data-index', index);
-      var playerConfig = has(_this.settings.plyr, 'config') ? _this.settings.plyr.config : {};
-      var player = new Plyr('#' + videoID, playerConfig);
-      player.on('ready', function (event) {
-        videoPlayers[videoID] = event.detail.plyr;
+  //     var placeholder = customPlaceholder ? customPlaceholder : createHTML("<div id=\"".concat(videoID, "\" data-plyr-provider=\"").concat(provider, "\" data-plyr-embed-id=\"").concat(url, "\"></div>"));
+  //     addClass(videoWrapper, "".concat(provider, "-video gvideo"));
+  //     videoWrapper.appendChild(placeholder);
+  //     videoWrapper.setAttribute('data-id', videoID);
+  //     videoWrapper.setAttribute('data-index', index);
+  //     var playerConfig = has(_this.settings.plyr, 'config') ? _this.settings.plyr.config : {};
+  //     var player = new Plyr('#' + videoID, playerConfig);
+  //     player.on('ready', function (event) {
+  //       videoPlayers[videoID] = event.detail.plyr;
 
-        if (isFunction(callback)) {
-          callback();
-        }
-      });
-      waitUntil(function () {
-        return slide.querySelector('iframe') && slide.querySelector('iframe').dataset.ready == 'true';
-      }, function () {
-        _this.resize(slide);
-      });
-      player.on('enterfullscreen', handleMediaFullScreen);
-      player.on('exitfullscreen', handleMediaFullScreen);
-    });
-  }
+  //       if (isFunction(callback)) {
+  //         callback();
+  //       }
+  //     });
+  //     waitUntil(function () {
+  //       return slide.querySelector('iframe') && slide.querySelector('iframe').dataset.ready == 'true';
+  //     }, function () {
+  //       _this.resize(slide);
+  //     });
+  //     player.on('enterfullscreen', handleMediaFullScreen);
+  //     player.on('exitfullscreen', handleMediaFullScreen);
+  //   });
+  // }
 
   function handleMediaFullScreen(event) {
     var media = closest(event.target, '.gslide-media');
@@ -1953,200 +1953,201 @@
       }
     }
 
-    _createClass(SlideConfigParser, [{
-      key: "sourceType",
-      value: function sourceType(url) {
-        var origin = url;
-        url = url.toLowerCase();
+    // https://github.com/dareaquatics/dare-website/security/code-scanning/429
+    // _createClass(SlideConfigParser, [{
+    //   key: "sourceType",
+    //   value: function sourceType(url) {
+    //     var origin = url;
+    //     url = url.toLowerCase();
 
-        if (url.match(/\.(jpeg|jpg|jpe|gif|png|apn|webp|avif|svg)/) !== null) {
-          return 'image';
-        }
+    //     if (url.match(/\.(jpeg|jpg|jpe|gif|png|apn|webp|avif|svg)/) !== null) {
+    //       return 'image';
+    //     }
 
-        if (url.match(/(youtube\.com|youtube-nocookie\.com)\/watch\?v=([a-zA-Z0-9\-_]+)/) || url.match(/youtu\.be\/([a-zA-Z0-9\-_]+)/) || url.match(/(youtube\.com|youtube-nocookie\.com)\/embed\/([a-zA-Z0-9\-_]+)/)) {
-          return 'video';
-        }
+    //     if (url.match(/(youtube\.com|youtube-nocookie\.com)\/watch\?v=([a-zA-Z0-9\-_]+)/) || url.match(/youtu\.be\/([a-zA-Z0-9\-_]+)/) || url.match(/(youtube\.com|youtube-nocookie\.com)\/embed\/([a-zA-Z0-9\-_]+)/)) {
+    //       return 'video';
+    //     }
 
-        if (url.match(/vimeo\.com\/([0-9]*)/)) {
-          return 'video';
-        }
+    //     if (url.match(/vimeo\.com\/([0-9]*)/)) {
+    //       return 'video';
+    //     }
 
-        if (url.match(/\.(mp4|ogg|webm|mov)/) !== null) {
-          return 'video';
-        }
+    //     if (url.match(/\.(mp4|ogg|webm|mov)/) !== null) {
+    //       return 'video';
+    //     }
 
-        if (url.match(/\.(mp3|wav|wma|aac|ogg)/) !== null) {
-          return 'audio';
-        }
+    //     if (url.match(/\.(mp3|wav|wma|aac|ogg)/) !== null) {
+    //       return 'audio';
+    //     }
 
-        if (url.indexOf('#') > -1) {
-          var hash = origin.split('#').pop();
+    //     if (url.indexOf('#') > -1) {
+    //       var hash = origin.split('#').pop();
 
-          if (hash.trim() !== '') {
-            return 'inline';
-          }
-        }
+    //       if (hash.trim() !== '') {
+    //         return 'inline';
+    //       }
+    //     }
 
-        if (url.indexOf('goajax=true') > -1) {
-          return 'ajax';
-        }
+    //     if (url.indexOf('goajax=true') > -1) {
+    //       return 'ajax';
+    //     }
 
-        return 'external';
-      }
-    }, {
-      key: "parseConfig",
-      value: function parseConfig(element, settings) {
-        var _this = this;
+    //     return 'external';
+    //   }
+    // }, {
+    //   key: "parseConfig",
+    //   value: function parseConfig(element, settings) {
+    //     var _this = this;
 
-        var data = extend({
-          descPosition: settings.descPosition
-        }, this.defaults);
+    //     var data = extend({
+    //       descPosition: settings.descPosition
+    //     }, this.defaults);
 
-        if (isObject(element) && !isNode(element)) {
-          if (!has(element, 'type')) {
-            if (has(element, 'content') && element.content) {
-              element.type = 'inline';
-            } else if (has(element, 'href')) {
-              element.type = this.sourceType(element.href);
-            }
-          }
+    //     if (isObject(element) && !isNode(element)) {
+    //       if (!has(element, 'type')) {
+    //         if (has(element, 'content') && element.content) {
+    //           element.type = 'inline';
+    //         } else if (has(element, 'href')) {
+    //           element.type = this.sourceType(element.href);
+    //         }
+    //       }
 
-          var objectData = extend(data, element);
-          this.setSize(objectData, settings);
-          return objectData;
-        }
+    //       var objectData = extend(data, element);
+    //       this.setSize(objectData, settings);
+    //       return objectData;
+    //     }
 
-        var url = '';
-        var config = element.getAttribute('data-glightbox');
-        var nodeType = element.nodeName.toLowerCase();
+    //     var url = '';
+    //     var config = element.getAttribute('data-glightbox');
+    //     var nodeType = element.nodeName.toLowerCase();
 
-        if (nodeType === 'a') {
-          url = element.href;
-        }
+    //     if (nodeType === 'a') {
+    //       url = element.href;
+    //     }
 
-        if (nodeType === 'img') {
-          url = element.src;
-          data.alt = element.alt;
-        }
+    //     if (nodeType === 'img') {
+    //       url = element.src;
+    //       data.alt = element.alt;
+    //     }
 
-        data.href = url;
-        each(data, function (val, key) {
-          if (has(settings, key) && key !== 'width') {
-            data[key] = settings[key];
-          }
+    //     data.href = url;
+    //     each(data, function (val, key) {
+    //       if (has(settings, key) && key !== 'width') {
+    //         data[key] = settings[key];
+    //       }
 
-          var nodeData = element.dataset[key];
+    //       var nodeData = element.dataset[key];
 
-          if (!isNil(nodeData)) {
-            data[key] = _this.sanitizeValue(nodeData);
-          }
-        });
+    //       if (!isNil(nodeData)) {
+    //         data[key] = _this.sanitizeValue(nodeData);
+    //       }
+    //     });
 
-        if (data.content) {
-          data.type = 'inline';
-        }
+    //     if (data.content) {
+    //       data.type = 'inline';
+    //     }
 
-        if (!data.type && url) {
-          data.type = this.sourceType(url);
-        }
+    //     if (!data.type && url) {
+    //       data.type = this.sourceType(url);
+    //     }
 
-        if (!isNil(config)) {
-          var cleanKeys = [];
-          each(data, function (v, k) {
-            cleanKeys.push(';\\s?' + k);
-          });
-          cleanKeys = cleanKeys.join('\\s?:|');
+    //     if (!isNil(config)) {
+    //       var cleanKeys = [];
+    //       each(data, function (v, k) {
+    //         cleanKeys.push(';\\s?' + k);
+    //       });
+    //       cleanKeys = cleanKeys.join('\\s?:|');
 
-          if (config.trim() !== '') {
-            each(data, function (val, key) {
-              var str = config;
-              var match = 's?' + key + 's?:s?(.*?)(' + cleanKeys + 's?:|$)';
-              var regex = new RegExp(match);
-              var matches = str.match(regex);
+    //       if (config.trim() !== '') {
+    //         each(data, function (val, key) {
+    //           var str = config;
+    //           var match = 's?' + key + 's?:s?(.*?)(' + cleanKeys + 's?:|$)';
+    //           var regex = new RegExp(match);
+    //           var matches = str.match(regex);
 
-              if (matches && matches.length && matches[1]) {
-                var value = matches[1].trim().replace(/;\s*$/, '');
-                data[key] = _this.sanitizeValue(value);
-              }
-            });
-          }
-        } else {
-          if (!data.title && nodeType == 'a') {
-            var title = element.title;
+    //           if (matches && matches.length && matches[1]) {
+    //             var value = matches[1].trim().replace(/;\s*$/, '');
+    //             data[key] = _this.sanitizeValue(value);
+    //           }
+    //         });
+    //       }
+    //     } else {
+    //       if (!data.title && nodeType == 'a') {
+    //         var title = element.title;
 
-            if (!isNil(title) && title !== '') {
-              data.title = title;
-            }
-          }
+    //         if (!isNil(title) && title !== '') {
+    //           data.title = title;
+    //         }
+    //       }
 
-          if (!data.title && nodeType == 'img') {
-            var alt = element.alt;
+    //       if (!data.title && nodeType == 'img') {
+    //         var alt = element.alt;
 
-            if (!isNil(alt) && alt !== '') {
-              data.title = alt;
-            }
-          }
-        }
+    //         if (!isNil(alt) && alt !== '') {
+    //           data.title = alt;
+    //         }
+    //       }
+    //     }
 
-        if (data.description && data.description.substring(0, 1) === '.') {
-          var description;
+    //     if (data.description && data.description.substring(0, 1) === '.') {
+    //       var description;
 
-          try {
-            description = document.querySelector(data.description).innerHTML;
-          } catch (error) {
-            if (!(error instanceof DOMException)) {
-              throw error;
-            }
-          }
+    //       try {
+    //         description = document.querySelector(data.description).innerHTML;
+    //       } catch (error) {
+    //         if (!(error instanceof DOMException)) {
+    //           throw error;
+    //         }
+    //       }
 
-          if (description) {
-            data.description = description;
-          }
-        }
+    //       if (description) {
+    //         data.description = description;
+    //       }
+    //     }
 
-        if (!data.description) {
-          var nodeDesc = element.querySelector('.glightbox-desc');
+    //     if (!data.description) {
+    //       var nodeDesc = element.querySelector('.glightbox-desc');
 
-          if (nodeDesc) {
-            data.description = nodeDesc.innerHTML;
-          }
-        }
+    //       if (nodeDesc) {
+    //         data.description = nodeDesc.innerHTML;
+    //       }
+    //     }
 
-        this.setSize(data, settings, element);
-        this.slideConfig = data;
-        return data;
-      }
-    }, {
-      key: "setSize",
-      value: function setSize(data, settings) {
-        var element = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-        var defaultWith = data.type == 'video' ? this.checkSize(settings.videosWidth) : this.checkSize(settings.width);
-        var defaultHeight = this.checkSize(settings.height);
-        data.width = has(data, 'width') && data.width !== '' ? this.checkSize(data.width) : defaultWith;
-        data.height = has(data, 'height') && data.height !== '' ? this.checkSize(data.height) : defaultHeight;
+    //     this.setSize(data, settings, element);
+    //     this.slideConfig = data;
+    //     return data;
+    //   }
+    // }, {
+    //   key: "setSize",
+    //   value: function setSize(data, settings) {
+    //     var element = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    //     var defaultWith = data.type == 'video' ? this.checkSize(settings.videosWidth) : this.checkSize(settings.width);
+    //     var defaultHeight = this.checkSize(settings.height);
+    //     data.width = has(data, 'width') && data.width !== '' ? this.checkSize(data.width) : defaultWith;
+    //     data.height = has(data, 'height') && data.height !== '' ? this.checkSize(data.height) : defaultHeight;
 
-        if (element && data.type == 'image') {
-          data._hasCustomWidth = element.dataset.width ? true : false;
-          data._hasCustomHeight = element.dataset.height ? true : false;
-        }
+    //     if (element && data.type == 'image') {
+    //       data._hasCustomWidth = element.dataset.width ? true : false;
+    //       data._hasCustomHeight = element.dataset.height ? true : false;
+    //     }
 
-        return data;
-      }
-    }, {
-      key: "checkSize",
-      value: function checkSize(size) {
-        return isNumber(size) ? "".concat(size, "px") : size;
-      }
-    }, {
-      key: "sanitizeValue",
-      value: function sanitizeValue(val) {
-        if (val !== 'true' && val !== 'false') {
-          return val;
-        }
+    //     return data;
+    //   }
+    // }, {
+    //   key: "checkSize",
+    //   value: function checkSize(size) {
+    //     return isNumber(size) ? "".concat(size, "px") : size;
+    //   }
+    // }, {
+    //   key: "sanitizeValue",
+    //   value: function sanitizeValue(val) {
+    //     if (val !== 'true' && val !== 'false') {
+    //       return val;
+    //     }
 
-        return val === 'true';
-      }
-    }]);
+    //     return val === 'true';
+    //   }
+    // }]);
 
     return SlideConfigParser;
   }();
