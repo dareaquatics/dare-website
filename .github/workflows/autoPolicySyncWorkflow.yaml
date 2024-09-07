@@ -34,116 +34,118 @@ jobs:
           TU_USERNAME: ${{ secrets.TU_USERNAME }}
           TU_PASSWORD: ${{ secrets.TU_PASSWORD }}
         run: |
-          import os
-          import time
-          import requests
-          import logging
-          import json
-          import re
-          import hashlib
-          import mimetypes
-          import urllib.parse
-          from bs4 import BeautifulSoup
-          from selenium import webdriver
-          from selenium.webdriver.chrome.service import Service
-          from selenium.webdriver.chrome.options import Options
-          from selenium.webdriver.common.by import By
-          from selenium.webdriver.support.ui import WebDriverWait
-          from selenium.webdriver.support import expected_conditions as EC
-          from selenium.common.exceptions import TimeoutException, NoSuchElementException
-          from webdriver_manager.chrome import ChromeDriverManager
-          from PyPDF2 import PdfReader
+        import os
+        import time
+        import requests
+        import logging
+        import json
+        import re
+        import hashlib
+        import mimetypes
+        import urllib.parse
+        from bs4 import BeautifulSoup
+        from selenium import webdriver
+        from selenium.webdriver.chrome.service import Service
+        from selenium.webdriver.chrome.options import Options
+        from selenium.webdriver.common.by import By
+        from selenium.webdriver.support.ui import WebDriverWait
+        from selenium.webdriver.support import expected_conditions as EC
+        from selenium.common.exceptions import TimeoutException, NoSuchElementException
+        from webdriver_manager.chrome import ChromeDriverManager
+        from PyPDF2 import PdfReader
 
-          # Set up logging
-          logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-          logger = logging.getLogger()
+        # Set up logging
+        logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+        logger = logging.getLogger()
 
-          # Configuration
-          LOGIN_URL = "https://user.sportngin.com/users/sign_in"
-          POLICIES_PAGE_URL = "https://www.gomotionapp.com/team/cadas/page/newsletter?team=cadas"
-          GITHUB_POLICIES_DIR = 'assets/policies'
+        # Configuration
+        LOGIN_URL = "https://user.sportngin.com/users/sign_in"
+        POLICIES_PAGE_URL = "https://www.gomotionapp.com/team/cadas/page/newsletter?team=cadas"
+        GITHUB_POLICIES_DIR = 'assets/policies'
 
-          # Get login credentials from environment variables
-          USERNAME = os.environ.get('TU_USERNAME')
-          PASSWORD = os.environ.get('TU_PASSWORD')
+        # Get login credentials from environment variables
+        USERNAME = os.environ.get('TU_USERNAME')
+        PASSWORD = os.environ.get('TU_PASSWORD')
 
-          if not USERNAME or not PASSWORD:
-              logger.error("Login credentials not provided")
-              exit(1)
+        if not USERNAME or not PASSWORD:
+            logger.error("Login credentials not provided")
+            exit(1)
 
-          def setup_driver():
-              chrome_options = Options()
-              chrome_options.add_argument("--headless")
-              chrome_options.add_argument("--no-sandbox")
-              chrome_options.add_argument("--disable-dev-shm-usage")
-              service = Service(ChromeDriverManager().install())
-              driver = webdriver.Chrome(service=service, options=chrome_options)
-              return driver
+        def setup_driver():
+            chrome_options = Options()
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--window-size=1920,1080")
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            return driver
 
-          def login(driver):
-              try:
-                  logger.info(f"Navigating to login page: {LOGIN_URL}")
-                  driver.get(LOGIN_URL)
-                  
-                  logger.info("Waiting for email input field")
-                  email_input = WebDriverWait(driver, 10).until(
-                      EC.presence_of_element_located((By.ID, "user_login"))
-                  )
-                  logger.info(f"Entering email: {USERNAME}")
-                  email_input.send_keys(USERNAME)
-                  
-                  logger.info("Looking for continue button")
-                  continue_button = driver.find_element(By.CSS_SELECTOR, "input[type='submit']")
-                  logger.info("Clicking continue button")
-                  continue_button.click()
-                  
-                  logger.info("Waiting for password input field")
-                  password_input = WebDriverWait(driver, 10).until(
-                      EC.presence_of_element_located((By.ID, "user_password"))
-                  )
-                  logger.info("Entering password")
-                  password_input.send_keys(PASSWORD)
-                  
-                  logger.info("Looking for sign in button")
-                  sign_in_button = WebDriverWait(driver, 10).until(
-                      EC.element_to_be_clickable((By.XPATH, "//input[@type='submit' and @value='Sign in']"))
-                  )
-                  logger.info("Clicking sign in button")
-                  sign_in_button.click()
+        def login(driver):
+            try:
+                logger.info(f"Navigating to login page: {LOGIN_URL}")
+                driver.get(LOGIN_URL)
+                
+                logger.info("Waiting for email input field")
+                email_input = WebDriverWait(driver, 20).until(
+                    EC.presence_of_element_located((By.ID, "user_login"))
+                )
+                logger.info(f"Entering email: {USERNAME}")
+                email_input.send_keys(USERNAME)
+                
+                logger.info("Looking for continue button")
+                continue_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "input[type='submit']"))
+                )
+                logger.info("Clicking continue button")
+                continue_button.click()
+                
+                logger.info("Waiting for password input field")
+                password_input = WebDriverWait(driver, 20).until(
+                    EC.presence_of_element_located((By.ID, "user_password"))
+                )
+                logger.info("Entering password")
+                password_input.send_keys(PASSWORD)
+                
+                logger.info("Looking for sign in button")
+                sign_in_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//input[@type='submit' and @value='Sign in']"))
+                )
+                logger.info("Clicking sign in button")
+                sign_in_button.click()
 
-                  logger.info("Waiting for login process to complete")
-                  WebDriverWait(driver, 20).until(
-                      EC.url_contains("gomotionapp.com")
-                  )
+                logger.info("Waiting for login process to complete")
+                WebDriverWait(driver, 30).until(
+                    EC.url_contains("gomotionapp.com")
+                )
 
-                  logger.info(f"Current URL after login: {driver.current_url}")
+                logger.info(f"Current URL after login: {driver.current_url}")
 
-                  logger.info(f"Navigating to policies page: {POLICIES_PAGE_URL}")
-                  driver.get(POLICIES_PAGE_URL)
+                logger.info(f"Navigating to policies page: {POLICIES_PAGE_URL}")
+                driver.get(POLICIES_PAGE_URL)
 
-                  logger.info("Waiting for policies page to load")
-                  WebDriverWait(driver, 20).until(
-                      EC.presence_of_element_located((By.XPATH, "//h3[contains(text(), 'Team Policy Documents')]"))
-                  )
+                logger.info("Waiting for policies page to load")
+                WebDriverWait(driver, 30).until(
+                    EC.presence_of_element_located((By.XPATH, "//h3[contains(text(), 'Team Policy Documents')]"))
+                )
 
-                  logger.info("Successfully logged in and navigated to policies page")
-                  return True
-              except TimeoutException as e:
-                  logger.error(f"Timeout error during login: {str(e)}")
-                  logger.error(f"Current URL: {driver.current_url}")
-                  logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
-                  return False
-              except NoSuchElementException as e:
-                  logger.error(f"Element not found during login: {str(e)}")
-                  logger.error(f"Current URL: {driver.current_url}")
-                  logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
-                  return False
-              except Exception as e:
-                  logger.error(f"Unexpected error during login: {str(e)}")
-                  logger.error(f"Current URL: {driver.current_url}")
-                  logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
-                  return False
-
+                logger.info("Successfully logged in and navigated to policies page")
+                return True
+            except TimeoutException as e:
+                logger.error(f"Timeout error during login: {str(e)}")
+                logger.error(f"Current URL: {driver.current_url}")
+                logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
+                return False
+            except NoSuchElementException as e:
+                logger.error(f"Element not found during login: {str(e)}")
+                logger.error(f"Current URL: {driver.current_url}")
+                logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
+                return False
+            except Exception as e:
+                logger.error(f"Unexpected error during login: {str(e)}")
+                logger.error(f"Current URL: {driver.current_url}")
+                logger.error(f"Page source: {driver.page_source[:1000]}...")  # Log first 1000 characters of page source
+                return False
           def get_policy_documents(driver):
               try:
                   # Wait for the policy table to be present
