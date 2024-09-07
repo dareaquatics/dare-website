@@ -1,7 +1,7 @@
 #  Announcement Configuration
 
 # Set to 'yes' to display the announcement, 'no' to hide it
-active: yes
+active: no
 
 # Type of announcement: 'popup' or 'banner'. Generally want to use popup.
 type: popup
