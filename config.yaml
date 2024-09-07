@@ -1,17 +1,17 @@
 #  Announcement Configuration
 
 # Set to 'yes' to display the announcement, 'no' to hide it
-active: no
+active: yes
 
 # Type of announcement: 'popup' or 'banner'. Generally want to use popup.
 type: popup
 
 # The message to display
-message: "We are on a break until Monday, August 19th, 2024. Close this window by clicking the 'X'"
+message: "Dryland cancelled on Sep 5 and Sep 6 due to extreme heat."
 
 # Unique identifier for this announcement (change this to create a new instance)
 # Use the current date and time in YYYY-MM-DD HH:MM 24HRTIME format
-instance: "2024-08-14 10:35"
+instance: "2024-09-06 19:45"
 
 # Visual style
 style:
@@ -19,7 +19,7 @@ style:
   # #bb2124 = Red         = Severe
   # #ff8f00 = Orange      = Warning
   # #5bc0de = Light Blue  = Info
-  background_color: "#5bc0de"
+  background_color: "#bb2124"
 
   # Text color
   text_color: "white"
