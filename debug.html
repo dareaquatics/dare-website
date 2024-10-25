@@ -1,0 +1,275 @@
+<!-- Page used for collecting information for debugging purposes -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Page</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--gray-100);
+            color: var(--gray-800);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-200);
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .info-item {
+            margin: 0.75rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .info-value {
+            padding: 0.5rem;
+            background: var(--gray-100);
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            word-break: break-all;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            margin: 0;
+            color: var(--gray-800);
+        }
+
+        .export-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .export-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">Debug Information</h1>
+        <button class="export-btn" onclick="exportToFile()">Export to TXT</button>
+    </div>
+    <div class="dashboard" id="dashboard"></div>
+
+    <script>
+        let collectedInfo = {};
+
+        function collectClientInfo() {
+            const info = {
+                'System & Browser': {
+                    'User Agent': navigator.userAgent,
+                    'Platform': navigator.platform,
+                    'Browser Language': navigator.language,
+                    'Browser Languages': navigator.languages?.join(', '),
+                    'Cookies Enabled': navigator.cookieEnabled,
+                    'Do Not Track': navigator.doNotTrack,
+                    'Browser Engine': navigator.product,
+                    'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
+                    'Device Memory': navigator.deviceMemory ? `${navigator.deviceMemory}GB` : 'Unknown',
+                },
+                'Display & Graphics': {
+                    'Screen Resolution': `${screen.width}x${screen.height}`,
+                    'Window Size': `${window.innerWidth}x${window.innerHeight}`,
+                    'Color Depth': `${screen.colorDepth} bits`,
+                    'Pixel Ratio': window.devicePixelRatio,
+                    'Color Gamut': getColorGamut(),
+                    'Contrast Preference': getContrastPreference(),
+                    'Screen Orientation': screen.orientation?.type || 'Unknown'
+                },
+                'Time & Location': {
+                    'Current Time': new Date().toString(),
+                    'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    'Timezone Offset': `${new Date().getTimezoneOffset()} minutes`
+                },
+                'Network': {
+                    'Online Status': navigator.onLine ? 'Online' : 'Offline',
+                    'Connection Type': navigator.connection?.effectiveType || 'Unknown',
+                    'Downlink': navigator.connection?.downlink ? `${navigator.connection.downlink} Mbps` : 'Unknown',
+                    'Save Data': navigator.connection?.saveData ? 'Enabled' : 'Disabled'
+                },
+                'Features Support': {
+                    'WebGL': !!window.WebGLRenderingContext,
+                    'WebGL2': !!window.WebGL2RenderingContext,
+                    'Canvas': !!window.CanvasRenderingContext2D,
+                    'WebRTC': !!window.RTCPeerConnection,
+                    'WebSocket': !!window.WebSocket,
+                    'Web Workers': !!window.Worker,
+                    'Service Workers': !!navigator.serviceWorker,
+                    'Push API': !!window.PushManager,
+                    'Payment Request': !!window.PaymentRequest,
+                    'Web Share': !!navigator.share,
+                    'Bluetooth': !!navigator.bluetooth,
+                    'USB': !!navigator.usb,
+                    'Speech Recognition': !!(window.SpeechRecognition || window.webkitSpeechRecognition)
+                },
+                'Storage': {
+                    'Local Storage': !!window.localStorage,
+                    'Session Storage': !!window.sessionStorage,
+                    'IndexedDB': !!window.indexedDB,
+                    'Cache API': !!window.caches
+                }
+            };
+
+            // Collect permissions
+            if (navigator.permissions) {
+                const permissions = [
+                    'geolocation', 
+                    'notifications', 
+                    'camera', 
+                    'microphone',
+                    'clipboard-read',
+                    'clipboard-write'
+                ];
+                
+                Promise.all(permissions.map(permission =>
+                    navigator.permissions.query({ name: permission })
+                        .then(result => [permission, result.state])
+                        .catch(() => [permission, 'not-supported'])
+                )).then(results => {
+                    info['Permissions'] = Object.fromEntries(results);
+                    updateDisplay(info);
+                });
+            }
+
+            // Collect performance metrics
+            if (window.performance) {
+                info['Performance'] = {
+                    'Navigation Type': performance.navigation?.type,
+                    'Page Load Time': `${performance.now().toFixed(2)}ms`
+                };
+            }
+
+            collectedInfo = info;
+            updateDisplay(info);
+        }
+
+        function getColorGamut() {
+            if (window.matchMedia('(color-gamut: rec2020)').matches) return 'rec2020';
+            if (window.matchMedia('(color-gamut: p3)').matches) return 'p3';
+            if (window.matchMedia('(color-gamut: srgb)').matches) return 'srgb';
+            return 'unknown';
+        }
+
+        function getContrastPreference() {
+            if (window.matchMedia('(prefers-contrast: more)').matches) return 'more';
+            if (window.matchMedia('(prefers-contrast: less)').matches) return 'less';
+            if (window.matchMedia('(prefers-contrast: custom)').matches) return 'custom';
+            return 'normal';
+        }
+
+        function updateDisplay(info) {
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            for (const [category, items] of Object.entries(info)) {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                let cardContent = `<h2>${category}</h2>`;
+                
+                for (const [label, value] of Object.entries(items)) {
+                    cardContent += `
+                        <div class="info-item">
+                            <span class="info-label">${label}</span>
+                            <span class="info-value">${value}</span>
+                        </div>
+                    `;
+                }
+                
+                card.innerHTML = cardContent;
+                dashboard.appendChild(card);
+            }
+        }
+
+        function exportToFile() {
+            let exportText = 'CLIENT INFORMATION EXPORT\n';
+            exportText += '=========================\n\n';
+            
+            for (const [category, items] of Object.entries(collectedInfo)) {
+                exportText += `${category}\n`;
+                exportText += ''.padEnd(category.length, '=') + '\n';
+                
+                for (const [label, value] of Object.entries(items)) {
+                    exportText += `${label}: ${value}\n`;
+                }
+                exportText += '\n';
+            }
+
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `client-info-${new Date().toISOString()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        window.addEventListener('load', collectClientInfo);
+    </script>
+</body>
+</html>
