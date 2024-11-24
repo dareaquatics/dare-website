@@ -1,18 +1,21 @@
-<!-- Page used for collecting information for debugging purposes -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="System Debug Information Page">
     <title>Debug Page</title>
     <style>
         :root {
             --primary: #2563eb;
+            --primary-dark: #1d4ed8;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
             --gray-700: #374151;
             --gray-800: #1f2937;
+            --red-500: #ef4444;
+            --green-500: #22c55e;
         }
         
         body {
@@ -22,13 +25,20 @@
             padding: 2rem;
             background: var(--gray-100);
             color: var(--gray-800);
+            line-height: 1.5;
         }
 
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .dashboard.loaded {
+            opacity: 1;
         }
 
         .card {
@@ -36,6 +46,11 @@
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
         }
 
         .card h2 {
@@ -44,6 +59,9 @@
             border-bottom: 2px solid var(--gray-200);
             color: var(--primary);
             font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .info-item {
@@ -68,11 +86,21 @@
             word-break: break-all;
         }
 
+        .info-note {
+            font-size: 0.75rem;
+            color: var(--gray-700);
+            margin-top: 0.25rem;
+            font-style: italic;
+            padding-left: 0.5rem;
+        }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .title {
@@ -89,11 +117,45 @@
             cursor: pointer;
             font-size: 0.875rem;
             font-weight: 500;
-            transition: opacity 0.2s;
+            transition: all 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .export-btn:hover {
-            opacity: 0.9;
+            background: var(--primary-dark);
+        }
+
+        .export-btn:active {
+            transform: translateY(1px);
+        }
+
+        .export-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-700);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-indicator.online {
+            background-color: var(--green-500);
+        }
+
+        .status-indicator.offline {
+            background-color: var(--red-500);
         }
 
         @media (max-width: 768px) {
@@ -104,118 +166,65 @@
             .dashboard {
                 grid-template-columns: 1fr;
             }
+
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .export-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .title {
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .dashboard,
+            .card,
+            .export-btn {
+                transition: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1 class="title">Debug Information</h1>
-        <button class="export-btn" onclick="exportToFile()">Export to TXT</button>
+        <button class="export-btn" onclick="exportToFile()" id="exportBtn">
+            Export to TXT
+        </button>
     </div>
+    <div id="loadingIndicator" class="loading">Loading system information...</div>
     <div class="dashboard" id="dashboard"></div>
 
     <script>
         let collectedInfo = {};
 
-        function collectClientInfo() {
-            const info = {
-                'System & Browser': {
-                    'User Agent': navigator.userAgent,
-                    'Platform': navigator.platform,
-                    'Browser Language': navigator.language,
-                    'Browser Languages': navigator.languages?.join(', '),
-                    'Cookies Enabled': navigator.cookieEnabled,
-                    'Do Not Track': navigator.doNotTrack,
-                    'Browser Engine': navigator.product,
-                    'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
-                    'Device Memory': getDeviceMemory(),
-                },
-                'Display & Graphics': {
-                    'Screen Resolution': `${screen.width}x${screen.height}`,
-                    'Window Size': `${window.innerWidth}x${window.innerHeight}`,
-                    'Color Depth': `${screen.colorDepth} bits`,
-                    'Pixel Ratio': window.devicePixelRatio,
-                    'Color Gamut': getColorGamut(),
-                    'Contrast Preference': getContrastPreference(),
-                    'Screen Orientation': screen.orientation?.type || 'Unknown'
-                },
-                'Time & Location': {
-                    'Current Time': new Date().toString(),
-                    'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
-                    'Timezone Offset': `${new Date().getTimezoneOffset()} minutes`
-                },
-                'Network': {
-                    'Online Status': navigator.onLine ? 'Online' : 'Offline',
-                    'Connection Type': navigator.connection?.effectiveType || 'Unknown',
-                    'Downlink': navigator.connection?.downlink ? `${navigator.connection.downlink} Mbps` : 'Unknown',
-                    'Save Data': navigator.connection?.saveData ? 'Enabled' : 'Disabled'
-                },
-                'Features Support': {
-                    'WebGL': !!window.WebGLRenderingContext,
-                    'WebGL2': !!window.WebGL2RenderingContext,
-                    'Canvas': !!window.CanvasRenderingContext2D,
-                    'WebRTC': !!window.RTCPeerConnection,
-                    'WebSocket': !!window.WebSocket,
-                    'Web Workers': !!window.Worker,
-                    'Service Workers': !!navigator.serviceWorker,
-                    'Push API': !!window.PushManager,
-                    'Payment Request': !!window.PaymentRequest,
-                    'Web Share': !!navigator.share,
-                    'Bluetooth': !!navigator.bluetooth,
-                    'USB': !!navigator.usb,
-                    'Speech Recognition': !!(window.SpeechRecognition || window.webkitSpeechRecognition)
-                },
-                'Storage': {
-                    'Local Storage': !!window.localStorage,
-                    'Session Storage': !!window.sessionStorage,
-                    'IndexedDB': !!window.indexedDB,
-                    'Cache API': !!window.caches
-                }
+        function formatDate(date) {
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZoneName: 'short'
             };
-
-            // Collect permissions
-            if (navigator.permissions) {
-                const permissions = [
-                    'geolocation', 
-                    'notifications', 
-                    'camera', 
-                    'microphone',
-                    'clipboard-read',
-                    'clipboard-write'
-                ];
-                
-                Promise.all(permissions.map(permission =>
-                    navigator.permissions.query({ name: permission })
-                        .then(result => [permission, result.state])
-                        .catch(() => [permission, 'not-supported'])
-                )).then(results => {
-                    info['Permissions'] = Object.fromEntries(results);
-                    updateDisplay(info);
-                });
-            }
-
-            // Collect performance metrics
-            if (window.performance) {
-                info['Performance'] = {
-                    'Navigation Type': performance.navigation?.type,
-                    'Page Load Time': `${performance.now().toFixed(2)}ms`
-                };
-            }
-
-            collectedInfo = info;
-            updateDisplay(info);
+            return new Date(date).toLocaleString(undefined, options);
         }
 
         function getDeviceMemory() {
             try {
                 let memoryInfo = [];
                 
-                // navigator.deviceMemory (rounded to nearest power of 2, max 8GB)
                 if (navigator.deviceMemory !== undefined) {
                     memoryInfo.push(`${navigator.deviceMemory}GB (approximate, max 8GB)`);
                 }
                 
-                // Chrome-specific performance.memory
                 if (performance.memory) {
                     const totalMemoryGB = (performance.memory.jsHeapSizeLimit / (1024 * 1024 * 1024)).toFixed(2);
                     const usedMemoryGB = (performance.memory.usedJSHeapSize / (1024 * 1024 * 1024)).toFixed(2);
@@ -232,69 +241,142 @@
         }
 
         function getColorGamut() {
-            if (window.matchMedia('(color-gamut: rec2020)').matches) return 'rec2020';
-            if (window.matchMedia('(color-gamut: p3)').matches) return 'p3';
-            if (window.matchMedia('(color-gamut: srgb)').matches) return 'srgb';
-            return 'unknown';
+            try {
+                if (window.matchMedia('(color-gamut: rec2020)').matches) return 'rec2020';
+                if (window.matchMedia('(color-gamut: p3)').matches) return 'p3';
+                if (window.matchMedia('(color-gamut: srgb)').matches) return 'srgb';
+                return 'standard';
+            } catch {
+                return 'detection not supported';
+            }
         }
 
         function getContrastPreference() {
-            if (window.matchMedia('(prefers-contrast: more)').matches) return 'more';
-            if (window.matchMedia('(prefers-contrast: less)').matches) return 'less';
-            if (window.matchMedia('(prefers-contrast: custom)').matches) return 'custom';
-            return 'normal';
-        }
-
-        function updateDisplay(info) {
-            const dashboard = document.getElementById('dashboard');
-            dashboard.innerHTML = '';
-
-            for (const [category, items] of Object.entries(info)) {
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                let cardContent = `<h2>${category}</h2>`;
-                
-                for (const [label, value] of Object.entries(items)) {
-                    cardContent += `
-                        <div class="info-item">
-                            <span class="info-label">${label}</span>
-                            <span class="info-value">${value}</span>
-                        </div>
-                    `;
-                }
-                
-                card.innerHTML = cardContent;
-                dashboard.appendChild(card);
+            try {
+                if (window.matchMedia('(prefers-contrast: more)').matches) return 'more';
+                if (window.matchMedia('(prefers-contrast: less)').matches) return 'less';
+                if (window.matchMedia('(prefers-contrast: custom)').matches) return 'custom';
+                return 'normal';
+            } catch {
+                return 'detection not supported';
             }
         }
 
-        function exportToFile() {
-            let exportText = 'CLIENT INFORMATION EXPORT\n';
-            exportText += '=========================\n\n';
-            
-            for (const [category, items] of Object.entries(collectedInfo)) {
-                exportText += `${category}\n`;
-                exportText += ''.padEnd(category.length, '=') + '\n';
-                
-                for (const [label, value] of Object.entries(items)) {
-                    exportText += `${label}: ${value}\n`;
-                }
-                exportText += '\n';
+        function getBatteryInfo() {
+            if ('getBattery' in navigator) {
+                return navigator.getBattery().then(battery => ({
+                    level: `${Math.round(battery.level * 100)}%`,
+                    charging: battery.charging ? 'Yes' : 'No',
+                    chargingTime: battery.charging ? `${Math.round(battery.chargingTime / 60)} minutes` : 'N/A',
+                    dischargingTime: !battery.charging ? `${Math.round(battery.dischargingTime / 60)} minutes` : 'N/A'
+                })).catch(() => null);
             }
-
-            const blob = new Blob([exportText], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `client-info-${new Date().toISOString()}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
+            return Promise.resolve(null);
         }
 
-        window.addEventListener('load', collectClientInfo);
-    </script>
-</body>
-</html>
+        async function collectClientInfo() {
+            try {
+                const batteryInfo = await getBatteryInfo();
+                
+                const info = {
+                    'System & Browser': {
+                        'User Agent': navigator.userAgent,
+                        'Platform': navigator.platform,
+                        'Browser Language': navigator.language,
+                        'Browser Languages': navigator.languages?.join(', ') || 'Not available',
+                        'Cookies Enabled': navigator.cookieEnabled ? 'Yes' : 'No',
+                        'Do Not Track': navigator.doNotTrack === '1' ? 'Enabled' : 'Disabled',
+                        'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
+                        'Device Memory': getDeviceMemory(),
+                        '_memoryNote': 'Note: Browser memory reporting is intentionally limited for privacy reasons. Values are rounded down to the nearest power of 2, with a maximum of 8GB reported even on systems with more RAM.'
+                    },
+                    'Display & Graphics': {
+                        'Screen Resolution': `${screen.width}x${screen.height}`,
+                        'Window Size': `${window.innerWidth}x${window.innerHeight}`,
+                        'Color Depth': `${screen.colorDepth} bits`,
+                        'Pixel Ratio': window.devicePixelRatio.toFixed(2),
+                        'Color Gamut': getColorGamut(),
+                        'Contrast Preference': getContrastPreference(),
+                        'Screen Orientation': screen.orientation?.type || 'Unknown',
+                        'Reduced Motion': window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'Enabled' : 'Disabled'
+                    },
+                    'Time & Location': {
+                        'Current Time': formatDate(new Date()),
+                        'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        'Timezone Offset': `UTC${new Date().getTimezoneOffset() > 0 ? '-' : '+'}${Math.abs(new Date().getTimezoneOffset() / 60)}`
+                    },
+                    'Network & Power': {
+                        'Online Status': navigator.onLine ? 'Online' : 'Offline',
+                        'Connection Type': navigator.connection?.effectiveType || 'Unknown',
+                        'Downlink': navigator.connection?.downlink ? `${navigator.connection.downlink} Mbps` : 'Unknown',
+                        'Save Data': navigator.connection?.saveData ? 'Enabled' : 'Disabled',
+                        ...(batteryInfo && {
+                            'Battery Level': batteryInfo.level,
+                            'Battery Charging': batteryInfo.charging,
+                            'Time to Full': batteryInfo.chargingTime,
+                            'Time Remaining': batteryInfo.dischargingTime
+                        })
+                    },
+                    'Features Support': {
+                        'WebGL': !!window.WebGLRenderingContext ? 'Supported' : 'Not supported',
+                        'WebGL2': !!window.WebGL2RenderingContext ? 'Supported' : 'Not supported',
+                        'Canvas': !!window.CanvasRenderingContext2D ? 'Supported' : 'Not supported',
+                        'WebRTC': !!window.RTCPeerConnection ? 'Supported' : 'Not supported',
+                        'WebSocket': !!window.WebSocket ? 'Supported' : 'Not supported',
+                        'Web Workers': !!window.Worker ? 'Supported' : 'Not supported',
+                        'Service Workers': 'serviceWorker' in navigator ? 'Supported' : 'Not supported',
+                        'Push API': 'PushManager' in window ? 'Supported' : 'Not supported',
+                        'Payment Request': 'PaymentRequest' in window ? 'Supported' : 'Not supported',
+                        'Web Share': 'share' in navigator ? 'Supported' : 'Not supported',
+                        'Bluetooth': 'bluetooth' in navigator ? 'Supported' : 'Not supported',
+                        'USB': 'usb' in navigator ? 'Supported' : 'Not supported',
+                        'Speech Recognition': !!(window.SpeechRecognition || window.webkitSpeechRecognition) ? 'Supported' : 'Not supported'
+                    },
+                    'Storage': {
+                        'Local Storage': !!window.localStorage ? 'Available' : 'Not available',
+                        'Session Storage': !!window.sessionStorage ? 'Available' : 'Not available',
+                        'IndexedDB': !!window.indexedDB ? 'Available' : 'Not available',
+                        'Cache API': !!window.caches ? 'Available' : 'Not available'
+                    }
+                };
+
+                // Collect permissions
+                if (navigator.permissions) {
+                    const permissions = [
+                        'geolocation', 
+                        'notifications', 
+                        'camera', 
+                        'microphone',
+                        'clipboard-read',
+                        'clipboard-write'
+                    ];
+                    
+                    const permissionResults = await Promise.all(
+                        permissions.map(async permission => {
+                            try {
+                                const result = await navigator.permissions.query({ name: permission });
+                                return [permission, result.state];
+                            } catch {
+                                return [permission, 'not-supported'];
+                            }
+                        })
+                    );
+                    
+                    info['Permissions'] = Object.fromEntries(permissionResults);
+                }
+
+                // Collect performance metrics
+                if (window.performance) {
+                    const navTiming = performance.getEntriesByType('navigation')[0];
+                    info['Performance'] = {
+                        'Page Load Time': `${performance.now().toFixed(2)}ms`,
+                        'DNS Lookup': navTiming ? `${navTiming.domainLookupEnd - navTiming.domainLookupStart}ms` : 'N/A',
+                        'Connection Time': navTiming ? `${navTiming.connectEnd - navTiming.connectStart}ms` : 'N/A',
+                        'First Paint': `${performance.getEntriesByType('paint').find(entry => entry.name === 'first-paint')?.startTime.toFixed(2) || 'N/A'}ms`
+                    };
+                }
+
+                collectedInfo = info;
+                document.getElementById('loadingIndicator').style.display = 'none';
+                const dashboard = document.getElementById('dashboard');
+                dashboard.
