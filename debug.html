@@ -208,22 +208,26 @@
 
         function getDeviceMemory() {
             try {
-                // Try to get memory from navigator.deviceMemory
+                let memoryInfo = [];
+                
+                // navigator.deviceMemory (rounded to nearest power of 2, max 8GB)
                 if (navigator.deviceMemory !== undefined) {
-                    return `${navigator.deviceMemory}GB`;
+                    memoryInfo.push(`${navigator.deviceMemory}GB (approximate, max 8GB)`);
                 }
                 
-                // Try to get memory from performance.memory (Chrome only)
+                // Chrome-specific performance.memory
                 if (performance.memory) {
-                    const totalMemoryGB = Math.round(performance.memory.jsHeapSizeLimit / (1024 * 1024 * 1024));
-                    return `~${totalMemoryGB}GB (JS Heap Limit)`;
+                    const totalMemoryGB = (performance.memory.jsHeapSizeLimit / (1024 * 1024 * 1024)).toFixed(2);
+                    const usedMemoryGB = (performance.memory.usedJSHeapSize / (1024 * 1024 * 1024)).toFixed(2);
+                    memoryInfo.push(`JS Heap: ${usedMemoryGB}GB used of ${totalMemoryGB}GB limit`);
                 }
                 
-                // If neither method works
-                return 'Not available';
+                return memoryInfo.length > 0 
+                    ? memoryInfo.join(' | ')
+                    : 'Not available (API limitations)';
             } catch (error) {
                 console.error('Error getting device memory:', error);
-                return 'Error detecting';
+                return 'Error detecting memory';
             }
         }
 
