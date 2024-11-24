@@ -128,7 +128,7 @@
                     'Do Not Track': navigator.doNotTrack,
                     'Browser Engine': navigator.product,
                     'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
-                    'Device Memory': navigator.deviceMemory ? `${navigator.deviceMemory}GB` : 'Unknown',
+                    'Device Memory': getDeviceMemory(),
                 },
                 'Display & Graphics': {
                     'Screen Resolution': `${screen.width}x${screen.height}`,
@@ -204,6 +204,27 @@
 
             collectedInfo = info;
             updateDisplay(info);
+        }
+
+        function getDeviceMemory() {
+            try {
+                // Try to get memory from navigator.deviceMemory
+                if (navigator.deviceMemory !== undefined) {
+                    return `${navigator.deviceMemory}GB`;
+                }
+                
+                // Try to get memory from performance.memory (Chrome only)
+                if (performance.memory) {
+                    const totalMemoryGB = Math.round(performance.memory.jsHeapSizeLimit / (1024 * 1024 * 1024));
+                    return `~${totalMemoryGB}GB (JS Heap Limit)`;
+                }
+                
+                // If neither method works
+                return 'Not available';
+            } catch (error) {
+                console.error('Error getting device memory:', error);
+                return 'Error detecting';
+            }
         }
 
         function getColorGamut() {
