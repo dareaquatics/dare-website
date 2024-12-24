@@ -48,9 +48,11 @@
   .info-columns {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
   }
   .info-column {
       flex-basis: 48%;
+      margin-bottom: 20px;
   }
   h2 {
       font-size: 18px;
@@ -78,26 +80,23 @@
   }
 </style>
 <div class="container">
-  <h1>503 Service Unavailable</h1>
-  <p class="subtitle">You are unable to access dareaquatics.com/policy.html</p>
+  <h1>Failed to Load Page</h1>
+  <p class="subtitle">We encountered an error while trying to access dareaquatics.com/policy.html</p>
   <div class="browser-frame">
       <div class="error-icon"></div>
   </div>
   <div class="info-columns">
       <div class="info-column">
-          <h2>What's happening?</h2>
-          <p>We are currently performing scheduled maintenance on our website to improve your experience. This maintenance is necessary to ensure we can continue to provide you with the best possible service.</p>
+          <h2>What happened?</h2>
+          <p>The requested page could not be loaded due to a server issue or temporary network interruption. This error may occur if the website is undergoing updates or if there is high traffic volume.</p>
       </div>
       <div class="info-column">
-          <h2>When will the site be back?</h2>
-          <p>We expect the maintenance to be completed soon. We appreciate your patience and understanding. <b>This page will be unavailable while the policy documents are updated for the new season.</b></p>
+          <h2>What can you do?</h2>
+          <p>Please try refreshing the page or returning later. If the issue persists, check your internet connection or contact the site administrator for assistance.</p>
       </div>
-      <div class="info-column">
-        <h2>Estimated Return:</h2>
-        <p>October 28th, 2024, 12:00 PM PST</b></p>
-    </div>
   </div>
+  <a class="status-link" href="javascript:location.reload()">Try Again</a>
   <div class="footer">
-      © 2024 DARE Aquatics • Maintenance ID: PolicyRevisionV2
+      © 2024 DARE Aquatics • Error Code: 503-FLP • Reference ID: E503-LoadFail
   </div>
 </div>
