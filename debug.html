@@ -3,380 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="System Debug Information Page">
-    <title>Debug Page</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --red-500: #ef4444;
-            --green-500: #22c55e;
-        }
-        
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: var(--gray-100);
-            color: var(--gray-800);
-            line-height: 1.5;
-        }
+    <title>Browser Info and Export</title>
+    <script>
+        async function collectBrowserInfo() {
+            const info = {};
 
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
+            // Basic navigator properties
+            info['User Agent'] = navigator.userAgent;
+            info['Platform'] = navigator.platform;
+            info['Language'] = navigator.language;
+            info['Cookies Enabled'] = navigator.cookieEnabled;
+            info['Online'] = navigator.onLine;
 
-        .dashboard.loaded {
-            opacity: 1;
-        }
+            // Screen properties
+            info['Screen Width'] = screen.width;
+            info['Screen Height'] = screen.height;
+            info['Available Width'] = screen.availWidth;
+            info['Available Height'] = screen.availHeight;
+            info['Color Depth'] = screen.colorDepth;
+            info['Pixel Depth'] = screen.pixelDepth;
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease-in-out;
-        }
+            // Window properties
+            info['Inner Width'] = window.innerWidth;
+            info['Inner Height'] = window.innerHeight;
+            info['Outer Width'] = window.outerWidth;
+            info['Outer Height'] = window.outerHeight;
 
-        .card:hover {
-            transform: translateY(-2px);
-        }
+            // Plugins
+            info['Plugins'] = Array.from(navigator.plugins).map(plugin => plugin.name).join(', ');
 
-        .card h2 {
-            margin: 0 0 1rem 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--gray-200);
-            color: var(--primary);
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+            // MIME Types
+            info['MIME Types'] = Array.from(navigator.mimeTypes).map(mime => mime.type).join(', ');
 
-        .info-item {
-            margin: 0.75rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
+            // Timezone
+            info['Timezone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-        .info-label {
-            font-weight: 500;
-            color: var(--gray-700);
-            font-size: 0.875rem;
-        }
+            // Hardware concurrency and memory
+            info['CPU Cores'] = navigator.hardwareConcurrency;
+            info['Device Memory'] = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Not Supported';
 
-        .info-value {
-            padding: 0.5rem;
-            background: var(--gray-100);
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.875rem;
-            word-break: break-all;
-        }
+            // Touch and pointer capabilities
+            info['Max Touch Points'] = navigator.maxTouchPoints;
 
-        .info-note {
-            font-size: 0.75rem;
-            color: var(--gray-700);
-            margin-top: 0.25rem;
-            font-style: italic;
-            padding-left: 0.5rem;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .title {
-            margin: 0;
-            color: var(--gray-800);
-        }
-
-        .export-btn {
-            padding: 0.75rem 1.5rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s ease-in-out;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .export-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .export-btn:active {
-            transform: translateY(1px);
-        }
-
-        .export-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--gray-700);
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-
-        .status-indicator.online {
-            background-color: var(--green-500);
-        }
-
-        .status-indicator.offline {
-            background-color: var(--red-500);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-            
-            .dashboard {
-                grid-template-columns: 1fr;
+            // Connection Information
+            if (navigator.connection) {
+                info['Connection Type'] = navigator.connection.effectiveType;
+                info['Downlink Speed'] = navigator.connection.downlink + ' Mbps';
+                info['RTT'] = navigator.connection.rtt + ' ms';
+            } else {
+                info['Connection Information'] = 'Not Supported';
             }
 
-            .header {
-                flex-direction: column;
-                align-items: stretch;
+            // Geolocation
+            if (navigator.geolocation) {
+                await new Promise(resolve => {
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            info['Latitude'] = position.coords.latitude;
+                            info['Longitude'] = position.coords.longitude;
+                            info['Accuracy'] = position.coords.accuracy + ' meters';
+                            resolve();
+                        },
+                        error => {
+                            info['Geolocation'] = 'Permission Denied or Unavailable';
+                            resolve();
+                        }
+                    );
+                });
+            } else {
+                info['Geolocation'] = 'Not Supported';
             }
 
-            .export-btn {
-                width: 100%;
-                justify-content: center;
+            // Battery Information
+            if (navigator.getBattery) {
+                const battery = await navigator.getBattery();
+                info['Battery Level'] = (battery.level * 100) + '%';
+                info['Battery Charging'] = battery.charging ? 'Yes' : 'No';
+                info['Battery Charging Time'] = battery.chargingTime ? battery.chargingTime + ' seconds' : 'N/A';
+                info['Battery Discharging Time'] = battery.dischargingTime ? battery.dischargingTime + ' seconds' : 'N/A';
+            } else {
+                info['Battery Information'] = 'Not Supported';
             }
 
-            .title {
-                text-align: center;
+            // Performance Metrics
+            const perf = performance.getEntriesByType('navigation')[0];
+            if (perf) {
+                info['Page Load Time'] = perf.loadEventEnd - perf.startTime + ' ms';
+                info['DOM Content Loaded'] = perf.domContentLoadedEventEnd - perf.startTime + ' ms';
             }
+
+            // Storage Information
+            if (navigator.storage && navigator.storage.estimate) {
+                const storage = await navigator.storage.estimate();
+                info['Storage Usage'] = (storage.usage / (1024 * 1024)).toFixed(2) + ' MB';
+                info['Storage Quota'] = (storage.quota / (1024 * 1024)).toFixed(2) + ' MB';
+            } else {
+                info['Storage Information'] = 'Not Supported';
+            }
+
+            // WebGL Information
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl');
+            if (gl) {
+                const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                if (debugInfo) {
+                    info['Graphics Card Vendor'] = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+                    info['Graphics Card Renderer'] = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                } else {
+                    info['WebGL Renderer'] = 'Not Available';
+                }
+            } else {
+                info['WebGL'] = 'Not Supported';
+            }
+
+            // Gamepads
+            const gamepads = navigator.getGamepads();
+            if (gamepads) {
+                info['Gamepads'] = Array.from(gamepads).filter(Boolean).map((gamepad, index) => `Gamepad ${index + 1}: ${gamepad.id}`).join(', ');
+            } else {
+                info['Gamepads'] = 'Not Supported';
+            }
+
+            // Final Display
+            const infoDiv = document.getElementById('info');
+            infoDiv.textContent = JSON.stringify(info, null, 2);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .dashboard,
-            .card,
-            .export-btn {
-                transition: none;
-            }
+        function exportToTxt() {
+            const infoText = document.getElementById('info').textContent;
+            const blob = new Blob([infoText], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'browser_info.txt';
+            link.click();
         }
-    </style>
+    </script>
 </head>
 <body>
-    <div class="header">
-        <h1 class="title">Debug Information</h1>
-        <button class="export-btn" onclick="exportToFile()" id="exportBtn">
-            Export to TXT
-        </button>
-    </div>
-    <div id="loadingIndicator" class="loading">Loading system information...</div>
-    <div class="dashboard" id="dashboard"></div>
+    <h1>Browser Information and Export</h1>
+    <button onclick="collectBrowserInfo()">Collect Browser Information</button>
+    <button onclick="exportToTxt()">Export Data to TXT</button>
 
-    <script>
-        let collectedInfo = {};
-
-        function formatDate(date) {
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                timeZoneName: 'short'
-            };
-            return new Date(date).toLocaleString(undefined, options);
-        }
-
-        function getDeviceMemory() {
-            try {
-                let memoryInfo = [];
-                
-                if (navigator.deviceMemory !== undefined) {
-                    memoryInfo.push(`${navigator.deviceMemory}GB (approximate, max 8GB)`);
-                }
-                
-                if (performance.memory) {
-                    const totalMemoryGB = (performance.memory.jsHeapSizeLimit / (1024 * 1024 * 1024)).toFixed(2);
-                    const usedMemoryGB = (performance.memory.usedJSHeapSize / (1024 * 1024 * 1024)).toFixed(2);
-                    memoryInfo.push(`JS Heap: ${usedMemoryGB}GB used of ${totalMemoryGB}GB limit`);
-                }
-                
-                return memoryInfo.length > 0 
-                    ? memoryInfo.join(' | ')
-                    : 'Not available (API limitations)';
-            } catch (error) {
-                console.error('Error getting device memory:', error);
-                return 'Error detecting memory';
-            }
-        }
-
-        function getColorGamut() {
-            try {
-                if (window.matchMedia('(color-gamut: rec2020)').matches) return 'rec2020';
-                if (window.matchMedia('(color-gamut: p3)').matches) return 'p3';
-                if (window.matchMedia('(color-gamut: srgb)').matches) return 'srgb';
-                return 'standard';
-            } catch {
-                return 'detection not supported';
-            }
-        }
-
-        function getContrastPreference() {
-            try {
-                if (window.matchMedia('(prefers-contrast: more)').matches) return 'more';
-                if (window.matchMedia('(prefers-contrast: less)').matches) return 'less';
-                if (window.matchMedia('(prefers-contrast: custom)').matches) return 'custom';
-                return 'normal';
-            } catch {
-                return 'detection not supported';
-            }
-        }
-
-        function getBatteryInfo() {
-            if ('getBattery' in navigator) {
-                return navigator.getBattery().then(battery => ({
-                    level: `${Math.round(battery.level * 100)}%`,
-                    charging: battery.charging ? 'Yes' : 'No',
-                    chargingTime: battery.charging ? `${Math.round(battery.chargingTime / 60)} minutes` : 'N/A',
-                    dischargingTime: !battery.charging ? `${Math.round(battery.dischargingTime / 60)} minutes` : 'N/A'
-                })).catch(() => null);
-            }
-            return Promise.resolve(null);
-        }
-
-        async function collectClientInfo() {
-            try {
-                const batteryInfo = await getBatteryInfo();
-                
-                const info = {
-                    'System & Browser': {
-                        'User Agent': navigator.userAgent,
-                        'Platform': navigator.platform,
-                        'Browser Language': navigator.language,
-                        'Browser Languages': navigator.languages?.join(', ') || 'Not available',
-                        'Cookies Enabled': navigator.cookieEnabled ? 'Yes' : 'No',
-                        'Do Not Track': navigator.doNotTrack === '1' ? 'Enabled' : 'Disabled',
-                        'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
-                        'Device Memory': getDeviceMemory(),
-                        '_memoryNote': 'Note: Browser memory reporting is intentionally limited for privacy reasons. Values are rounded down to the nearest power of 2, with a maximum of 8GB reported even on systems with more RAM.'
-                    },
-                    'Display & Graphics': {
-                        'Screen Resolution': `${screen.width}x${screen.height}`,
-                        'Window Size': `${window.innerWidth}x${window.innerHeight}`,
-                        'Color Depth': `${screen.colorDepth} bits`,
-                        'Pixel Ratio': window.devicePixelRatio.toFixed(2),
-                        'Color Gamut': getColorGamut(),
-                        'Contrast Preference': getContrastPreference(),
-                        'Screen Orientation': screen.orientation?.type || 'Unknown',
-                        'Reduced Motion': window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'Enabled' : 'Disabled'
-                    },
-                    'Time & Location': {
-                        'Current Time': formatDate(new Date()),
-                        'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
-                        'Timezone Offset': `UTC${new Date().getTimezoneOffset() > 0 ? '-' : '+'}${Math.abs(new Date().getTimezoneOffset() / 60)}`
-                    },
-                    'Network & Power': {
-                        'Online Status': navigator.onLine ? 'Online' : 'Offline',
-                        'Connection Type': navigator.connection?.effectiveType || 'Unknown',
-                        'Downlink': navigator.connection?.downlink ? `${navigator.connection.downlink} Mbps` : 'Unknown',
-                        'Save Data': navigator.connection?.saveData ? 'Enabled' : 'Disabled',
-                        ...(batteryInfo && {
-                            'Battery Level': batteryInfo.level,
-                            'Battery Charging': batteryInfo.charging,
-                            'Time to Full': batteryInfo.chargingTime,
-                            'Time Remaining': batteryInfo.dischargingTime
-                        })
-                    },
-                    'Features Support': {
-                        'WebGL': !!window.WebGLRenderingContext ? 'Supported' : 'Not supported',
-                        'WebGL2': !!window.WebGL2RenderingContext ? 'Supported' : 'Not supported',
-                        'Canvas': !!window.CanvasRenderingContext2D ? 'Supported' : 'Not supported',
-                        'WebRTC': !!window.RTCPeerConnection ? 'Supported' : 'Not supported',
-                        'WebSocket': !!window.WebSocket ? 'Supported' : 'Not supported',
-                        'Web Workers': !!window.Worker ? 'Supported' : 'Not supported',
-                        'Service Workers': 'serviceWorker' in navigator ? 'Supported' : 'Not supported',
-                        'Push API': 'PushManager' in window ? 'Supported' : 'Not supported',
-                        'Payment Request': 'PaymentRequest' in window ? 'Supported' : 'Not supported',
-                        'Web Share': 'share' in navigator ? 'Supported' : 'Not supported',
-                        'Bluetooth': 'bluetooth' in navigator ? 'Supported' : 'Not supported',
-                        'USB': 'usb' in navigator ? 'Supported' : 'Not supported',
-                        'Speech Recognition': !!(window.SpeechRecognition || window.webkitSpeechRecognition) ? 'Supported' : 'Not supported'
-                    },
-                    'Storage': {
-                        'Local Storage': !!window.localStorage ? 'Available' : 'Not available',
-                        'Session Storage': !!window.sessionStorage ? 'Available' : 'Not available',
-                        'IndexedDB': !!window.indexedDB ? 'Available' : 'Not available',
-                        'Cache API': !!window.caches ? 'Available' : 'Not available'
-                    }
-                };
-
-                // Collect permissions
-                if (navigator.permissions) {
-                    const permissions = [
-                        'geolocation', 
-                        'notifications', 
-                        'camera', 
-                        'microphone',
-                        'clipboard-read',
-                        'clipboard-write'
-                    ];
-                    
-                    const permissionResults = await Promise.all(
-                        permissions.map(async permission => {
-                            try {
-                                const result = await navigator.permissions.query({ name: permission });
-                                return [permission, result.state];
-                            } catch {
-                                return [permission, 'not-supported'];
-                            }
-                        })
-                    );
-                    
-                    info['Permissions'] = Object.fromEntries(permissionResults);
-                }
-
-                // Collect performance metrics
-                if (window.performance) {
-                    const navTiming = performance.getEntriesByType('navigation')[0];
-                    info['Performance'] = {
-                        'Page Load Time': `${performance.now().toFixed(2)}ms`,
-                        'DNS Lookup': navTiming ? `${navTiming.domainLookupEnd - navTiming.domainLookupStart}ms` : 'N/A',
-                        'Connection Time': navTiming ? `${navTiming.connectEnd - navTiming.connectStart}ms` : 'N/A',
-                        'First Paint': `${performance.getEntriesByType('paint').find(entry => entry.name === 'first-paint')?.startTime.toFixed(2) || 'N/A'}ms`
-                    };
-                }
-
-                collectedInfo = info;
-                document.getElementById('loadingIndicator').style.display = 'none';
-                const dashboard = document.getElementById('dashboard');
-                dashboard.
+    <pre id="info" style="white-space: pre-wrap; border: 1px solid #000; padding: 10px;"></pre>
+</body>
+</html>
