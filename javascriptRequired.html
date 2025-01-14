@@ -100,10 +100,15 @@
             if (typeof(Storage) !== "undefined") {
                 // Get the target URL from the query parameters
                 const targetUrl = params.get('target') || '/';
+                const authorizedUrls = ['/', '/home', '/dashboard']; // List of authorized URLs
                 
                 // If JavaScript is enabled, redirect back to the target page
                 if (localStorage.getItem('jsEnabled') === 'true') {
-                    window.location.href = decodeURIComponent(targetUrl) + '?jscheck=true';
+                    if (authorizedUrls.includes(targetUrl)) {
+                        window.location.href = decodeURIComponent(targetUrl) + '?jscheck=true';
+                    } else {
+                        window.location.href = '/'; // Default safe URL
+                    }
                 }
             }
         });
