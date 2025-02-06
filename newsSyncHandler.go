@@ -7,6 +7,7 @@ import (
 	"os"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -195,6 +196,13 @@ func fetchArticle(articleURL string) (Article, error) {
 func formatDate(timestamp string, tzid string) string {
 	if timestamp == "" {
 		return "Unknown Date"
+	}
+
+	// Handle Unix timestamps in milliseconds
+	if unixMillis, err := strconv.ParseInt(timestamp, 10, 64); err == nil {
+		// Convert milliseconds to seconds
+		t := time.Unix(unixMillis/1000, 0)
+		return t.Format(timeFormat)
 	}
 
 	// Handle ICS dates with explicit timezone
