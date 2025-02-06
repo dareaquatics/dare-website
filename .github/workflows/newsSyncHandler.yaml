@@ -43,4 +43,4 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           cd syncHandlers/news
-          go run main.go
+          go run newsSyncHandler.go
