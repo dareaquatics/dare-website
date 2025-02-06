@@ -42,4 +42,4 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           cd syncHandlers/calendar
-          go run main.go
+          go run calendarSyncHandler.go
