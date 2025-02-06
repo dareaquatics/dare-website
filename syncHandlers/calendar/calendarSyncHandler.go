@@ -19,7 +19,7 @@ import (
 const (
 	icsURL        = "https://www.gomotionapp.com/rest/ics/system/5/Events.ics?key=l4eIgFXwqEbxbQz42YjRgg%3D%3D&enabled=false&tz=America%2FLos_Angeles"
 	timezone      = "America/Los_Angeles"
-	eventsHTML    = "calendar.html"
+	eventsHTML = "../../calendar.html"
 	startMarker   = "<!-- START UNDER HERE -->"
 	endMarker     = "<!-- END AUTOMATION SCRIPT -->"
 	commitMessage = "automated commit: sync TeamUnify calendar [skip ci]"
@@ -191,7 +191,7 @@ func updateHTMLContent(newContent string, log *logrus.Logger) (bool, error) {
 
 func gitCommitAndPush(log *logrus.Logger) error {
 	log.Info("committing changes to git")
-	repo, err := git.PlainOpen(".")
+	repo, err := git.PlainOpen("../..")
 	if err != nil {
 		return fmt.Errorf("repo open failed: %w", err)
 	}

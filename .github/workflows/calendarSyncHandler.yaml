@@ -40,4 +40,6 @@ jobs:
       - name: run sync handler
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: go run calendarSyncHandler.go
+        run: |
+          cd syncHandlers/calendar
+          go run main.go
