@@ -1,0 +1,44 @@
+name: Sync News
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */2 * * *" # Runs every 2 hours
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.23'
+
+      - name: cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            .go-bin
+          key: ${{ runner.os }}-go-${{ hashFiles('go.mod') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: install dependencies
+        run: |
+          go mod tidy
+          go mod download
+
+      - name: set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: run sync handler
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: go run newsSyncHandler.go
