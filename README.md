@@ -4,5 +4,5 @@ Official website for DARE Aquatics. Hosted on GitHub Pages instance. Licensed un
 
 [![CI](https://github.com/dareaquatics/dare-website/actions/workflows/CI.yaml/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/CI.yaml)
 [![GitHub Pages](https://github.com/dareaquatics/dare-website/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/pages/pages-build-deployment)
-[![Calendar](https://github.com/dareaquatics/dare-website/actions/workflows/autosyncCalendarWorkflow.yaml/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/autosyncCalendarWorkflow.yaml)
-[![News](https://github.com/dareaquatics/dare-website/actions/workflows/autosyncNewsWorkflow.yaml/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/autosyncNewsWorkflow.yaml)
+[![Sync Calendar](https://github.com/dareaquatics/dare-website/actions/workflows/calendarSyncHandler.yaml/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/calendarSyncHandler.yaml)
+[![Sync News](https://github.com/dareaquatics/dare-website/actions/workflows/newsSyncHandler.yaml/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/newsSyncHandler.yaml)
