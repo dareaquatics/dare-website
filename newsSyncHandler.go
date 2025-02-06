@@ -185,22 +185,41 @@ func fetchArticle(articleURL string) (Article, error) {
 
 	return Article{
 		Title:   strings.TrimSpace(title),
-		Date:    formatDate(dateStr),
+		Date:    formatDate(dateStr, ""), // No timezone for news articles
 		Author:  strings.TrimSpace(author),
 		Content: processContent(content),
 		URL:     articleURL,
 	}, nil
 }
 
-func formatDate(timestamp string) string {
+func formatDate(timestamp string, tzid string) string {
 	if timestamp == "" {
 		return "Unknown Date"
 	}
 
+	// Handle ICS dates with explicit timezone
+	if tzid != "" {
+		loc, err := time.LoadLocation(tzid)
+		if err != nil {
+			log.Warnf("unknown timezone: %s", tzid)
+			return "Unknown Date"
+		}
+
+		// Parse ICS format (YYYYMMDDTHHMMSS)
+		t, err := time.ParseInLocation("20060102T150405", timestamp, loc)
+		if err == nil {
+			return t.Format(timeFormat) + " (Local Time)"
+		}
+	}
+
+	// Original handling for article dates (RFC3339)
 	t, err := time.Parse(time.RFC3339, timestamp)
 	if err == nil {
 		return t.Format(timeFormat)
 	}
+
+	// Fallback for other formats
+	log.Warnf("unable to parse timestamp: %s", timestamp)
 	return "Unknown Date"
 }
 
