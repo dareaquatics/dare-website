@@ -1,4 +1,4 @@
-name: Controlled Deploy
+name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:  # Allows manual triggering via GitHub UI
@@ -82,5 +82,5 @@ jobs:
         with:
           github_token: ${{ secrets.PAT_TOKEN }}  # Personal Access Token for deployment
           publish_dir: ./                         # Deploy the root directory
-          publish_branch: main                    # Deploy to the `main` branch
+          publish_branch: live                  # Deploy to the `live` branch
           keep_files: true                        # Preserve existing files on the target branch
