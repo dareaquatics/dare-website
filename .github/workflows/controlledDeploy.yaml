@@ -72,7 +72,7 @@ jobs:
         if: steps.check-changes.outputs.proceed == 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PAT_TOKEN }}
           publish_dir: ./         # Deploy the root directory
           target_branch: main     # Deploy directly to the main branch
           keep_files: true        # Preserve existing files
