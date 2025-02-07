@@ -2,14 +2,14 @@ name: Controlled Deploy
 
 on:
   workflow_dispatch:
-  schedule:
+#  schedule:
     - cron: "0 0 * * *" # Runs daily at midnight
-  push:
-    branches:
-      - main  # This workflow runs on pushes to main
-    paths:    # Monitor changes in the root folder and the assets directory
-      - '*'         # All files in the root directory
-      - 'assets/**' # Everything inside the assets folder
+#  push:
+ #   branches:
+#    - main  # This workflow runs on pushes to main
+ #   paths:    # Monitor changes in the root folder and the assets directory
+#      - '*'         # All files in the root directory
+ #     - 'assets/**' # Everything inside the assets folder
 
 jobs:
   deploy:
