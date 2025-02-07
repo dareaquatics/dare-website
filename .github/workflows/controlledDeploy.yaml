@@ -1,6 +1,9 @@
 name: Controlled Deploy
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight
   push:
     branches:
       - main  # This workflow runs on pushes to main
