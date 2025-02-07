@@ -1,13 +1,12 @@
-name: Controlled Pages Deploy
+name: Controlled Deploy
 
 on:
   push:
     branches:
       - main  # This workflow runs on pushes to main
-    paths:    # Monitor key directories/files for changes
-      - 'docs/**'
-      - '_config.yml'
-      - 'assets/**'
+    paths:    # Monitor changes in the root folder and the assets directory
+      - '*'         # All files in the root directory
+      - 'assets/**' # Everything inside the assets folder
 
 jobs:
   deploy:
@@ -29,15 +28,15 @@ jobs:
         id: check-changes
         env:
           EXCLUDED_PATTERNS: |
-            ^\.github/.*          # GitHub workflows and configs
-            ^\.gitignore$         # Git ignore file
-            ^go\.mod$             # Go module file
-            ^LICENSE$             # License file
-            ^README\.md$          # Repository readme
-            ^maintenanceStatusToggle\.json$  # Maintenance config
-            ^config\.yaml$        # Configuration file
-            ^developerResources/.*  # Developer resources
-            ^syncHandlers/.*      # Sync handlers directory
+            ^\.github/.*                    # GitHub workflows and configs
+            ^\.gitignore$                   # Git ignore file
+            ^go\.mod$                       # Go module file
+            ^LICENSE$                       # License file
+            ^README\.md$                    # Repository readme
+            ^maintenanceStatusToggle\.json$ # Maintenance config
+            ^config\.yaml$                  # Configuration file
+            ^developerResources/.*          # Developer resources
+            ^syncHandlers/.*                # Sync handlers directory
         run: |
           # Convert the comma-separated list to an array
           mapfile -t files <<< "$(echo '${{ steps.changed-files.outputs.all_changed_files }}' | tr ',' '\n')"
@@ -54,7 +53,7 @@ jobs:
                 break
               fi
             done <<< "$(echo "$EXCLUDED_PATTERNS" | grep -v '^#')"
-
+            
             if ! $excluded; then
               echo "Relevant change detected: $file"
               relevant_changes=$((relevant_changes + 1))
