@@ -11,15 +11,15 @@ import (
 
 	"github.com/apognu/gocal"
 	"github.com/sirupsen/logrus"
-	git "gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	gitHttp "gopkg.in/src-d/go-git.v4/plumbing/transport/http"
+	git "github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing/object"
+	gitHttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 const (
 	icsURL        = "https://www.gomotionapp.com/rest/ics/system/5/Events.ics?key=l4eIgFXwqEbxbQz42YjRgg%3D%3D&enabled=false&tz=America%2FLos_Angeles"
 	timezone      = "America/Los_Angeles"
-	eventsHTML = "../../calendar.html"
+	eventsHTML    = "../../calendar.html"
 	startMarker   = "<!-- START UNDER HERE -->"
 	endMarker     = "<!-- END AUTOMATION SCRIPT -->"
 	commitMessage = "automated commit: sync TeamUnify calendar [skip ci]"
