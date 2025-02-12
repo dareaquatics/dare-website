@@ -33,6 +33,11 @@ func main() {
 		log.Fatal("missing PAT_TOKEN environment variable")
 	}
 
+	// Change working directory to repository root
+	if err := os.Chdir("../../"); err != nil {
+		log.Fatalf("failed to change directory: %v", err)
+	}
+
 	events, err := fetchEvents(log)
 	if err != nil {
 		log.Fatalf("failed to fetch events: %v", err)
@@ -102,7 +107,7 @@ func fetchEvents(log *logrus.Logger) ([]gocal.Event, error) {
 
 func generateHTML(events []gocal.Event, log *logrus.Logger) string {
 	log.Info("generating html content")
-	
+
 	if len(events) == 0 {
 		return `<div class="event"><p>No upcoming events published.</p></div>`
 	}
@@ -191,7 +196,7 @@ func updateHTMLContent(newContent string, log *logrus.Logger) (bool, error) {
 
 func gitCommitAndPush(log *logrus.Logger) error {
 	log.Info("committing changes to git")
-	repo, err := git.PlainOpen("../..")
+	repo, err := git.PlainOpen(".") 
 	if err != nil {
 		return fmt.Errorf("repo open failed: %w", err)
 	}
