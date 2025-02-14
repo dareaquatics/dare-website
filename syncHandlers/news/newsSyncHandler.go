@@ -5,14 +5,11 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"regexp"
 	"sort"
-	"strconv"
 	"strings"
-	"sync"
 	"time"
 
-	"github.com/PuerkitoBio/goquery"
+	"github.com/apognu/gocal"
 	"github.com/sirupsen/logrus"
 	git "github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -20,57 +17,40 @@ import (
 )
 
 const (
-	newsURL      = "https://www.gomotionapp.com/team/cadas/page/news"
-	baseURL      = "https://www.gomotionapp.com"
-	newsHTMLFile = "../../news.html"
-	startMarker  = "<!-- START UNDER HERE -->"
-	endMarker    = "<!-- END AUTOMATION SCRIPT -->"
-	timeFormat   = "January 2, 2006"
-	concurrency  = 5
+	icsURL        = "https://www.gomotionapp.com/rest/ics/system/5/Events.ics?key=l4eIgFXwqEbxbQz42YjRgg%3D%3D&enabled=false&tz=America%2FLos_Angeles"
+	timezone      = "America/Los_Angeles"
+	eventsHTML    = "calendar.html"
+	startMarker   = "<!-- START UNDER HERE -->"
+	endMarker     = "<!-- END AUTOMATION SCRIPT -->"
+	commitMessage = "automated commit: sync TeamUnify calendar [skip ci]"
 )
-
-var (
-	client = &http.Client{
-		Timeout: 30 * time.Second,
-	}
-	log = logrus.New()
-)
-
-type Article struct {
-	Title   string
-	Date    string
-	Author  string
-	Content string
-	URL     string
-}
 
 func main() {
-	setupLogger()
-	log.Info("starting news sync process")
+	log := setupLogger()
+	log.Info("starting calendar sync process")
 
 	if os.Getenv("PAT_TOKEN") == "" {
 		log.Fatal("missing PAT_TOKEN environment variable")
 	}
 
-	articleURLs, err := fetchArticleURLs()
+	// Change working directory to repository root
+	if err := os.Chdir("../../"); err != nil {
+		log.Fatalf("failed to change directory: %v", err)
+	}
+
+	events, err := fetchEvents(log)
 	if err != nil {
-		log.Fatalf("failed to fetch article urls: %v", err)
+		log.Fatalf("failed to fetch events: %v", err)
 	}
 
-	articles := processArticles(articleURLs)
-	if len(articles) == 0 {
-		log.Info("no articles found")
-		return
-	}
-
-	htmlContent := generateHTML(articles)
-	modified, err := updateNewsHTML(htmlContent)
+	htmlContent := generateHTML(events, log)
+	modified, err := updateHTMLContent(htmlContent, log)
 	if err != nil {
 		log.Fatalf("failed to update html: %v", err)
 	}
 
 	if modified {
-		if err := gitCommitAndPush(); err != nil {
+		if err := gitCommitAndPush(log); err != nil {
 			log.Fatalf("failed to commit changes: %v", err)
 		}
 	}
@@ -78,25 +58,21 @@ func main() {
 	log.Info("sync process completed successfully")
 }
 
-func setupLogger() {
+func setupLogger() *logrus.Logger {
+	log := logrus.New()
 	log.SetFormatter(&logrus.TextFormatter{
 		ForceColors:   true,
 		FullTimestamp: true,
 	})
 	log.SetLevel(logrus.InfoLevel)
+	return log
 }
 
-func fetchArticleURLs() ([]string, error) {
-	log.Info("fetching main news page")
-	req, err := http.NewRequest("GET", newsURL, nil)
+func fetchEvents(log *logrus.Logger) ([]gocal.Event, error) {
+	log.Info("fetching ics data")
+	resp, err := http.Get(icsURL)
 	if err != nil {
-		return nil, fmt.Errorf("request creation failed: %w", err)
-	}
-
-	setBrowserHeaders(req)
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("request failed: %w", err)
+		return nil, fmt.Errorf("ics fetch failed: %w", err)
 	}
 	defer resp.Body.Close()
 
@@ -104,201 +80,80 @@ func fetchArticleURLs() ([]string, error) {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	loc, err := time.LoadLocation(timezone)
 	if err != nil {
-		return nil, fmt.Errorf("html parsing failed: %w", err)
+		return nil, fmt.Errorf("timezone load failed: %w", err)
 	}
 
-	var urls []string
-	doc.Find("div.Item:not(.Supplement) a[href]").Each(func(i int, s *goquery.Selection) {
-		if href, exists := s.Attr("href"); exists {
-			urls = append(urls, baseURL+href)
-		}
+	parser := gocal.NewParser(resp.Body)
+	if err := parser.Parse(); err != nil {
+		return nil, fmt.Errorf("ics parse failed: %w", err)
+	}
+
+	for i := range parser.Events {
+		start := parser.Events[i].Start.In(loc)
+		end := parser.Events[i].End.In(loc)
+		parser.Events[i].Start = &start
+		parser.Events[i].End = &end
+	}
+
+	sort.Slice(parser.Events, func(i, j int) bool {
+		return parser.Events[i].Start.Before(*parser.Events[j].Start)
 	})
 
-	log.Infof("found %d articles", len(urls))
-	return urls, nil
+	log.Infof("processed %d events", len(parser.Events))
+	return parser.Events, nil
 }
 
-func processArticles(urls []string) []Article {
-	var wg sync.WaitGroup
-	ch := make(chan string, concurrency)
-	results := make(chan Article, len(urls))
+func generateHTML(events []gocal.Event, log *logrus.Logger) string {
+	log.Info("generating html content")
 
-	for i := 0; i < concurrency; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			for url := range ch {
-				article, err := fetchArticle(url)
-				if err != nil {
-					log.Warnf("failed to process %s: %v", url, err)
-					continue
-				}
-				results <- article
-			}
-		}()
+	if len(events) == 0 {
+		return `<div class="event"><p>No upcoming events published.</p></div>`
 	}
 
-	for _, url := range urls {
-		ch <- url
-	}
-	close(ch)
-	wg.Wait()
-	close(results)
+	var content strings.Builder
+	now := time.Now().In(time.UTC)
+	hasUpcoming := false
 
-	var articles []Article
-	for article := range results {
-		articles = append(articles, article)
-	}
-
-	sortArticlesByDate(articles)
-	return articles
-}
-
-func fetchArticle(articleURL string) (Article, error) {
-	req, err := http.NewRequest("GET", articleURL, nil)
-	if err != nil {
-		return Article{}, fmt.Errorf("request creation failed: %w", err)
-	}
-
-	setBrowserHeaders(req)
-	resp, err := client.Do(req)
-	if err != nil {
-		return Article{}, fmt.Errorf("request failed: %w", err)
-	}
-	defer resp.Body.Close()
-
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
-	if err != nil {
-		return Article{}, fmt.Errorf("html parsing failed: %w", err)
-	}
-
-	newsItem := doc.Find("div.NewsItem")
-	if newsItem.Length() == 0 {
-		return Article{}, fmt.Errorf("news item not found")
-	}
-
-	title := newsItem.Find("h1").Text()
-	dateStr, _ := newsItem.Find("span.DateStr").Attr("data")
-	author := newsItem.Find("div.Author strong").Text()
-	content, _ := newsItem.Find("div.Content").Html()
-
-	return Article{
-		Title:   strings.TrimSpace(title),
-		Date:    formatDate(dateStr, ""), // No timezone for news articles
-		Author:  strings.TrimSpace(author),
-		Content: processContent(content),
-		URL:     articleURL,
-	}, nil
-}
-
-func formatDate(timestamp string, tzid string) string {
-	if timestamp == "" {
-		return "Unknown Date"
-	}
-
-	// Handle Unix timestamps in milliseconds
-	if unixMillis, err := strconv.ParseInt(timestamp, 10, 64); err == nil {
-		// Convert milliseconds to seconds
-		t := time.Unix(unixMillis/1000, 0)
-		return t.Format(timeFormat)
-	}
-
-	// Handle ICS dates with explicit timezone
-	if tzid != "" {
-		loc, err := time.LoadLocation(tzid)
-		if err != nil {
-			log.Warnf("unknown timezone: %s", tzid)
-			return "Unknown Date"
+	for _, event := range events {
+		// Skip past events
+		if event.End.Before(now) {
+			continue
 		}
 
-		// Parse ICS format (YYYYMMDDTHHMMSS)
-		t, err := time.ParseInLocation("20060102T150405", timestamp, loc)
-		if err == nil {
-			return t.Format(timeFormat) + " (Local Time)"
-		}
-	}
-
-	// Original handling for article dates (RFC3339)
-	t, err := time.Parse(time.RFC3339, timestamp)
-	if err == nil {
-		return t.Format(timeFormat)
-	}
-
-	// Fallback for other formats
-	log.Warnf("unable to parse timestamp: %s", timestamp)
-	return "Unknown Date"
-}
-
-func processContent(html string) string {
-	doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
-	if err != nil {
-		return html
-	}
-
-	// Process images
-	doc.Find("img").Each(func(i int, s *goquery.Selection) {
-		src, _ := s.Attr("src")
-		if src != "" && !strings.HasPrefix(src, "http") {
-			src = baseURL + src
-		}
-		s.ReplaceWithHtml(fmt.Sprintf(`<a href="%s" target="_blank">Click to see image</a>`, src))
-	})
-
-	// Flatten headings
-	doc.Find("h1,h2,h3,h4,h5,h6").Each(func(i int, s *goquery.Selection) {
-		s.SetHtml(fmt.Sprintf(`<p class="news-paragraph">%s</p>`, s.Text()))
-	})
-
-	// Clean up links
-	doc.Find("a").Each(func(i int, s *goquery.Selection) {
-		href, _ := s.Attr("href")
-		s.SetText("Click here to be redirected to the link")
-		if href != "" && !strings.HasPrefix(href, "http") {
-			href = baseURL + href
-		}
-		s.SetAttr("href", href)
-		s.SetAttr("target", "_blank")
-	})
-
-	// Clean up HTML
-	html, _ = doc.Html()
-	html = regexp.MustCompile(`\s+`).ReplaceAllString(html, " ")
-	html = regexp.MustCompile(`<br\s*/?>`).ReplaceAllString(html, "\n")
-	html = regexp.MustCompile(`</li>\s*<li>`).ReplaceAllString(html, "</li><li>")
-
-	return html
-}
-
-func sortArticlesByDate(articles []Article) {
-	sort.Slice(articles, func(i, j int) bool {
-		t1, _ := time.Parse(timeFormat, articles[i].Date)
-		t2, _ := time.Parse(timeFormat, articles[j].Date)
-		return t1.After(t2)
-	})
-}
-
-func generateHTML(articles []Article) string {
-	var sb strings.Builder
-	sb.WriteString("\n")
-
-	for _, article := range articles {
-		sb.WriteString(fmt.Sprintf(`
-		<div class="news-item">
-			<h2 class="news-title"><strong>%s</strong></h2>
-			<p class="news-date">Author: %s</p>
-			<p class="news-date">Published on %s</p>
-			<div class="news-content">%s</div>
+		hasUpcoming = true
+		content.WriteString(fmt.Sprintf(`
+		<div class="event">
+		  <h2><strong>%s</strong></h2>
+		  <p><b>Event Start:</b> %s</p>
+		  <p><b>Event End:</b> %s</p>
+		  <br>
+		  <p>Click the button below for more information.</p>
+		  <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" 
+		     target="_blank" 
+		     rel="noopener noreferrer" 
+		     class="btn btn-primary">
+		    More Details
+		  </a>
 		</div>
-		`, article.Title, article.Author, article.Date, article.Content))
+		<br><br>`,
+			event.Summary,
+			event.Start.Format("January 02, 2006"),
+			event.End.Format("January 02, 2006"),
+		))
 	}
 
-	return sb.String()
+	if !hasUpcoming {
+		content.WriteString(`<div class="event"><p>No upcoming events published.</p></div>`)
+	}
+
+	return content.String()
 }
 
-func updateNewsHTML(newContent string) (bool, error) {
-	file, err := os.OpenFile(newsHTMLFile, os.O_RDWR, 0644)
+func updateHTMLContent(newContent string, log *logrus.Logger) (bool, error) {
+	log.Info("updating html file")
+	file, err := os.OpenFile(eventsHTML, os.O_RDWR, 0644)
 	if err != nil {
 		return false, fmt.Errorf("file open failed: %w", err)
 	}
@@ -317,7 +172,7 @@ func updateNewsHTML(newContent string) (bool, error) {
 		return false, fmt.Errorf("markers not found in html")
 	}
 
-	updated := html[:startIdx] + newContent + html[endIdx:]
+	updated := html[:startIdx] + "\n" + newContent + "\n" + html[endIdx:]
 	if updated == html {
 		log.Info("no changes detected")
 		return false, nil
@@ -339,8 +194,15 @@ func updateNewsHTML(newContent string) (bool, error) {
 	return true, nil
 }
 
-func gitCommitAndPush() error {
-	repo, err := git.PlainOpen("../..")
+func gitCommitAndPush(log *logrus.Logger) error {
+	log.Info("committing changes to git")
+
+	// Change working directory to repository root
+	if err := os.Chdir("../../"); err != nil {
+		log.Fatalf("failed to change directory: %v", err)
+	}
+
+	repo, err := git.PlainOpen(".")
 	if err != nil {
 		return fmt.Errorf("repo open failed: %w", err)
 	}
@@ -350,11 +212,11 @@ func gitCommitAndPush() error {
 		return fmt.Errorf("worktree access failed: %w", err)
 	}
 
-	if _, err := wt.Add(newsHTMLFile); err != nil {
+	if _, err := wt.Add(eventsHTML); err != nil {
 		return fmt.Errorf("git add failed: %w", err)
 	}
 
-	_, err = wt.Commit("automated commit: sync TeamUnify news articles [skip ci]", &git.CommitOptions{
+	_, err = wt.Commit(commitMessage, &git.CommitOptions{
 		Author: &object.Signature{
 			Name:  "github-actions[bot]",
 			Email: "github-actions[bot]@users.noreply.github.com",
@@ -374,12 +236,6 @@ func gitCommitAndPush() error {
 		return fmt.Errorf("push failed: %w", err)
 	}
 
+	log.Info("changes pushed successfully")
 	return nil
-}
-
-func setBrowserHeaders(req *http.Request) {
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
-	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-	req.Header.Set("Referer", baseURL)
 }
