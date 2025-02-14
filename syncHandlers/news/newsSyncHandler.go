@@ -22,7 +22,7 @@ import (
 const (
 	newsURL      = "https://www.gomotionapp.com/team/cadas/page/news"
 	baseURL      = "https://www.gomotionapp.com"
-	newsHTMLFile = "../../news.html"
+	newsHTMLFile = "news.html"
 	startMarker  = "<!-- START UNDER HERE -->"
 	endMarker    = "<!-- END AUTOMATION SCRIPT -->"
 	timeFormat   = "January 2, 2006"
