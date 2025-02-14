@@ -345,7 +345,8 @@ func updateNewsHTML(newContent string) (bool, error) {
 }
 
 func gitCommitAndPush() error {
-	repo, err := git.PlainOpen("../..")
+	// Open the repository in the current working directory (repository root)
+	repo, err := git.PlainOpen(".")
 	if err != nil {
 		return fmt.Errorf("repo open failed: %w", err)
 	}
