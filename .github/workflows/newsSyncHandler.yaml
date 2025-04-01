@@ -2,8 +2,7 @@ name: Sync News
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 0 * * *' # Adjusted so we don't hit limits. Otherwise run once evert 70 minutes
-
+     - cron: '0,39 * * * *' 
 jobs:
   update-news:
     runs-on: ubuntu-latest
