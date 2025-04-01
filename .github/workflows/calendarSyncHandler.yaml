@@ -3,7 +3,7 @@ name: Sync Calendar
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 0 * * *' # Adjusted so we don't hit limits. Otherwise run once evert 70 minutes
+     - cron: '19,58 * * * *'
 jobs:
   update-calendar:
     runs-on: ubuntu-latest
