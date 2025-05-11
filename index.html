@@ -228,6 +228,42 @@
       filter: grayscale(0%);
       transform: scale(1.05);
     }
+      
+      #heroCarousel {
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 400px;
+    }
+
+    .carousel-item {
+      transition: opacity 1.2s ease-in-out !important;
+    }
+
+    .carousel-item img {
+      object-fit: contain;
+      max-height: 500px;
+      width: 100%;
+    }
+
+    .sponsor-carousel-item {
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      max-width: 80%;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      #heroCarousel {
+        min-height: 300px;
+      }
+      
+      .sponsor-carousel-item {
+        max-width: 90%;
+        padding: 1rem;
+      }
+    }
+
   </style>
 
   <div id="loading-screen">
@@ -288,11 +324,37 @@
               <a href="groups" class="btn-get-started scrollto ms-3">Explore Swim Groups</a>
             </div>
           </div>
-          <div class="col-lg-6 order-1 order-lg-2 hero-img">
-            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Person swimming butterfly">
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+          <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
+            <div class="carousel-inner">
+              <!-- Main Swimming Image -->
+              <div class="carousel-item active">
+                <img src="assets/img/hero-img.png" class="d-block w-100" alt="Competitive swimmer doing butterfly stroke">
+              </div>
+        
+              <!-- T&Joy Sponsor -->
+              <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center h-100">
+                  <img src="/assets/actualSponsors/teaandjoy.png" class="sponsor-carousel-item" alt="T&Joy Official Sponsor">
+                </div>
+              </div>
+        
+              <!-- Add more items like this -->
+            </div>
+        
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
       </div>
+    </div>
     </section>
     <br>
     <!-- end hero section -->
