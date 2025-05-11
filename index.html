@@ -286,7 +286,50 @@
       position: relative;
       z-index: 1;
     }
-  </style>
+
+    /* Add these mobile-specific fixes */
+    @media (max-width: 768px) {
+      #heroCarousel {
+        min-height: 300px;
+        margin-top: 20px;
+        overflow: visible; /* Prevent clipping */
+        z-index: 1; /* Ensure it stays above other elements */
+      }
+
+      .carousel-item {
+        padding: 15px 0; /* Add breathing room */
+      }
+
+      /* Adjust bouncing animation for mobile */
+      #hero .animated {
+        max-height: 350px !important;
+        animation: mobile-up-down 2s ease-in-out infinite alternate-reverse both;
+      }
+
+      .sponsor-carousel-item {
+        max-width: 80%;
+        animation: mobile-up-down 2s ease-in-out infinite alternate-reverse both;
+      }
+
+      @keyframes mobile-up-down {
+        0% { transform: translateY(5px); }
+        100% { transform: translateY(-5px); }
+      }
+    }
+
+    /* Global fix for all screen sizes */
+    #heroCarousel {
+      position: relative;
+      z-index: 2; /* Higher than header's z-index (997) */
+      margin-top: -30px; /* Counteract header spacing */
+      padding-top: 30px;
+    }
+
+    header#header {
+      z-index: 1000; /* Keep header above carousel */
+      box-shadow: none; /* Remove shadow if causing issues */
+    }
+</style>
 
   <div id="loading-screen">
     <div class="bouncing-dots">
@@ -346,7 +389,7 @@
               <a href="groups" class="btn-get-started scrollto ms-3">Explore Swim Groups</a>
             </div>
           </div>
-    <div class="col-lg-6 order-1 order-lg-2 hero-img">
+    <div class="col-lg-6 order-1 order-lg-2 hero-img" style="position: relative; overflow: visible">
       <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
         <div class="carousel-inner">
           <!-- Main Swimming Image -->
@@ -369,10 +412,8 @@
       </div>
     </div>   
    </section>
-    <br>
     <!-- end hero section -->
-
-    <br><br>
+    <br><br><br>
     <section id="about" class="about py-5">
       <div class="container">
         <h2 class="text-center mb-5" style="color: #eb5d1e;">What is DARE Aquatics?</h2>
@@ -425,7 +466,6 @@
             Team</a>
         </div>
       </div>
-      <br>
     </section>
 
     <!-- provides (aka services) section -->
@@ -473,14 +513,12 @@
                 success at college and professional levels.</p>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
     <!-- end services section -->
 
-    <br><br><br><br>
+    <br><br>
     <!-- Sponsors Section  -->
     <section id="sponsors" class="sponsors section-bg">
       <div class="container" data-aos="fade-up">
