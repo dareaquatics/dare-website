@@ -5,57 +5,43 @@
     <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
 </noscript>
 <script>
-    // Script to run on page load to verify JavaScript is working
     window.addEventListener('load', function () {
-        // Check if we were redirected back from the JS required page
         const params = new URLSearchParams(window.location.search);
         if (params.get('jscheck') === 'true') {
-            // Remove the query parameter for clean URL
             const newUrl = window.location.pathname;
             window.history.replaceState({}, document.title, newUrl);
         }
-
-        // Set a flag in localStorage to indicate JS is enabled
         localStorage.setItem('jsEnabled', 'true');
     });
 </script>
 
 <head>
-    <!-- Google Analytics (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+        function gtag() { dataLayer.push(arguments); }
         gtag("js", new Date());
-
         gtag("config", "G-QXFQXHX3SN");
     </script>
-    <!-- Google Analytics End (gtag.js) -->
 
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
     <title>DARE Aquatics | Sponsorship Details</title>
     <meta content="dare aquatics website" name="description" />
-    <meta
-        content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me"
-        name="keywords" />
+    <meta content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club" name="keywords" />
 
-    <!-- favicons -->
+    <!-- Favicons -->
     <link rel="icon" href="assets/img/logo.png">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-    <!-- gfonts -->
+    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
         rel="stylesheet" />
-    <p style="display: none">
-        &#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;
-    </p>
 
-    <!-- /vendor/ css files -->
+    <!-- Vendor CSS -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
@@ -64,9 +50,144 @@
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/holidayStyle.css" />
 
-    <!-- style.css -->
+    <!-- Main CSS -->
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/loadingAnimation.css" rel="stylesheet" />
+
+    <!-- Sponsorship Page CSS -->
+    <style>
+        /* Color Scheme */
+        .orange-text {
+            color: #e67e22;
+        }
+
+        .btn-orange {
+            background: #e67e22;
+            color: white !important;
+            border: none;
+        }
+
+        .btn-orange:hover {
+            background: #d35400;
+        }
+
+        .btn-gray {
+            background: #6c757d !important;
+            color: white !important;
+            border: none;
+        }
+
+        .btn-gray:hover {
+            background: #5a6268 !important;
+        }
+
+        /* Sponsorship Layout */
+        .sponsor-hero {
+            padding: 2rem 0;
+        }
+
+        .header-divider {
+            width: 80px;
+            height: 4px;
+            background: #2a5d84;
+            margin: 1rem auto;
+        }
+
+        .intro-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .smaller-text {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Stats */
+        .stat-item {
+            background: rgba(42, 93, 132, 0.1);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2a5d84;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Tier Cards */
+        .tier-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tier-header {
+            border-bottom: 2px solid;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tier-header h3 {
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2a5d84;
+            margin-top: 0.5rem;
+        }
+
+        .tier-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tier-benefits li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tier-benefits li:last-child {
+            border-bottom: 0;
+        }
+
+        /* Tier Colors */
+        .bronze .tier-header {
+            border-color: #cd7f32;
+        }
+
+        .silver .tier-header {
+            border-color: #c0c0c0;
+        }
+
+        .gold .tier-header {
+            border-color: #ffd700;
+        }
+
+        .platinum .tier-header {
+            border-color: #e5e4e2;
+        }
+
+        .champion .tier-header {
+            border-color: #2a5d84;
+        }
+    </style>
 
     <div id="loading-screen">
         <div class="bouncing-dots">
@@ -78,141 +199,238 @@
 </head>
 
 <body>
-    <!-- header -->
+    <!-- Header -->
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
             <div class="logo">
-                <!-- <h1 class="text-light"><a href="/"><span>DARE Aquatics</span></a></h1> -->
                 <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid" /></a>
             </div>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <!-- add `active` after scrollto for page, such as:
-                    <li><a class="nav-link scrollto active" href="/">Home</a></li>
-          -->
                     <li><a class="nav-link scrollto" href="/">Home</a></li>
                     <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
                     <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
                     <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
                     <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
                     <li><a class="nav-link scrollto" href="news">News</a></li>
-                    <li>
-                        <a class="nav-link scrollto" href="locations">Pool Locations</a>
-                    </li>
+                    <li><a class="nav-link scrollto" href="locations">Pool Locations</a></li>
                     <li><a class="nav-link scrollto" href="pbc">PBC</a></li>
                     <li><a class="nav-link scrollto" href="contact">Contact</a></li>
                     <li>
-                        <a class="getstarted scrollto"
-                            href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
+                        <a class="getstarted scrollto" href="https://www.gomotionapp.com/team/cadas/page/home"
                             target="_blank" rel="noopener noreferrer">Sign In</a>
                     </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-            <!-- .navbar -->
         </div>
     </header>
-    <!-- end header -->
 
     <main id="main">
-        <!-- breadcrumbs section  -->
-        <section class="breadcrumbs">
+        <br>
+        <!-- Sponsorship Content -->
+        <section class="inner-page pt-4">
             <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>Sponsorship Details</h2>
-                    <ol>
-                        <li><a href="/">Home</a></li>
-                        <li>Sponsorship Details</li>
-                    </ol>
-                </div>
-            </div>
-        </section>
-        <!-- end breadcrumbs  -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <!-- Hero Section -->
+                        <div class="sponsor-hero text-center mb-4" data-aos="fade-up">
+                            <h1 class="display-5 mb-2 orange-text">Invest in Youth Athletics and Community Development
+                            </h1>
+                            <div class="header-divider"></div>
+                        </div>
 
-        <section class="inner-page">
-            <div class="container">
-                <section class="inner-page">
-                    <div class="container">
-                        <div class="section-title">
-                            <!-- Elfsight Form Builder | Sponsor DARE -->
-                            <script src="https://static.elfsight.com/platform/platform.js" async></script>
-                            <div class="elfsight-app-39774be0-f0eb-426c-b2ee-1379d9e6245f" data-elfsight-app-lazy></div>
-                            <!-- <h2>Sponsorship Details</h2>
-                            <p>Details about the sponsorship program and how to get involved.</p>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered align-middle">
-                                    <tr>
-                                        <th scope="col">File</th>
-                                        <th scope="col">Details</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <!-- Introduction -->
+                        <div class="intro-card card border-0 shadow-sm mb-4" data-aos="fade-up">
+                            <div class="card-body">
+                                <p class="card-text smaller-text">
+                                    DARE Aquatics is a year-round competitive swim team developing athletes aged 5-18.
+                                    Our program emphasizes teamwork, discipline, and community values while competing
+                                    at regional and national levels. Your sponsorship directly supports:
+                                </p>
+                                <div class="row text-center mt-4">
+                                    <div class="col-md-3 col-6 mb-3">
+                                        <div class="stat-item p-2">
+                                            <div class="stat-number">200+</div>
+                                            <div class="stat-label">Annual Participants</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6 mb-3">
+                                        <div class="stat-item p-2">
+                                            <div class="stat-number">15+</div>
+                                            <div class="stat-label">Community Events</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6 mb-3">
+                                        <div class="stat-item p-2">
+                                            <div class="stat-number">100%</div>
+                                            <div class="stat-label">Athlete Support Programs</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6 mb-3">
+                                        <div class="stat-item p-2">
+                                            <div class="stat-number">5</div>
+                                            <div class="stat-label">Competition Levels</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <!-- Sponsorship Tiers -->
+                        <div class="sponsorship-tiers mb-6">
+                            <h2 class="text-center mb-5 section-title">Sponsorship Packages</h2>
+
+                            <div class="row g-4">
+                                <!-- Bronze -->
+                                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                                    <div class="tier-card bronze h-100">
+                                        <div class="tier-header">
+                                            <h3>Bronze</h3>
+                                            <div class="price">$500</div>
+                                        </div>
+                                        <ul class="tier-benefits">
+                                            <li><i class="bi bi-check2-circle me-2"></i>Website logo placement</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>1 year visibility</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Silver -->
+                                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
+                                    <div class="tier-card silver h-100">
+                                        <div class="tier-header">
+                                            <h3>Silver</h3>
+                                            <div class="price">$750</div>
+                                        </div>
+                                        <ul class="tier-benefits">
+                                            <li><i class="bi bi-check2-circle me-2"></i>All Bronze benefits</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>Clickable website link</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>Social media feature</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Gold -->
+                                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="tier-card gold h-100">
+                                        <div class="tier-header">
+                                            <h3>Gold</h3>
+                                            <div class="price">$1,200</div>
+                                        </div>
+                                        <ul class="tier-benefits">
+                                            <li><i class="bi bi-check2-circle me-2"></i>All Silver benefits</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>Team apparel branding</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>2 social posts</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Platinum -->
+                                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
+                                    <div class="tier-card platinum h-100">
+                                        <div class="tier-header">
+                                            <h3>Platinum</h3>
+                                            <div class="price">$1,500</div>
+                                        </div>
+                                        <ul class="tier-benefits">
+                                            <li><i class="bi bi-check2-circle me-2"></i>All Gold benefits</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>Event banner placement</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>Priority website listing</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Champion -->
+                                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="tier-card champion h-100">
+                                        <div class="tier-header">
+                                            <h3>Champion</h3>
+                                            <div class="price">$2,000</div>
+                                        </div>
+                                        <ul class="tier-benefits">
+                                            <li><i class="bi bi-check2-circle me-2"></i>All Platinum benefits</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>Quarterly social features</li>
+                                            <li><i class="bi bi-check2-circle me-2"></i>VIP event access</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Value Proposition -->
+                        <br><br><br>
+                        <div class="value-proposition card border-0 shadow-sm mb-5" data-aos="fade-up">
+                            <div class="card-body p-4">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-12">
+                                        <h3 class="mb-3 orange-text">Why Partner With DARE Aquatics?</h3>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="d-flex mb-3">
+                                                    <i class="bi bi-people-fill fs-4 me-3 orange-text"></i>
+                                                    <div>
+                                                        <h5 class="orange-text">Community Impact</h5>
+                                                        <p>Reach 500+ local families monthly</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex mb-3">
+                                                    <i class="bi bi-award fs-4 me-3 orange-text"></i>
+                                                    <div>
+                                                        <h5 class="orange-text">Proven Results</h5>
+                                                        <p>15+ years developing champions</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex mb-3">
+                                                    <i class="bi bi-megaphone fs-4 me-3 orange-text"></i>
+                                                    <div>
+                                                        <h5 class="orange-text">Amplified Exposure</h5>
+                                                        <p>Multi-channel marketing benefits</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex mb-3">
+                                                    <i class="bi bi-heart-fill fs-4 me-3 orange-text"></i>
+                                                    <div>
+                                                        <h5 class="orange-text">Youth Development</h5>
+                                                        <p>Support life-changing programs</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Section -->
+                        <div class="sponsor-cta text-center py-5" data-aos="zoom-in">
+                            <h2 class="mb-4 orange-text">Join Our Premier Partner Network</h2>
+                            <p class="mb-4">Choose your preferred sponsorship application method:</p>
+                            <div class="d-flex justify-content-center gap-3 mb-4">
+                                <a href="sponsorForm.html" class="btn btn-orange btn-lg">
+                                    <i class="bi bi-pen-fill me-2"></i>Online Application
+                                </a>
+                                <a href="mailto:president@dareaquatics.com" class="btn btn-gray btn-lg">
+                                    <i class="bi bi-envelope-fill me-2"></i>Email Inquiry
+                                </a>
+                            </div>
+                            <small class="text-muted">Response within 24 business hours</small>
                         </div>
                     </div>
-                </section> -->
-
+                </div>
             </div>
         </section>
     </main>
-    <!-- end #main -->
 
-    <!-- footer -->
+    <!-- Footer -->
     <footer id="footer">
-        <!-- leave this here or the website looks ugly :( -->
-        <div class="footer-newsletter">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h4></h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end -->
-
         <div class="footer-top">
             <div class="container">
                 <div class="row">
@@ -222,8 +440,8 @@
                             110 West 6th Street P.O Box 256 <br />
                             Azuza, California 91702 <br />
                             United States <br /><br />
-                            <strong>Email:</strong><a href="mailto:contact@dareaquatics.com">
-                                contact@dareaquatics.com</a><br />
+                            <strong>Email:</strong><a
+                                href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a><br />
                         <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
                         </p>
                     </div>
@@ -231,73 +449,36 @@
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
+                            <li><i class="bx bx-chevron-right"></i><a href="/">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a
+                                    href="https://www.gomotionapp.com/team/cadas/page/home"
+                                    target="_blank">TeamUnify</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a href="privacy-policy">Privacy Policy</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a href="https://status.dareaquatics.com"
+                                    target="_blank">Status Page</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a
+                                    href="https://github.com/dareaquatics/dare-website" target="_blank">Source Code</a>
                             </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://www.gomotionapp.com/team/cadas/page/home" target="_blank"
-                                    rel="noopener noreferrer">TeamUnify</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://status.dareaquatics.com" target="_blank"
-                                    rel="noopener noreferrer">Status Page</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://github.com/dareaquatics/dare-website" target="_blank"
-                                    rel="noopener noreferrer">Source
-                                    Code</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="/policy" target="_blank" rel="noopener noreferrer">Team Policy Documents</a>
-                            </li>
+                            <li><i class="bx bx-chevron-right"></i><a href="/policy">Team Policy Documents</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Useful Links</h4>
-
                         <ul>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://www.usaswimming.org/" target="_blank" rel="noopener noreferrer">USA
-                                    Swimming</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://www.usaswimming.org/safe-sport" target="_blank"
-                                    rel="noopener noreferrer">Safe
-                                    Sport</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://uscenterforsafesport.org/report-a-concern/" target="_blank"
-                                    rel="noopener noreferrer">Report a Concern (SafeSport)</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://www.goswim.tv/" target="_blank" rel="noopener noreferrer">GoSwim</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="http://www.swimmingworldmagazine.com" target="_blank"
-                                    rel="noopener noreferrer">Swimming World
-                                    Online</a>
-                            </li>
-                            <li>
-                                <i class="bx bx-chevron-right"></i>
-                                <a href="https://swimmingcoach.org" target="_blank" rel="noopener noreferrer">American
-                                    Swimming Coaches
-                                    Association</a>
-                            </li>
+                            <li><i class="bx bx-chevron-right"></i><a href="https://www.usaswimming.org/"
+                                    target="_blank">USA Swimming</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a href="https://www.usaswimming.org/safe-sport"
+                                    target="_blank">Safe Sport</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a
+                                    href="https://uscenterforsafesport.org/report-a-concern/" target="_blank">Report a
+                                    Concern</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a href="https://www.goswim.tv/"
+                                    target="_blank">GoSwim</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a href="http://www.swimmingworldmagazine.com"
+                                    target="_blank">Swimming World</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a href="https://swimmingcoach.org"
+                                    target="_blank">Swimming Coaches Association</a></li>
                         </ul>
                     </div>
 
@@ -323,19 +504,18 @@
             <div class="credits">Made with ❤️ by Ryan</div>
         </div>
     </footer>
-    <!-- end footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    <!-- /vendor/ js files -->
+    <!-- Vendor JS -->
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-    <!-- main.js -->
+    <!-- Main JS -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/maintenanceStatusLogic.js"></script>
     <script src="assets/js/loaderLogic.js"></script>
