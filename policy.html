@@ -1,102 +1,327 @@
-<style>
-  body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-  }
-  .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background-color: white;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  h1 {
-      font-size: 24px;
-      margin-top: 0;
-  }
-  .subtitle {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 20px;
-  }
-  .browser-frame {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 20px;
-      margin-bottom: 20px;
-  }
-  .error-icon {
-      width: 100px;
-      height: 100px;
-      background-color: #d9534f;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 20px;
-  }
-  .error-icon::before {
-      content: "×";
-      color: white;
-      font-size: 80px;
-      font-weight: bold;
-  }
-  .info-columns {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-  }
-  .info-column {
-      flex-basis: 48%;
-      margin-bottom: 20px;
-  }
-  h2 {
-      font-size: 18px;
-  }
-  p {
-      font-size: 14px;
-      line-height: 1.5;
-  }
-  .status-link {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      font-size: 16px;
-      color: #0056b3;
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-QXFQXHX3SN");
+  </script>
+  <!-- Google Analytics End (gtag.js) -->
+
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>DARE Aquatics | Policies</title>
+  <meta content="dare aquatics website" name="description" />
+  <meta
+    content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me"
+    name="keywords" />
+
+  <!-- favicons -->
+  <link rel="icon" href="assets/img/logo.png">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+  <!-- gfonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
+    rel="stylesheet" />
+
+  <!-- /vendor/ css files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/holidayStyle.css" />
+
+  <!-- style.css -->
+  <link href="assets/css/style.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    a {
       text-decoration: none;
-  }
-  .status-link:hover {
+    }
+
+    a:hover {
       text-decoration: underline;
-  }
-  .footer {
-      font-size: 12px;
-      color: #888;
-      margin-top: 20px;
-      text-align: center;
-  }
-</style>
-<div class="container">
-  <h1>Failed to Load Page</h1>
-  <p class="subtitle">We encountered an error while trying to access dareaquatics.com/policy.html</p>
-  <div class="browser-frame">
-      <div class="error-icon"></div>
-  </div>
-  <div class="info-columns">
-      <div class="info-column">
-          <h2>What happened?</h2>
-          <p>The requested page could not be loaded due to a server issue or temporary network interruption. This error may occur if the website is undergoing updates or if there is high traffic volume.</p>
+    }
+  </style>
+</head>
+
+<body>
+  <!-- header -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <!-- <h1 class="text-light"><a href="/"><span>DARE Aquatics</span></a></h1> -->
+        <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid" /></a>
       </div>
-      <div class="info-column">
-          <h2>What can you do?</h2>
-          <p>Please try refreshing the page or returning later. If the issue persists, check your internet connection or contact the site administrator for assistance.</p>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
+          <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
+          <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
+          <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
+          <p style="display: none">
+            &#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;
+          </p>
+          <li><a class="nav-link scrollto" href="news">News</a></li>
+          <li>
+            <a class="nav-link scrollto" href="locations">Pool Locations</a>
+          </li>
+          <li><a class="nav-link scrollto" href="pbc">PBC</a></li>
+          <li><a class="nav-link scrollto" href="contact">Contact</a></li>
+          <li>
+            <a class="getstarted scrollto"
+              href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
+              target="_blank" rel="noopener noreferrer">Sign In</a>
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+    </div>
+  </header>
+  <!-- end header -->
+
+  <main id="main">
+    <section class="inner-page">
+      <div class="container">
+        <h2>DARE Aquatics - Policies</h2>
+        <br />
+        <table>
+          <tr>
+            <th>File Name</th>
+            <th>Link</th>
+          </tr>
+          <tr>
+            <td>Code of Conduct</td>
+            <td>
+              <a href="assets/policy/Code%20of%20Conduct.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Communication Policy</td>
+            <td>
+              <a href="assets/policy/Communication%20Policy.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>DARE Bylaws</td>
+            <td>
+              <a href="assets/policy/DARE%20Bylaws.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Discipline, Complaints and Appeals Policy</td>
+            <td>
+              <a href="assets/policy/Discipline,%20Complaints%20and%20Appeals%20Policy.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Dispute Resolution Policy</td>
+            <td>
+              <a href="assets/policy/Dispute%20Resolution%20Policy.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>General Fee Requirement Guideline Policy</td>
+            <td>
+              <a href="assets/policy/General%20Fee%20Requirement%20Guideline%20Policy.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>MAAPP Policy Version 2</td>
+            <td>
+              <a href="assets/policy/MAAPP%20Policy%20Version%202.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Screening Policy</td>
+            <td>
+              <a href="assets/policy/Screening%20Policy.pdf">Click here to open</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Team Manager and Chaperone Policy</td>
+            <td>
+              <a href="assets/policy/Team%20Manager%20and%20Chaperone%20Policy.pdf">Click here to open</a> 
+            </td>
+          </tr>
+          <tr>
+            <td>Travel Policy</td>
+            <td>
+              <a href="assets/policy/Travel%20Policy.pdf">Click here to open</a> 
+            </td>
+          </tr>
+        </table>
       </div>
-  </div>
-  <a class="status-link" href="javascript:location.reload()">Try Again</a>
-  <div class="footer">
-      © 2025 DARE Aquatics • Error Code: 503-FLP • Reference ID: E503-LoadFail
-  </div>
-</div>
+    </section>
+  </main>
+  <!-- end #main -->
+
+  <!-- footer -->
+  <footer id="footer">
+    <!-- leave this here or the website looks ugly :( -->
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>DARE Aquatics</h3>
+            <p>
+              110 West 6th Street P.O Box 256 <br />
+              Azuza, California 91702 <br />
+              United States <br /><br />
+              <strong>Email:</strong><a href="mailto:contact@dareaquatics.com">
+                contact@dareaquatics.com</a><br />
+              <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.gomotionapp.com/team/cadas/page/home" target="_blank"
+                  rel="noopener noreferrer">TeamUnify</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://status.dareaquatics.com" target="_blank" rel="noopener noreferrer">Status Page</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://github.com/dareaquatics/dare-website" target="_blank" rel="noopener noreferrer">Source
+                  Code</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="/policy" target="_blank" rel="noopener noreferrer">Team Policy Documents</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+
+            <ul>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.usaswimming.org/" target="_blank" rel="noopener noreferrer">USA Swimming</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.usaswimming.org/safe-sport" target="_blank" rel="noopener noreferrer">Safe
+                  Sport</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://uscenterforsafesport.org/report-a-concern/" target="_blank"
+                  rel="noopener noreferrer">Report a Concern (SafeSport)</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://www.goswim.tv/" target="_blank" rel="noopener noreferrer">GoSwim</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="http://www.swimmingworldmagazine.com" target="_blank" rel="noopener noreferrer">Swimming World
+                  Online</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="https://swimmingcoach.org" target="_blank" rel="noopener noreferrer">American Swimming Coaches
+                  Association</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Follow our social media to stay updated on latest events!</p>
+            <div class="social-links mt-3">
+              <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw" class="facebook"><i
+                  class="bx bxl-facebook"></i></a>
+              <a href="https://www.instagram.com/dareaquatics" class="instagram"><i class="bx bxl-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved. Licensed under the
+        <a href="license">GPLv3.</a>
+      </div>
+      <div class="credits">Made with ❤️ by Ryan</div>
+    </div>
+  </footer>
+  <!-- end footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- /vendor/ js files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- main.js -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/maintenanceStatusLogic.js"></script>
+</body>
+
+</html>
