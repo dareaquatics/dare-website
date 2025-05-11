@@ -107,7 +107,7 @@
       transform: scale(1.05);
     }
 
-    /* Hero Section Styles */
+    /* Hero Section */
     #hero {
       background: #fff !important;
       border-bottom: 2px solid #f3f3f3;
@@ -149,9 +149,9 @@
 
     /* Carousel Styles */
     #heroCarousel {
-      border-radius: 8px;
-      overflow: visible;
-      min-height: 400px;
+      z-index: 999;
+      margin-top: -30px;
+      padding-top: 30px;
     }
 
     .carousel-item {
@@ -175,7 +175,7 @@
       opacity: 1;
     }
 
-    /* Sponsors Section Styles */
+    /* Sponsors Section */
     #sponsors {
       background: #fef8f5;
       padding: 80px 0;
@@ -196,16 +196,37 @@
       margin: -20px -40px;
     }
 
-    /* About Section Styles */
+    /* About Section */
     #about {
       background: #fef8f5;
       padding: 80px 0;
     }
 
-    /* Services Section Styles */
+    /* Services Section */
     #services {
       background: #fff;
       padding: 80px 0;
+    }
+
+    /* Animations */
+    @keyframes sponsor-bounce {
+      0% {
+        transform: translateY(8px);
+      }
+      100% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .sponsor-carousel-item {
+      animation: sponsor-bounce 2s ease-in-out infinite alternate-reverse both;
+      position: relative;
+    }
+
+    #hero .animated {
+      animation: up-down 2s ease-in-out infinite alternate-reverse both;
+      position: relative;
+      z-index: 1;
     }
 
     /* Media Queries */
@@ -258,49 +279,19 @@
       #sponsors .sponsors-container {
         margin: -20px -20px;
       }
-    }
 
-    @media (max-width: 575px) {
-      #hero .hero-img img {
-        width: 80%;
-      }
-    }
-
-    /* Animations */
-    @keyframes sponsor-bounce {
-      0% {
-        transform: translateY(8px);
-      }
-      100% {
-        transform: translateY(-8px);
-      }
-    }
-
-    .sponsor-carousel-item {
-      animation: sponsor-bounce 2s ease-in-out infinite alternate-reverse both;
-      position: relative;
-    }
-
-    #hero .animated {
-      animation: up-down 2s ease-in-out infinite alternate-reverse both;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Add these mobile-specific fixes */
-    @media (max-width: 768px) {
+      /* Mobile-specific adjustments */
       #heroCarousel {
         min-height: 300px;
         margin-top: 20px;
-        overflow: visible; /* Prevent clipping */
-        z-index: 1; /* Ensure it stays above other elements */
+        overflow: visible;
+        z-index: 1;
       }
 
       .carousel-item {
-        padding: 15px 0; /* Add breathing room */
+        padding: 15px 0;
       }
 
-      /* Adjust bouncing animation for mobile */
       #hero .animated {
         max-height: 350px !important;
         animation: mobile-up-down 2s ease-in-out infinite alternate-reverse both;
@@ -317,17 +308,23 @@
       }
     }
 
+    @media (max-width: 575px) {
+      #hero .hero-img img {
+        width: 80%;
+      }
+    }
+
     /* Global fix for all screen sizes */
     #heroCarousel {
       position: relative;
-      z-index: 2; /* Higher than header's z-index (997) */
-      margin-top: -30px; /* Counteract header spacing */
+      z-index: 2;
+      margin-top: -30px;
       padding-top: 30px;
     }
 
     header#header {
-      z-index: 1000; /* Keep header above carousel */
-      box-shadow: none; /* Remove shadow if causing issues */
+      z-index: 1000;
+      box-shadow: none;
     }
 </style>
 
