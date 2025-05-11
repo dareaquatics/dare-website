@@ -228,6 +228,50 @@
       filter: grayscale(0%);
       transform: scale(1.05);
     }
+
+    #heroCarousel {
+      border-radius: 8px;
+      overflow: visible; /* Fix clipping issue */
+      min-height: 400px;
+    }
+
+    .carousel-item {
+      transition: opacity 0.6s ease-out !important;
+      padding: 20px 0; /* Prevent clipping */
+    }
+
+    .sponsor-caption {
+      font-size: 1.2rem;
+      color: #5c8eb0;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .carousel-item.active .sponsor-caption {
+      opacity: 1;
+    }
+
+    /* Fix bouncing animation clipping */
+    #hero .animated {
+      animation: up-down 2s ease-in-out infinite alternate-reverse both;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      #heroCarousel {
+        min-height: 300px;
+      }
+      
+      .carousel-item img {
+        max-height: 250px;
+      }
+      
+      .sponsor-caption {
+        font-size: 1rem;
+      }
+    }
     
   </style>
 
@@ -290,69 +334,29 @@
             </div>
           </div>
       <!-- Modified Hero Section -->
-      <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
-          <div class="carousel-inner">
-            <!-- Main Swimming Image -->
-            <div class="carousel-item active">
-              <div class="d-flex align-items-center justify-content-center h-100">
-                <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Competitive swimmer doing butterfly stroke"
-                  style="max-height: 500px; width: auto;">
-              </div>
-            </div>
-      
-            <!-- T&Joy Sponsor -->
-            <div class="carousel-item">
-              <div class="d-flex align-items-center justify-content-center h-100 px-4">
-                <img src="assets/actualSponsors/teaandjoy.png" class="img-fluid sponsor-carousel-item"
-                  alt="T&Joy Official Sponsor" style="max-height: 300px; width: auto;">
-              </div>
+    <div class="col-lg-6 order-1 order-lg-2 hero-img">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
+        <div class="carousel-inner">
+          <!-- Main Swimming Image -->
+          <div class="carousel-item active">
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Competitive swimmer doing butterfly stroke"
+                style="max-height: 500px; width: auto;">
             </div>
           </div>
-      
-          <!-- Controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+    
+          <!-- T&Joy Sponsor -->
+          <div class="carousel-item">
+            <div class="d-flex flex-column align-items-center justify-content-center h-100 px-4">
+              <img src="assets/actualSponsors/teaandjoy.png" class="img-fluid sponsor-carousel-item"
+                alt="T&Joy Official Sponsor" style="max-height: 300px; width: auto;">
+              <div class="sponsor-caption mt-2">Sponsor: T&Joy</div>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <style>
-        /* Add to existing styles */
-        #heroCarousel {
-          border-radius: 8px;
-          overflow: hidden;
-          min-height: 400px;
-        }
-      
-        .carousel-item {
-          transition: opacity 0.6s ease-out !important;
-        }
-      
-        .carousel-control-prev,
-        .carousel-control-next {
-          width: 5%;
-          background: rgba(0, 0, 0, 0.1);
-        }
-      
-        @media (max-width: 768px) {
-          #heroCarousel {
-            min-height: 300px;
-          }
-      
-          .carousel-item img {
-            max-height: 250px;
-          }
-        }
-      </style>
-      </div>
-    </div>
-    </section>
+    </div>   
+   </section>
     <br>
     <!-- end hero section -->
 
@@ -759,6 +763,24 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
+
+  <!-- carousel logic -->
+   <script>
+    // Click to advance functionality
+    document.getElementById('heroCarousel').addEventListener('click', function (e) {
+      const carousel = new bootstrap.Carousel(this);
+      carousel.next();
+    });
+
+    // Initialize caption visibility
+    const carousel = new bootstrap.Carousel('#heroCarousel');
+    document.getElementById('heroCarousel').addEventListener('slid.bs.carousel', function () {
+      const captions = document.querySelectorAll('.sponsor-caption');
+      captions.forEach(caption => caption.style.opacity = 0);
+      const activeCaption = this.querySelector('.active .sponsor-caption');
+      if (activeCaption) activeCaption.style.opacity = 1;
+    });
+  </script>
 
   <!-- /vendor/ js files -->
   <script src="assets/vendor/aos/aos.js"></script>
