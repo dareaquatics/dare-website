@@ -69,133 +69,11 @@
   <link href="assets/css/loadingAnimation.css" rel="stylesheet">
 
   <style>
-    /* Hero section styles */
-    @media (max-width: 768px) {
-      main {
-        padding-top: 0px;
-      }
-
-      .swimmer-illustration {
-        width: 90%;
-        max-width: 400px;
-      }
-    }
-
-    #hero {
-      width: 100%;
-      padding: 60px 0;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    #hero .hero-img {
-      text-align: center;
-    }
-
-    #hero .hero-img img {
-      width: 70%;
-      max-width: 300px;
-    }
-
-    #hero h1 {
-      font-size: 48px;
-      font-weight: 900;
-      line-height: 56px;
-      margin: 0 0 20px 0;
-    }
-
-    #hero h5 {
-      color: #5c8eb0;
-      margin-bottom: 30px;
-    }
-
-    #hero .btn-get-started {
-      font-weight: 600;
-      font-size: 16px;
-      letter-spacing: 1px;
-      display: inline-block;
-      padding: 12px 28px;
-      border-radius: 3px;
-      transition: 0.5s;
-      color: #fff;
-      background: #eb5d1e;
-    }
-
-    /* Media queries for responsiveness */
-    @media (max-width: 991px) {
-      #hero {
-        text-align: center;
-      }
-
-      #hero .hero-img {
-        margin-top: 40px;
-      }
-
-      #hero .hero-img img {
-        width: 60%;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #hero h1 {
-        font-size: 36px;
-        line-height: 42px;
-      }
-
-      #hero h5 {
-        font-size: 18px;
-        line-height: 24px;
-      }
-    }
-
-    @media (max-width: 575px) {
-      #hero .hero-img img {
-        width: 80%;
-      }
-    }
-
+    /* General Styles */
     .sponsor-logo {
       width: 200px;
       height: 100px;
       object-fit: contain;
-    }
-
-    #sponsors .sponsor-item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      margin: 0 40px;
-    }
-
-    #sponsors .sponsors-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: -20px -40px;
-    }
-
-    @media (max-width: 768px) {
-      #sponsors .sponsor-item {
-        margin: 0 20px;
-      }
-
-      #sponsors .sponsors-container {
-        margin: -20px -20px;
-      }
-    }
-
-    #hero h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    #hero h5 {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      color: #666;
     }
 
     .services .icon-box {
@@ -229,15 +107,60 @@
       transform: scale(1.05);
     }
 
+    /* Hero Section Styles */
+    #hero {
+      background: #fff !important;
+      border-bottom: 2px solid #f3f3f3;
+    }
+
+    #hero .hero-img {
+      text-align: center;
+    }
+
+    #hero .hero-img img {
+      width: 70%;
+      max-width: 300px;
+    }
+
+    #hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #hero h5 {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #666;
+    }
+
+    #hero .btn-get-started {
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 3px;
+      transition: 0.5s;
+      color: #fff;
+      background: #eb5d1e;
+    }
+
+    /* Carousel Styles */
     #heroCarousel {
       border-radius: 8px;
-      overflow: visible; 
+      overflow: visible;
       min-height: 400px;
     }
 
     .carousel-item {
       transition: opacity 0.6s ease-out !important;
-      padding: 20px 0; /* Prevent clipping */
+      padding: 20px 0;
+    }
+
+    .carousel-item img {
+      max-height: 250px;
     }
 
     .sponsor-caption {
@@ -252,40 +175,117 @@
       opacity: 1;
     }
 
-    /* Fix bouncing animation clipping */
+    /* Sponsors Section Styles */
+    #sponsors {
+      background: #fef8f5;
+      padding: 80px 0;
+    }
+
+    #sponsors .sponsor-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      margin: 0 40px;
+    }
+
+    #sponsors .sponsors-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: -20px -40px;
+    }
+
+    /* About Section Styles */
+    #about {
+      background: #fef8f5;
+      padding: 80px 0;
+    }
+
+    /* Services Section Styles */
+    #services {
+      background: #fff;
+      padding: 80px 0;
+    }
+
+    /* Media Queries */
+    @media (max-width: 991px) {
+      #hero {
+        text-align: center;
+      }
+
+      #hero .hero-img {
+        margin-top: 40px;
+      }
+
+      #hero .hero-img img {
+        width: 60%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding-top: 0px;
+      }
+
+      .swimmer-illustration {
+        width: 90%;
+        max-width: 400px;
+      }
+
+      #hero h1 {
+        font-size: 36px;
+        line-height: 42px;
+      }
+
+      #hero h5 {
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      #heroCarousel {
+        min-height: 500px;
+      }
+
+      .sponsor-caption {
+        font-size: 1rem;
+      }
+
+      #sponsors .sponsor-item {
+        margin: 0 20px;
+      }
+
+      #sponsors .sponsors-container {
+        margin: -20px -20px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      #hero .hero-img img {
+        width: 80%;
+      }
+    }
+
+    /* Animations */
+    @keyframes sponsor-bounce {
+      0% {
+        transform: translateY(8px);
+      }
+      100% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .sponsor-carousel-item {
+      animation: sponsor-bounce 2s ease-in-out infinite alternate-reverse both;
+      position: relative;
+    }
+
     #hero .animated {
       animation: up-down 2s ease-in-out infinite alternate-reverse both;
       position: relative;
       z-index: 1;
     }
-
-    @media (max-width: 768px) {
-      #heroCarousel {
-        min-height: 500px;
-      }
-      
-      .carousel-item img {
-        max-height: 250px;
-      }
-      
-      .sponsor-caption {
-        font-size: 1rem;
-      }
-    }
-
-    .sponsor-carousel-item {
-    animation: up-down 2s ease-in-out infinite alternate-reverse both;
-    position: relative;
-  }
-    @keyframes sponsor-bounce {
-      0% { transform: translateY(8px); }
-      100% { transform: translateY(-8px); }
-    }
-
-    .sponsor-carousel-item {
-      animation: sponsor-bounce 2s ease-in-out infinite alternate-reverse both;
-    }
-    
   </style>
 
   <div id="loading-screen">
@@ -372,7 +372,7 @@
     <br>
     <!-- end hero section -->
 
-    <br><br><br><br>
+    <br><br>
     <section id="about" class="about py-5">
       <div class="container">
         <h2 class="text-center mb-5" style="color: #eb5d1e;">What is DARE Aquatics?</h2>
