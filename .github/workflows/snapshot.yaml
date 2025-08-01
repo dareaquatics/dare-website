@@ -153,26 +153,57 @@ jobs:
       run: |
         ARCHIVE_NAME="codebase-snapshot-${{ steps.build_meta.outputs.build_number }}"
         
-        # Create clean archive excluding .git and other unnecessary files
-        tar --exclude='.git' \
-            --exclude='node_modules' \
-            --exclude='.DS_Store' \
-            --exclude='*.log' \
-            --exclude='.env*' \
-            --exclude='dist' \
-            --exclude='build' \
-            --exclude='.cache' \
-            --exclude='*.tmp' \
-            --exclude='*.temp' \
-            -czf "${ARCHIVE_NAME}.tar.gz" .
+        # Create temporary directory for archives
+        mkdir -p /tmp/archives
         
-        # Create zip as well for broader compatibility
-        zip -r "${ARCHIVE_NAME}.zip" . \
-            -x ".git/*" "node_modules/*" ".DS_Store" "*.log" ".env*" "dist/*" "build/*" ".cache/*" "*.tmp" "*.temp"
+        # Create exclusion file for tar to avoid "file changed as we read it" errors
+        cat > /tmp/exclude_patterns.txt << 'EOF'
+        .git
+        node_modules
+        .DS_Store
+        *.log
+        .env*
+        dist
+        build
+        .cache
+        *.tmp
+        *.temp
+        .github/workflows/.tmp*
+        EOF
+        
+        # Create clean tar archive
+        tar --exclude-from=/tmp/exclude_patterns.txt \
+            --exclude="/tmp/archives/*" \
+            -czf "/tmp/archives/${ARCHIVE_NAME}.tar.gz" \
+            -C . .
+        
+        # Create zip archive with explicit exclusions
+        zip -r "/tmp/archives/${ARCHIVE_NAME}.zip" . \
+            -x ".git/*" \
+               "node_modules/*" \
+               ".DS_Store" \
+               "*.log" \
+               ".env*" \
+               "dist/*" \
+               "build/*" \
+               ".cache/*" \
+               "*.tmp" \
+               "*.temp" \
+               "/tmp/archives/*"
+        
+        # Move archives to current directory
+        mv "/tmp/archives/${ARCHIVE_NAME}.tar.gz" .
+        mv "/tmp/archives/${ARCHIVE_NAME}.zip" .
         
         # Get file sizes
         TAR_SIZE=$(ls -lh "${ARCHIVE_NAME}.tar.gz" | awk '{print $5}')
         ZIP_SIZE=$(ls -lh "${ARCHIVE_NAME}.zip" | awk '{print $5}')
+        
+        # Verify archives were created successfully
+        if [ ! -f "${ARCHIVE_NAME}.tar.gz" ] || [ ! -f "${ARCHIVE_NAME}.zip" ]; then
+            echo "Error: Archive creation failed"
+            exit 1
+        fi
         
         echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
         echo "tar_size=$TAR_SIZE" >> $GITHUB_OUTPUT
@@ -181,6 +212,9 @@ jobs:
         echo "Created archives:"
         echo "  - ${ARCHIVE_NAME}.tar.gz (${TAR_SIZE})"
         echo "  - ${ARCHIVE_NAME}.zip (${ZIP_SIZE})"
+        
+        # Clean up temporary files
+        rm -rf /tmp/archives /tmp/exclude_patterns.txt
     
     - name: Generate workflow summary
       id: workflow_summary
