@@ -355,16 +355,16 @@ jobs:
     
     - name: Build summary
       run: |
-        echo "## 📦 Weekly Snapshot Created Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
+        echo "## Weekly Snapshot Created Successfully!" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Build:** \`${{ steps.build_meta.outputs.build_number }}\`" >> $GITHUB_STEP_SUMMARY
         echo "**Tag:** \`${{ steps.build_meta.outputs.tag_name }}\`" >> $GITHUB_STEP_SUMMARY
         echo "**Human Readable:** ${{ steps.decode_build.outputs.decoded }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 📊 Quick Stats" >> $GITHUB_STEP_SUMMARY
+        echo "### Quick Stats" >> $GITHUB_STEP_SUMMARY
         echo "- **Files:** ${{ steps.repo_analytics.outputs.total_files }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Size:** ${{ steps.repo_analytics.outputs.total_size }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Duration:** ${{ steps.workflow_summary.outputs.build_duration }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Archives:** TAR.GZ (${{ steps.create_archive.outputs.tar_size }}), ZIP (${{ steps.create_archive.outputs.zip_size }})" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "🔗 **[View Release](https://github.com/${{ github.repository }}/releases/tag/${{ steps.build_meta.outputs.tag_name }})**" >> $GITHUB_STEP_SUMMARY
+        echo "**[View Release](https://github.com/${{ github.repository }}/releases/tag/${{ steps.build_meta.outputs.tag_name }})**" >> $GITHUB_STEP_SUMMARY
