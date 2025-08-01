@@ -3,25 +3,25 @@
 
 <head>
 
-<!-- No JS Check -->
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
-</noscript>
-<script>
-  // Script to run on page load to verify JavaScript is working
-  window.addEventListener('load', function() {
+  <!-- No JS Check -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
+  </noscript>
+  <script>
+    // Script to run on page load to verify JavaScript is working
+    window.addEventListener('load', function () {
       // Check if we were redirected back from the JS required page
       const params = new URLSearchParams(window.location.search);
       if (params.get('jscheck') === 'true') {
-          // Remove the query parameter for clean URL
-          const newUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, newUrl);
+        // Remove the query parameter for clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
       }
-      
+
       // Set a flag in localStorage to indicate JS is enabled
       localStorage.setItem('jsEnabled', 'true');
-  });
-</script>
+    });
+  </script>
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
@@ -224,8 +224,8 @@
         </p>
         <p>
           Email:
-          <a href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a>
-        </p>
+        <p>contact[at]dareaquatics.com</p>
+        <p>Where [at] = @</p>
         <br />
         <hr />
         <br />
@@ -259,7 +259,7 @@
               United States <br /><br />
               <strong>Email:</strong><a href="mailto:contact@dareaquatics.com">
                 contact@dareaquatics.com</a><br />
-              <p>Email is preferred for licensing and/or privacy policy inquiries</p>
+            <p>Email is preferred for licensing and/or privacy policy inquiries</p>
             </p>
           </div>
 

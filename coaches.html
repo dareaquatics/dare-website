@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,34 +10,34 @@
 
   <!-- No JS Check -->
   <noscript>
-      <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
+    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
   </noscript>
   <script>
-      // Script to run on page load to verify JavaScript is working
-      window.addEventListener('load', function() {
-          // Check if we were redirected back from the JS required page
-          const params = new URLSearchParams(window.location.search);
-          if (params.get('jscheck') === 'true') {
-              // Remove the query parameter for clean URL
-              const newUrl = window.location.pathname;
-              window.history.replaceState({}, document.title, newUrl);
-          }
-          
-          // Set a flag in localStorage to indicate JS is enabled
-          localStorage.setItem('jsEnabled', 'true');
-      });
+    // Script to run on page load to verify JavaScript is working
+    window.addEventListener('load', function () {
+      // Check if we were redirected back from the JS required page
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('jscheck') === 'true') {
+        // Remove the query parameter for clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+
+      // Set a flag in localStorage to indicate JS is enabled
+      localStorage.setItem('jsEnabled', 'true');
+    });
   </script>
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-QXFQXHX3SN");
-    </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-QXFQXHX3SN");
+  </script>
   <!-- End Google Analytics (gtag.js) -->
 
   <!-- Favicons -->
@@ -241,7 +241,7 @@
               <a href="mailto:yvonne@dareaquatics.com" class="coach-email">yvonne@dareaquatics.com</a>
             </div>
           </li>
-        <!--  bye coach andrew :(
+          <!--  bye coach andrew :(
           <li class="coach-item">
             <img src="assets/coaches/andrew-kim.jpg" alt="Andrew Kim, Age Group 1 Coach" class="coach-image" />
             <div class="coach-info">
@@ -283,13 +283,13 @@
 
   <!-- Footer -->
   <footer id="footer">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4></h4>
-          </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h4></h4>
         </div>
       </div>
+    </div>
     </div>
     <div class="footer-top">
       <div class="container">
@@ -300,9 +300,10 @@
               110 West 6th Street P.O Box 256 <br />
               Azusa, California 91702 <br />
               United States <br /><br />
-              <strong>Email:</strong>
-              <a href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a><br />
-              <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
+              <strong>Contact Us:</strong>
+            <p>Have questions or need help? Use our <a href="/contact">contact form</a> — it's the fastest way to reach
+              our team.
+            </p>
             </p>
           </div>
           <div class="col-lg-3 col-md-6 footer-links">

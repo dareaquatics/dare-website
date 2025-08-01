@@ -11,22 +11,22 @@
 
   <!-- No JS Check -->
   <noscript>
-      <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
+    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
   </noscript>
   <script>
-      // Script to run on page load to verify JavaScript is working
-      window.addEventListener('load', function() {
-          // Check if we were redirected back from the JS required page
-          const params = new URLSearchParams(window.location.search);
-          if (params.get('jscheck') === 'true') {
-              // Remove the query parameter for clean URL
-              const newUrl = window.location.pathname;
-              window.history.replaceState({}, document.title, newUrl);
-          }
-          
-          // Set a flag in localStorage to indicate JS is enabled
-          localStorage.setItem('jsEnabled', 'true');
-      });
+    // Script to run on page load to verify JavaScript is working
+    window.addEventListener('load', function () {
+      // Check if we were redirected back from the JS required page
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('jscheck') === 'true') {
+        // Remove the query parameter for clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+
+      // Set a flag in localStorage to indicate JS is enabled
+      localStorage.setItem('jsEnabled', 'true');
+    });
   </script>
 
   <!-- Google Analytics (gtag.js) -->
@@ -240,35 +240,31 @@
         <div class="events-container">
           <!-- START UNDER HERE -->
 
-		<div class="event">
-		  <h2><strong>Annual Summer TEAM BREAK</strong></h2>
-		  <p><b>Event Start:</b> August 03, 2025</p>
-		  <p><b>Event End:</b> August 15, 2025</p>
-		  <br>
-		  <p>Click the button below for more information.</p>
-		  <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" 
-		     target="_blank" 
-		     rel="noopener noreferrer" 
-		     class="btn btn-primary">
-		    More Details
-		  </a>
-		</div>
-		<br><br>
-		<div class="event">
-		  <h2><strong>DARE Launch & Lunge Season Opener</strong></h2>
-		  <p><b>Event Start:</b> September 12, 2025</p>
-		  <p><b>Event End:</b> September 14, 2025</p>
-		  <br>
-		  <p>Click the button below for more information.</p>
-		  <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" 
-		     target="_blank" 
-		     rel="noopener noreferrer" 
-		     class="btn btn-primary">
-		    More Details
-		  </a>
-		</div>
-		<br><br>
-<!-- END AUTOMATION SCRIPT -->
+          <div class="event">
+            <h2><strong>Annual Summer TEAM BREAK</strong></h2>
+            <p><b>Event Start:</b> August 03, 2025</p>
+            <p><b>Event End:</b> August 15, 2025</p>
+            <br>
+            <p>Click the button below for more information.</p>
+            <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events"
+              target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              More Details
+            </a>
+          </div>
+          <br><br>
+          <div class="event">
+            <h2><strong>DARE Launch & Lunge Season Opener</strong></h2>
+            <p><b>Event Start:</b> September 12, 2025</p>
+            <p><b>Event End:</b> September 14, 2025</p>
+            <br>
+            <p>Click the button below for more information.</p>
+            <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events"
+              target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              More Details
+            </a>
+          </div>
+          <br><br>
+          <!-- END AUTOMATION SCRIPT -->
         </div>
       </div>
     </section>
@@ -294,12 +290,12 @@
               110 West 6th Street P.O Box 256 <br />
               Azusa, California 91702 <br />
               United States <br /><br />
-              <strong>Email:</strong>
-              <a href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a><br />
-              <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
+              <strong>Contact Us:</strong>
+            <p>Have questions or need help? Use our <a href="/contact">contact form</a> — it's the fastest way to reach
+              our team.
+            </p>
             </p>
           </div>
-
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>

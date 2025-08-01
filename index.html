@@ -3,25 +3,25 @@
 
 <head>
 
-<!-- No JS Check -->
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
-</noscript>
-<script>
-  // Script to run on page load to verify JavaScript is working
-  window.addEventListener('load', function() {
+  <!-- No JS Check -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
+  </noscript>
+  <script>
+    // Script to run on page load to verify JavaScript is working
+    window.addEventListener('load', function () {
       // Check if we were redirected back from the JS required page
       const params = new URLSearchParams(window.location.search);
       if (params.get('jscheck') === 'true') {
-          // Remove the query parameter for clean URL
-          const newUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, newUrl);
+        // Remove the query parameter for clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
       }
-      
+
       // Set a flag in localStorage to indicate JS is enabled
       localStorage.setItem('jsEnabled', 'true');
-  });
-</script>
+    });
+  </script>
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
@@ -213,6 +213,7 @@
       0% {
         transform: translateY(8px);
       }
+
       100% {
         transform: translateY(-8px);
       }
@@ -303,8 +304,13 @@
       }
 
       @keyframes mobile-up-down {
-        0% { transform: translateY(5px); }
-        100% { transform: translateY(-5px); }
+        0% {
+          transform: translateY(5px);
+        }
+
+        100% {
+          transform: translateY(-5px);
+        }
       }
     }
 
@@ -326,7 +332,7 @@
       z-index: 1000;
       box-shadow: none;
     }
-</style>
+  </style>
 
   <div id="loading-screen">
     <div class="bouncing-dots">
@@ -380,48 +386,53 @@
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1>DARE Aquatics</h1>
-            <h5>Join a thriving swimming community dedicated to empowering swimmers of all ages and skill levels. Our expert swim coaches provide high-quality instruction and personalized training to help you improve your technique, build strength, and reach your goals. Whether you're just starting out or training for competition, we offer supportive, professional coaching in a positive team environment.</h5>
-            <h5>Discover the difference expert swim coaching can make. Dive in and unleash your aquatic potential today! 🏊‍♂️🧡</h5>
+            <h5>Join a thriving swimming community dedicated to empowering swimmers of all ages and skill levels. Our
+              expert swim coaches provide high-quality instruction and personalized training to help you improve your
+              technique, build strength, and reach your goals. Whether you're just starting out or training for
+              competition, we offer supportive, professional coaching in a positive team environment.</h5>
+            <h5>Discover the difference expert swim coaching can make. Dive in and unleash your aquatic potential today!
+              🏊‍♂️🧡</h5>
             <div>
               <a href="contact" class="btn-get-started scrollto">Contact Us</a>
               <a href="groups" class="btn-get-started scrollto ms-3">Explore Swim Groups</a>
             </div>
           </div>
-    <div class="col-lg-6 order-1 order-lg-2 hero-img" style="position: relative; overflow: visible">
-      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
-        <div class="carousel-inner">
-          <!-- Main Swimming Image -->
-          <div class="carousel-item active">
-            <div class="d-flex align-items-center justify-content-center h-100" style="padding: 20px 0;">
-              <img src="assets/img/hero-img.png" class="img-fluid animated" alt="Competitive swimmer doing butterfly stroke"
-                style="max-height: 600px; width: auto; margin: 0 auto;">
-            </div>
-          </div>          
-          <!-- T&Joy Sponsor -->
-          <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center h-100 px-4">
-              <img src="assets/actualSponsors/teaandjoy.png" class="img-fluid sponsor-carousel-item"
-                class="img-fluid sponsor-carousel-item animated" 
-                alt="T&Joy Official Sponsor" style="max-height: 300px; width: auto;">
-                <br>
-              <div class="sponsor-caption mt-2">Sponsor: T&Joy</div>
-            </div>
-          </div>
-          
-          <!-- Additional Sponsor Placeholder -->
-          <div class="carousel-item">
-            <div class="d-flex flex-column align-items-center justify-content-center h-100 px-4">
-              <img src="assets/actualSponsors/irenechoelaw.png" class="img-fluid sponsor-carousel-item"
-                class="img-fluid sponsor-carousel-item animated" alt="Irene Choe Law"
-                style="max-height: 300px; width: auto;">
-              <br>
-              <div class="sponsor-caption mt-2">Sponsor: Irene Choe Law</div>
-            </div>
-          </div> 
-        </div>
-          
-        <!-- Additional Sponsor Placeholder -->
-          <!-- <div class="carousel-item">
+          <div class="col-lg-6 order-1 order-lg-2 hero-img" style="position: relative; overflow: visible">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
+              <div class="carousel-inner">
+                <!-- Main Swimming Image -->
+                <div class="carousel-item active">
+                  <div class="d-flex align-items-center justify-content-center h-100" style="padding: 20px 0;">
+                    <img src="assets/img/hero-img.png" class="img-fluid animated"
+                      alt="Competitive swimmer doing butterfly stroke"
+                      style="max-height: 600px; width: auto; margin: 0 auto;">
+                  </div>
+                </div>
+                <!-- T&Joy Sponsor -->
+                <div class="carousel-item">
+                  <div class="d-flex flex-column align-items-center justify-content-center h-100 px-4">
+                    <img src="assets/actualSponsors/teaandjoy.png" class="img-fluid sponsor-carousel-item"
+                      class="img-fluid sponsor-carousel-item animated" alt="T&Joy Official Sponsor"
+                      style="max-height: 300px; width: auto;">
+                    <br>
+                    <div class="sponsor-caption mt-2">Sponsor: T&Joy</div>
+                  </div>
+                </div>
+
+                <!-- Additional Sponsor Placeholder -->
+                <div class="carousel-item">
+                  <div class="d-flex flex-column align-items-center justify-content-center h-100 px-4">
+                    <img src="assets/actualSponsors/irenechoelaw.png" class="img-fluid sponsor-carousel-item"
+                      class="img-fluid sponsor-carousel-item animated" alt="Irene Choe Law"
+                      style="max-height: 300px; width: auto;">
+                    <br>
+                    <div class="sponsor-caption mt-2">Sponsor: Irene Choe Law</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Sponsor Placeholder -->
+              <!-- <div class="carousel-item">
             <div class="d-flex flex-column align-items-center justify-content-center h-100 px-4">
               <img src="assets/actualSponsors/PLACEHOLDER.png" class="img-fluid sponsor-carousel-item"
                 class="img-fluid sponsor-carousel-item animated" alt="PLACEHOLDER PLACEHOLDER PLACEHOLDER"
@@ -432,12 +443,12 @@
           </div>
         </div>
           -->
-          <!-- End of Placeholder -->
+              <!-- End of Placeholder -->
 
+            </div>
+          </div>
         </div>
-      </div>
-    </div>   
-   </section>
+    </section>
     <!-- end hero section -->
     <br><br><br>
     <section id="about" class="about py-5">
@@ -446,9 +457,12 @@
         <div class="row">
           <div class="col-lg-12">
             <p class="text-center mb-5" style="color: #666;">
-              DARE Aquatics is more than just a swim team — it's a thriving community committed to excellence in competitive swimming.
-              Our team of experienced swim coaches provides professional training for swimmers of all levels, from beginners to elite
-              athletes. Using advanced swim training techniques in a positive, encouraging environment, we help athletes develop not
+              DARE Aquatics is more than just a swim team — it's a thriving community committed to excellence in
+              competitive swimming.
+              Our team of experienced swim coaches provides professional training for swimmers of all levels, from
+              beginners to elite
+              athletes. Using advanced swim training techniques in a positive, encouraging environment, we help athletes
+              develop not
               only their swimming skills but also confidence, discipline, and lifelong friendships.
             </p>
           </div>
@@ -548,203 +562,209 @@
     <!-- Sponsors Section  -->
     <section id="sponsors" class="sponsors section-bg">
       <div class="container" data-aos="fade-up">
-    
+
         <div class="section-title">
           <h2>Our Valued Sponsors</h2>
           <p>Gratefully sponsored by:</p>
         </div>
-    
+
         <div class="sponsors-container">
           <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="100">
             <img src="/assets/actualSponsors/teaandjoy.png" class="sponsor-logo" alt="T&Joy">
           </div>
         </div>
-        <br><h3><center><h4>T&Joy</h4></center></h3><br>
-    
-        <center><i>Click <a href="/sponsorship" target="_blank" rel="noopener noreferrer">here</a> for sponsorship information and opportunities.</i></center>
-   
-    <!-- End Sponsors -->    
-      </div>
-    </section>
-    </main>
-    <!-- end #main -->
+        <br>
+        <h3>
+          <center>
+            <h4>T&Joy</h4>
+          </center>
+        </h3><br>
 
+        <center><i>Click <a href="/sponsorship" target="_blank" rel="noopener noreferrer">here</a> for sponsorship
+            information and opportunities.</i></center>
 
-    <!-- pictures (aka portfolio) section -->
-    <section id="photos" class="portfolio">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Our Journey in Pictures</h2>
-          <p>Dive into our visual story!</p>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-1.jpg" class="img-fluid"
-                alt="2024 Summer Age Group at Mount San Antonio College Aquatics Complex">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2024 Summer Age Group</h4>
-                <p>Mount San Antonio College Aquatics Complex</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-2.jpg" class="img-fluid"
-                alt="2024 Annual Pool Party at Granada Park Pool">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2024 Annual Pool Party</h4>
-                <p>Granada Park Pool</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-3.jpg" class="img-fluid"
-                alt="2024 Metro Champs at Northview High School">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2024 Metro Champs</h4>
-                <p>Northview High School</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-4.jpg" class="img-fluid"
-                alt="2024 Metro Champs (Parents) at Northview High School">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2025 DARE Block Party Meet #2</h4>
-                <p>Granada Park</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-5.jpg" class="img-fluid"
-                alt="2024 Metro Champs at Northview High School">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2025 DARE Block Party Meet #2</h4>
-                <p>Granada Park</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-6.jpg" class="img-fluid" alt="2023 Winter Age Group Team Dinner">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2025 DARE Block Party Meet #2</h4>
-                <p>Granada Park</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-7.jpg" class="img-fluid"
-                alt="RMDA March AG Invite at La Mirada Splash! Aquatic Complex">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>RMDA March AG Invite</h4>
-                <p>La Mirada Splash! Aquatic Complex</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-8.jpg" class="img-fluid"
-                alt="2024 Metro Champs at Northview High School">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2024 Metro Champs</h4>
-                <p>Northview High School</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/aboutus-9.jpg" class="img-fluid"
-                alt="2024 Metro Champs at Northview High School">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/aboutus-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                  title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
-              </div>
-              <div class="portfolio-info">
-                <h4>2024 Metro Champs</h4>
-                <p>Northview High School</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-    </section>
-    <!-- end portfolio section -->
-
-    <!-- Sponsors Section  -->
-    <section id="sponsors" class="sponsors section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Our Valued Partners</h2>
-          <p>We're proud to be supported by partners who share our passion for swimming excellence.</p>
-        </div>
-
-        <div class="sponsors-container">
-          <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="100">
-            <img src="/assets/sponsors/conejo-logo.png" class="sponsor-logo" alt="Conejo Swimworks">
-          </div>
-
-          <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="200">
-            <img src="/assets/sponsors/scs-logo.png" class="sponsor-logo" alt="Southern California Swimming">
-          </div>
-
-          <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="300">
-            <img src="/assets/sponsors/speedo.png" class="sponsor-logo" alt="Speedo">
-          </div>
-        </div>
         <!-- End Sponsors -->
-
       </div>
     </section>
+  </main>
+  <!-- end #main -->
+
+
+  <!-- pictures (aka portfolio) section -->
+  <section id="photos" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Our Journey in Pictures</h2>
+        <p>Dive into our visual story!</p>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-1.jpg" class="img-fluid"
+              alt="2024 Summer Age Group at Mount San Antonio College Aquatics Complex">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2024 Summer Age Group</h4>
+              <p>Mount San Antonio College Aquatics Complex</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-2.jpg" class="img-fluid"
+              alt="2024 Annual Pool Party at Granada Park Pool">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2024 Annual Pool Party</h4>
+              <p>Granada Park Pool</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-3.jpg" class="img-fluid"
+              alt="2024 Metro Champs at Northview High School">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2024 Metro Champs</h4>
+              <p>Northview High School</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-4.jpg" class="img-fluid"
+              alt="2024 Metro Champs (Parents) at Northview High School">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2025 DARE Block Party Meet #2</h4>
+              <p>Granada Park</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-5.jpg" class="img-fluid"
+              alt="2024 Metro Champs at Northview High School">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2025 DARE Block Party Meet #2</h4>
+              <p>Granada Park</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-6.jpg" class="img-fluid" alt="2023 Winter Age Group Team Dinner">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2025 DARE Block Party Meet #2</h4>
+              <p>Granada Park</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-7.jpg" class="img-fluid"
+              alt="RMDA March AG Invite at La Mirada Splash! Aquatic Complex">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>RMDA March AG Invite</h4>
+              <p>La Mirada Splash! Aquatic Complex</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-8.jpg" class="img-fluid"
+              alt="2024 Metro Champs at Northview High School">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2024 Metro Champs</h4>
+              <p>Northview High School</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/aboutus-9.jpg" class="img-fluid"
+              alt="2024 Metro Champs at Northview High School">
+            <div class="portfolio-links">
+              <a href="assets/img/portfolio/aboutus-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                title="DARE Aquatics Image Gallery"><i class="bi bi-plus"></i></a>
+            </div>
+            <div class="portfolio-info">
+              <h4>2024 Metro Champs</h4>
+              <p>Northview High School</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </section>
+  <!-- end portfolio section -->
+
+  <!-- Sponsors Section  -->
+  <section id="sponsors" class="sponsors section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Our Valued Partners</h2>
+        <p>We're proud to be supported by partners who share our passion for swimming excellence.</p>
+      </div>
+
+      <div class="sponsors-container">
+        <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="100">
+          <img src="/assets/sponsors/conejo-logo.png" class="sponsor-logo" alt="Conejo Swimworks">
+        </div>
+
+        <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="200">
+          <img src="/assets/sponsors/scs-logo.png" class="sponsor-logo" alt="Southern California Swimming">
+        </div>
+
+        <div class="sponsor-item" data-aos="zoom-in" data-aos-delay="300">
+          <img src="/assets/sponsors/speedo.png" class="sponsor-logo" alt="Speedo">
+        </div>
+      </div>
+      <!-- End Sponsors -->
+
+    </div>
+  </section>
   </main>
   <!-- end #main -->
 
@@ -761,8 +781,10 @@
               110 West 6th Street P.O Box 256 <br>
               Azuza, California 91702 <br>
               United States <br><br>
-              <strong>Email:</strong><a href="mailto:contact@dareaquatics.com"> contact@dareaquatics.com</a><br>
-              <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
+              <strong>Contact Us:</strong>
+            <p>Have questions or need help? Use our <a href="/contact">contact form</a> — it's the fastest way to reach
+              our team.
+            </p>
             </p>
           </div>
 
@@ -839,7 +861,7 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- carousel logic -->
-   <script>
+  <script>
     // Click to advance functionality
     document.getElementById('heroCarousel').addEventListener('click', function (e) {
       const carousel = new bootstrap.Carousel(this);

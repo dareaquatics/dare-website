@@ -1,0 +1,336 @@
+name: Weekly Snapshot
+
+on:
+  schedule:
+    # Every Sunday at midnight PST (08:00 UTC)
+    - cron: '0 8 * * 0'
+  workflow_dispatch: # Allow manual triggering
+    inputs:
+      force_build:
+        description: 'Force build even if no changes'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  TZ: America/Los_Angeles
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  create-snapshot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Full history for better analytics
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up timezone
+      run: |
+        sudo timedatectl set-timezone America/Los_Angeles
+        echo "Current time: $(date)"
+    
+    - name: Generate build metadata
+      id: build_meta
+      run: |
+        # Build start time
+        BUILD_START=$(date +%s)
+        BUILD_START_READABLE=$(date '+%Y-%m-%d %H:%M:%S %Z')
+        
+        # Generate build number using your custom scheme
+        generate_build() {
+            local YEAR=$(date +%y)
+            local WEEK=$(printf "%02d" $(date +%V))
+            local MONTH=$(date +%m)
+            local DAY=$(date +%d)
+            local HOUR=$(date +%H)
+            local MINUTE=$(date +%M)
+            
+            # Determine build letter by checking existing releases
+            local BUILD_LETTER="a"
+            local BUILD_PREFIX="${YEAR}w${WEEK}"
+            
+            # Check existing releases for this week
+            EXISTING_RELEASES=$(gh release list --limit 50 --json tagName --jq '.[].tagName' | grep "^${BUILD_PREFIX}" | head -1 || echo "")
+            
+            if [ ! -z "$EXISTING_RELEASES" ]; then
+                LAST_LETTER=${EXISTING_RELEASES:5:1}
+                case $LAST_LETTER in
+                    a) BUILD_LETTER="b" ;;
+                    b) BUILD_LETTER="c" ;;
+                    c) BUILD_LETTER="d" ;;
+                    d) BUILD_LETTER="e" ;;
+                    e) BUILD_LETTER="f" ;;
+                    f) BUILD_LETTER="g" ;;
+                    g) BUILD_LETTER="h" ;;
+                    h) BUILD_LETTER="i" ;;
+                    i) BUILD_LETTER="j" ;;
+                    j) BUILD_LETTER="k" ;;
+                    k) BUILD_LETTER="l" ;;
+                    l) BUILD_LETTER="m" ;;
+                    m) BUILD_LETTER="n" ;;
+                    n) BUILD_LETTER="o" ;;
+                    o) BUILD_LETTER="p" ;;
+                    p) BUILD_LETTER="q" ;;
+                    q) BUILD_LETTER="r" ;;
+                    r) BUILD_LETTER="s" ;;
+                    s) BUILD_LETTER="t" ;;
+                    t) BUILD_LETTER="u" ;;
+                    u) BUILD_LETTER="v" ;;
+                    v) BUILD_LETTER="w" ;;
+                    w) BUILD_LETTER="x" ;;
+                    x) BUILD_LETTER="y" ;;
+                    y) BUILD_LETTER="z" ;;
+                    z)
+                        echo "Warning: Maximum builds (z) reached for week $WEEK. Starting over at 'a'"
+                        BUILD_LETTER="a"
+                        ;;
+                esac
+            fi
+            
+            echo "${YEAR}w${WEEK}${BUILD_LETTER}${YEAR}${MONTH}${DAY}${HOUR}${MINUTE}"
+        }
+        
+        BUILD_NUMBER=$(generate_build)
+        TAG_NAME="${BUILD_NUMBER:0:6}" # e.g., 25w27a
+        
+        echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+        echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+        echo "build_start=$BUILD_START" >> $GITHUB_OUTPUT
+        echo "build_start_readable=$BUILD_START_READABLE" >> $GITHUB_OUTPUT
+        
+        echo "Generated build: $BUILD_NUMBER"
+        echo "Tag: $TAG_NAME"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Collect repository analytics
+      id: repo_analytics
+      run: |
+        # File count and sizes
+        TOTAL_FILES=$(find . -type f ! -path './.git/*' | wc -l)
+        TOTAL_SIZE=$(du -sh . --exclude=.git | cut -f1)
+        
+        # Git statistics
+        COMMIT_COUNT=$(git rev-list --count HEAD)
+        LATEST_COMMIT=$(git log -1 --format="%H")
+        LATEST_COMMIT_SHORT=$(git log -1 --format="%h")
+        LATEST_COMMIT_MSG=$(git log -1 --format="%s")
+        LATEST_COMMIT_AUTHOR=$(git log -1 --format="%an")
+        LATEST_COMMIT_DATE=$(git log -1 --format="%ci")
+        
+        # Branch information
+        CURRENT_BRANCH=$(git branch --show-current)
+        TOTAL_BRANCHES=$(git branch -r | wc -l)
+        
+        # Language detection (top 5)
+        LANGUAGES=$(find . -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.py" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.php" -o -name "*.rb" -o -name "*.go" -o -name "*.rs" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" -o -name "*.vue" -o -name "*.md" | grep -v ".git" | head -100 | sed 's/.*\.//' | sort | uniq -c | sort -nr | head -5 | awk '{print $2 "(" $1 ")"}' | tr '\n' ' ')
+        
+        # Changes since last week (if any)
+        WEEK_AGO=$(date -d '7 days ago' +%Y-%m-%d)
+        RECENT_COMMITS=$(git log --since="$WEEK_AGO" --oneline | wc -l)
+        
+        echo "total_files=$TOTAL_FILES" >> $GITHUB_OUTPUT
+        echo "total_size=$TOTAL_SIZE" >> $GITHUB_OUTPUT
+        echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
+        echo "latest_commit=$LATEST_COMMIT" >> $GITHUB_OUTPUT
+        echo "latest_commit_short=$LATEST_COMMIT_SHORT" >> $GITHUB_OUTPUT
+        echo "latest_commit_msg=$LATEST_COMMIT_MSG" >> $GITHUB_OUTPUT
+        echo "latest_commit_author=$LATEST_COMMIT_AUTHOR" >> $GITHUB_OUTPUT
+        echo "latest_commit_date=$LATEST_COMMIT_DATE" >> $GITHUB_OUTPUT
+        echo "current_branch=$CURRENT_BRANCH" >> $GITHUB_OUTPUT
+        echo "total_branches=$TOTAL_BRANCHES" >> $GITHUB_OUTPUT
+        echo "languages=$LANGUAGES" >> $GITHUB_OUTPUT
+        echo "recent_commits=$RECENT_COMMITS" >> $GITHUB_OUTPUT
+    
+    - name: Create repository archive
+      id: create_archive
+      run: |
+        ARCHIVE_NAME="codebase-snapshot-${{ steps.build_meta.outputs.build_number }}"
+        
+        # Create clean archive excluding .git and other unnecessary files
+        tar --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='.DS_Store' \
+            --exclude='*.log' \
+            --exclude='.env*' \
+            --exclude='dist' \
+            --exclude='build' \
+            --exclude='.cache' \
+            --exclude='*.tmp' \
+            --exclude='*.temp' \
+            -czf "${ARCHIVE_NAME}.tar.gz" .
+        
+        # Create zip as well for broader compatibility
+        zip -r "${ARCHIVE_NAME}.zip" . \
+            -x ".git/*" "node_modules/*" ".DS_Store" "*.log" ".env*" "dist/*" "build/*" ".cache/*" "*.tmp" "*.temp"
+        
+        # Get file sizes
+        TAR_SIZE=$(ls -lh "${ARCHIVE_NAME}.tar.gz" | awk '{print $5}')
+        ZIP_SIZE=$(ls -lh "${ARCHIVE_NAME}.zip" | awk '{print $5}')
+        
+        echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+        echo "tar_size=$TAR_SIZE" >> $GITHUB_OUTPUT
+        echo "zip_size=$ZIP_SIZE" >> $GITHUB_OUTPUT
+        
+        echo "Created archives:"
+        echo "  - ${ARCHIVE_NAME}.tar.gz (${TAR_SIZE})"
+        echo "  - ${ARCHIVE_NAME}.zip (${ZIP_SIZE})"
+    
+    - name: Generate workflow summary
+      id: workflow_summary
+      run: |
+        BUILD_END=$(date +%s)
+        BUILD_DURATION=$((BUILD_END - ${{ steps.build_meta.outputs.build_start }}))
+        BUILD_END_READABLE=$(date '+%Y-%m-%d %H:%M:%S %Z')
+        
+        # System information
+        RUNNER_OS=$(uname -s)
+        RUNNER_ARCH=$(uname -m)
+        RUNNER_KERNEL=$(uname -r)
+        
+        echo "build_end=$BUILD_END" >> $GITHUB_OUTPUT
+        echo "build_end_readable=$BUILD_END_READABLE" >> $GITHUB_OUTPUT
+        echo "build_duration=${BUILD_DURATION}s" >> $GITHUB_OUTPUT
+        echo "runner_os=$RUNNER_OS" >> $GITHUB_OUTPUT
+        echo "runner_arch=$RUNNER_ARCH" >> $GITHUB_OUTPUT
+        echo "runner_kernel=$RUNNER_KERNEL" >> $GITHUB_OUTPUT
+    
+    - name: Decode build number for human readability
+      id: decode_build
+      run: |
+        BUILD_NUM="${{ steps.build_meta.outputs.build_number }}"
+        
+        # Parse components
+        YEAR_PART="20${BUILD_NUM:0:2}"
+        WEEK="${BUILD_NUM:3:2}"
+        LETTER="${BUILD_NUM:5:1}"
+        DATE_PART="${BUILD_NUM:6:6}"
+        TIME_PART="${BUILD_NUM:12:4}"
+        
+        # Extract date/time components
+        YEAR_STAMP="20${DATE_PART:0:2}"
+        MONTH="${DATE_PART:2:2}"
+        DAY="${DATE_PART:4:2}"
+        HOUR="${TIME_PART:0:2}"
+        MINUTE="${TIME_PART:2:2}"
+        
+        # Convert month number to name
+        case $MONTH in
+            01) MONTH_NAME="January" ;;
+            02) MONTH_NAME="February" ;;
+            03) MONTH_NAME="March" ;;
+            04) MONTH_NAME="April" ;;
+            05) MONTH_NAME="May" ;;
+            06) MONTH_NAME="June" ;;
+            07) MONTH_NAME="July" ;;
+            08) MONTH_NAME="August" ;;
+            09) MONTH_NAME="September" ;;
+            10) MONTH_NAME="October" ;;
+            11) MONTH_NAME="November" ;;
+            12) MONTH_NAME="December" ;;
+        esac
+        
+        DECODED="$YEAR_PART Week $WEEK build '$LETTER', $MONTH_NAME $DAY ${HOUR}:${MINUTE}"
+        echo "decoded=$DECODED" >> $GITHUB_OUTPUT
+        echo "Decoded build: $DECODED"
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.build_meta.outputs.tag_name }}
+        name: ${{ steps.build_meta.outputs.build_number }}
+        body: |
+          # 📦 Weekly Codebase Snapshot
+          
+          **Build Information:**
+          - **Build ID:** `${{ steps.build_meta.outputs.build_number }}`
+          - **Human Readable:** ${{ steps.decode_build.outputs.decoded }}
+          - **Tag:** `${{ steps.build_meta.outputs.tag_name }}`
+          
+          ## 🏗️ Build Details
+          
+          | Property | Value |
+          |----------|-------|
+          | **Build Started** | ${{ steps.build_meta.outputs.build_start_readable }} |
+          | **Build Completed** | ${{ steps.workflow_summary.outputs.build_end_readable }} |
+          | **Build Duration** | ${{ steps.workflow_summary.outputs.build_duration }} |
+          | **Runner OS** | ${{ steps.workflow_summary.outputs.runner_os }} ${{ steps.workflow_summary.outputs.runner_arch }} |
+          | **Kernel Version** | ${{ steps.workflow_summary.outputs.runner_kernel }} |
+          
+          ## 📊 Repository Statistics
+          
+          | Property | Value |
+          |----------|-------|
+          | **Total Files** | ${{ steps.repo_analytics.outputs.total_files }} |
+          | **Repository Size** | ${{ steps.repo_analytics.outputs.total_size }} |
+          | **Total Commits** | ${{ steps.repo_analytics.outputs.commit_count }} |
+          | **Current Branch** | `${{ steps.repo_analytics.outputs.current_branch }}` |
+          | **Total Branches** | ${{ steps.repo_analytics.outputs.total_branches }} |
+          | **Commits This Week** | ${{ steps.repo_analytics.outputs.recent_commits }} |
+          | **Primary Languages** | ${{ steps.repo_analytics.outputs.languages }} |
+          
+          ## 📝 Latest Commit Information
+          
+          - **Commit:** [`${{ steps.repo_analytics.outputs.latest_commit_short }}`](https://github.com/${{ github.repository }}/commit/${{ steps.repo_analytics.outputs.latest_commit }})
+          - **Message:** ${{ steps.repo_analytics.outputs.latest_commit_msg }}
+          - **Author:** ${{ steps.repo_analytics.outputs.latest_commit_author }}
+          - **Date:** ${{ steps.repo_analytics.outputs.latest_commit_date }}
+          
+          ## 📁 Archive Information
+          
+          | Format | Size | Description |
+          |--------|------|-------------|
+          | **TAR.GZ** | ${{ steps.create_archive.outputs.tar_size }} | Compressed archive (Linux/Unix preferred) |
+          | **ZIP** | ${{ steps.create_archive.outputs.zip_size }} | Standard zip archive (Windows compatible) |
+          
+          ## 🔧 Workflow Information
+          
+          - **Workflow:** [`${{ github.workflow }}`](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          - **Run ID:** `${{ github.run_id }}`
+          - **Run Number:** `${{ github.run_number }}`
+          - **Run Attempt:** `${{ github.run_attempt }}`
+          - **Actor:** `${{ github.actor }}`
+          - **Event:** `${{ github.event_name }}`
+          
+          ---
+          
+          *This is an automated weekly snapshot of the codebase. All source files have been captured and archived for historical reference.*
+          
+          *Generated on ${{ steps.workflow_summary.outputs.build_end_readable }} via GitHub Actions*
+        files: |
+          ${{ steps.create_archive.outputs.archive_name }}.tar.gz
+          ${{ steps.create_archive.outputs.archive_name }}.zip
+        draft: false
+        prerelease: false
+        make_latest: true
+        generate_release_notes: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Cleanup temporary files
+      if: always()
+      run: |
+        rm -f *.tar.gz *.zip
+        echo "Cleanup completed"
+    
+    - name: Build summary
+      run: |
+        echo "## 📦 Weekly Snapshot Created Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Build:** \`${{ steps.build_meta.outputs.build_number }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Tag:** \`${{ steps.build_meta.outputs.tag_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Human Readable:** ${{ steps.decode_build.outputs.decoded }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📊 Quick Stats" >> $GITHUB_STEP_SUMMARY
+        echo "- **Files:** ${{ steps.repo_analytics.outputs.total_files }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Size:** ${{ steps.repo_analytics.outputs.total_size }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Duration:** ${{ steps.workflow_summary.outputs.build_duration }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Archives:** TAR.GZ (${{ steps.create_archive.outputs.tar_size }}), ZIP (${{ steps.create_archive.outputs.zip_size }})" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🔗 **[View Release](https://github.com/${{ github.repository }}/releases/tag/${{ steps.build_meta.outputs.tag_name }})**" >> $GITHUB_STEP_SUMMARY

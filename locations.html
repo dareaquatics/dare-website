@@ -2,25 +2,25 @@
 <html lang="en">
 
 <head>
-<!-- No JS Check -->
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
-</noscript>
-<script>
-  // Script to run on page load to verify JavaScript is working
-  window.addEventListener('load', function() {
+  <!-- No JS Check -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
+  </noscript>
+  <script>
+    // Script to run on page load to verify JavaScript is working
+    window.addEventListener('load', function () {
       // Check if we were redirected back from the JS required page
       const params = new URLSearchParams(window.location.search);
       if (params.get('jscheck') === 'true') {
-          // Remove the query parameter for clean URL
-          const newUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, newUrl);
+        // Remove the query parameter for clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
       }
-      
+
       // Set a flag in localStorage to indicate JS is enabled
       localStorage.setItem('jsEnabled', 'true');
-  });
-</script>
+    });
+  </script>
   <!-- Meta tags and favicons -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -202,8 +202,7 @@
       <div class="container">
 
         <p>Practice is usually held at these two sites. If scheduling a tryout, please reach out to us via the <a
-            href="https://dareaquatics.com/contact">contact form</a> OR email us at
-          <code>contact@dareaquatics.com</code>
+            href="/contact">contact form.</a>
         </p><br>
 
         <!-- Location 1 -->
@@ -287,7 +286,7 @@
             our swimmers. Here's what sets our facilities apart:</b>
           <ul>
             <br>
-            <li>With features like adjustable lane lines, starting blocks, and 
+            <li>With features like adjustable lane lines, starting blocks, and
               dry-land training areas, our facilities cater to all aspects of swim training.</li>
             <li>On-site lifeguards, appropriate pool depths, and well-maintained
               equipment ensure a safe training environment for all our swimmers.</li>
@@ -313,8 +312,7 @@
           <li>Ensure adequate lane space for swimmers of all levels</li>
         </ul>
         <p>If you're scheduling a tryout or have questions about which location you should attend, please reach out to
-          us via <a href="https://dareaquatics.com/contact">contact form</a> OR email us at
-          <code>contact@dareaquatics.com</code>
+          us via the <a href="/contact">contact form.</a> We will typically respond within 2 to 4 business days.
         </p>
         <br>
 
@@ -344,8 +342,11 @@
                 110 West 6th Street P.O Box 256 <br>
                 Azuza, California 91702 <br>
                 United States <br><br>
-                <strong>Email:</strong><a href="mailto:contact@dareaquatics.com"> contact@dareaquatics.com</a><br>
-                <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
+                <strong>Contact Us:</strong>
+              <p>Have questions or need help? Use our <a href="/contact">contact form</a> — it's the fastest way to
+                reach
+                our team.
+              </p>
               </p>
             </div>
 

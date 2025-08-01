@@ -3,25 +3,25 @@
 
 <head>
 
-<!-- No JS Check -->
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
-</noscript>
-<script>
-  // Script to run on page load to verify JavaScript is working
-  window.addEventListener('load', function() {
+  <!-- No JS Check -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
+  </noscript>
+  <script>
+    // Script to run on page load to verify JavaScript is working
+    window.addEventListener('load', function () {
       // Check if we were redirected back from the JS required page
       const params = new URLSearchParams(window.location.search);
       if (params.get('jscheck') === 'true') {
-          // Remove the query parameter for clean URL
-          const newUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, newUrl);
+        // Remove the query parameter for clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
       }
-      
+
       // Set a flag in localStorage to indicate JS is enabled
       localStorage.setItem('jsEnabled', 'true');
-  });
-</script>
+    });
+  </script>
 
   <!-- Google Analytics (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
@@ -206,7 +206,9 @@
     <!-- Swim Groups Section -->
     <section class="inner-page">
       <div class="container group-container">
-        <center><h2>Swim Groups</h2></center><br>
+        <center>
+          <h2>Swim Groups</h2>
+        </center><br>
         <p class="text-center mb-5">
           DARE Aquatics offers training and practice groups for swimmers of
           all ages and ability levels. Our goal is to provide age-specific
@@ -501,9 +503,10 @@
               110 West 6th Street P.O Box 256 <br />
               Azuza, California 91702 <br />
               United States <br /><br />
-              <strong>Email:</strong>
-              <a href="mailto:contact@dareaquatics.com">contact@dareaquatics.com</a><br />
-              <p>Use our contact <a href="/contact">form</a> for faster responses.</p>
+              <strong>Contact Us:</strong>
+            <p>Have questions or need help? Use our <a href="/contact">contact form</a> — it's the fastest way to reach
+              our team.
+            </p>
             </p>
           </div>
 
