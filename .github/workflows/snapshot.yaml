@@ -280,50 +280,50 @@ jobs:
         tag_name: ${{ steps.build_meta.outputs.tag_name }}
         name: ${{ steps.build_meta.outputs.build_number }}
         body: |
-          # 📦 Weekly Codebase Snapshot
+          # Weekly Codebase Snapshot
           
           **Build Information:**
           - **Build ID:** `${{ steps.build_meta.outputs.build_number }}`
           - **Human Readable:** ${{ steps.decode_build.outputs.decoded }}
           - **Tag:** `${{ steps.build_meta.outputs.tag_name }}`
           
-          ## 🏗️ Build Details
+          ## Build Details
           
           | Property | Value |
           |----------|-------|
-          | **Build Started** | ${{ steps.build_meta.outputs.build_start_readable }} |
-          | **Build Completed** | ${{ steps.workflow_summary.outputs.build_end_readable }} |
-          | **Build Duration** | ${{ steps.workflow_summary.outputs.build_duration }} |
-          | **Runner OS** | ${{ steps.workflow_summary.outputs.runner_os }} ${{ steps.workflow_summary.outputs.runner_arch }} |
-          | **Kernel Version** | ${{ steps.workflow_summary.outputs.runner_kernel }} |
+          | **Build Started** | `${{ steps.build_meta.outputs.build_start_readable }}` |
+          | **Build Completed** | `${{ steps.workflow_summary.outputs.build_end_readable }}` |
+          | **Build Duration** | `${{ steps.workflow_summary.outputs.build_duration }}` |
+          | **Runner OS** | `${{ steps.workflow_summary.outputs.runner_os }} ${{ steps.workflow_summary.outputs.runner_arch }}` |
+          | **Kernel Version** | `${{ steps.workflow_summary.outputs.runner_kernel }}` |
           
-          ## 📊 Repository Statistics
+          ## Repository Statistics
           
           | Property | Value |
           |----------|-------|
-          | **Total Files** | ${{ steps.repo_analytics.outputs.total_files }} |
-          | **Repository Size** | ${{ steps.repo_analytics.outputs.total_size }} |
-          | **Total Commits** | ${{ steps.repo_analytics.outputs.commit_count }} |
+          | **Total Files** | `${{ steps.repo_analytics.outputs.total_files }}` |
+          | **Repository Size** | `${{ steps.repo_analytics.outputs.total_size }}` |
+          | **Total Commits** | `${{ steps.repo_analytics.outputs.commit_count }}` |
           | **Current Branch** | `${{ steps.repo_analytics.outputs.current_branch }}` |
-          | **Total Branches** | ${{ steps.repo_analytics.outputs.total_branches }} |
-          | **Commits This Week** | ${{ steps.repo_analytics.outputs.recent_commits }} |
-          | **Primary Languages** | ${{ steps.repo_analytics.outputs.languages }} |
+          | **Total Branches** | `${{ steps.repo_analytics.outputs.total_branches }}` |
+          | **Commits This Week** | `${{ steps.repo_analytics.outputs.recent_commits }}` |
+          | **Primary Languages** | `${{ steps.repo_analytics.outputs.languages }}` |
           
-          ## 📝 Latest Commit Information
+          ## Latest Commit Information
           
           - **Commit:** [`${{ steps.repo_analytics.outputs.latest_commit_short }}`](https://github.com/${{ github.repository }}/commit/${{ steps.repo_analytics.outputs.latest_commit }})
-          - **Message:** ${{ steps.repo_analytics.outputs.latest_commit_msg }}
-          - **Author:** ${{ steps.repo_analytics.outputs.latest_commit_author }}
-          - **Date:** ${{ steps.repo_analytics.outputs.latest_commit_date }}
+          - **Message:** `${{ steps.repo_analytics.outputs.latest_commit_msg }}`
+          - **Author:** `${{ steps.repo_analytics.outputs.latest_commit_author }}`
+          - **Date:** `${{ steps.repo_analytics.outputs.latest_commit_date }}`
           
-          ## 📁 Archive Information
+          ## Archive Information
           
           | Format | Size | Description |
           |--------|------|-------------|
           | **TAR.GZ** | ${{ steps.create_archive.outputs.tar_size }} | Compressed archive (Linux/Unix preferred) |
           | **ZIP** | ${{ steps.create_archive.outputs.zip_size }} | Standard zip archive (Windows compatible) |
           
-          ## 🔧 Workflow Information
+          ## Workflow Information
           
           - **Workflow:** [`${{ github.workflow }}`](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           - **Run ID:** `${{ github.run_id }}`
@@ -336,7 +336,7 @@ jobs:
           
           *This is an automated weekly snapshot of the codebase. All source files have been captured and archived for historical reference.*
           
-          *Generated on ${{ steps.workflow_summary.outputs.build_end_readable }} via GitHub Actions*
+          *Generated on `${{ steps.workflow_summary.outputs.build_end_readable }}` via GitHub Actions*
         files: |
           ${{ steps.create_archive.outputs.archive_name }}.tar.gz
           ${{ steps.create_archive.outputs.archive_name }}.zip
