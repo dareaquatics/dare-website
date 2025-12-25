@@ -157,6 +157,10 @@ func processArticles(urls []string) []Article {
 	var wg sync.WaitGroup
 	ch := make(chan string, concurrency)
 	results := make(chan Article, len(urls))
+	
+	// Track errors
+	var errorCount int32
+	var errorMutex sync.Mutex
 
 	for i := 0; i < concurrency; i++ {
 		wg.Add(1)
@@ -166,6 +170,9 @@ func processArticles(urls []string) []Article {
 				article, err := fetchArticle(url)
 				if err != nil {
 					log.Warnf("failed to process %s: %v", url, err)
+					errorMutex.Lock()
+					errorCount++
+					errorMutex.Unlock()
 					continue
 				}
 				results <- article
@@ -183,6 +190,15 @@ func processArticles(urls []string) []Article {
 	var articles []Article
 	for article := range results {
 		articles = append(articles, article)
+	}
+
+	// Log error summary
+	if errorCount > 0 {
+		log.Warnf("failed to fetch %d out of %d articles", errorCount, len(urls))
+	}
+	
+	if len(articles) == 0 && errorCount > 0 {
+		log.Error("all articles failed to fetch - check network connectivity and site availability")
 	}
 
 	sortArticlesByDate(articles)
@@ -302,19 +318,67 @@ func processContent(html string) string {
 		s.SetHtml(fmt.Sprintf(`<p class="news-paragraph">%s</p>`, s.Text()))
 	})
 
-	// Clean up links
-	doc.Find("a").Each(func(i int, s *goquery.Selection) {
-		href, _ := s.Attr("href")
-		s.SetText("Click here to be redirected to the link")
-		if href != "" && !strings.HasPrefix(href, "http") {
-			href = baseURL + href
+	// Clean up existing links and make relative links absolute
+	doc.Find("a[href]").Each(func(i int, s *goquery.Selection) {
+		href, exists := s.Attr("href")
+		if !exists || href == "" || href == "#" {
+			// Remove empty or anchor-only links
+			s.ReplaceWithHtml(s.Text())
+			return
 		}
+
+		// Make relative URLs absolute
+		if !strings.HasPrefix(href, "http://") && !strings.HasPrefix(href, "https://") {
+			if strings.HasPrefix(href, "/") {
+				href = baseURL + href
+			} else {
+				href = baseURL + "/" + href
+			}
+		}
+
+		// Set the cleaned href and target
 		s.SetAttr("href", href)
 		s.SetAttr("target", "_blank")
+		s.SetAttr("rel", "noopener noreferrer")
+		
+		// Only replace text if it's empty or just whitespace
+		text := strings.TrimSpace(s.Text())
+		if text == "" || text == href {
+			s.SetText("Click here to be redirected to the link")
+		}
+	})
+
+	// Get the processed HTML
+	html, _ = doc.Html()
+
+	// Find and convert plain text URLs to clickable links
+	// Match URLs that start with http:// or https://, but avoid those already in href attributes
+	// Also trim common trailing punctuation that's not part of the URL
+	urlRegex := regexp.MustCompile(`(?:^|[^"=>])(\bhttps?://[^\s<>"]+?)([.,;!?)]*)(?:\s|<|$)`)
+	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
+		// Extract the URL and check if it's inside an href attribute
+		if strings.Contains(match, `href="`) || strings.Contains(match, `href='`) {
+			return match // Already a link, don't modify
+		}
+		
+		// Use submatch to separate URL from trailing punctuation
+		submatches := urlRegex.FindStringSubmatch(match)
+		if len(submatches) < 2 {
+			return match
+		}
+		
+		url := submatches[1]
+		trailingPunct := ""
+		if len(submatches) > 2 {
+			trailingPunct = submatches[2]
+		}
+		
+		// Preserve any leading character and add trailing punctuation after the link
+		leadingChar := strings.TrimSuffix(match, url+trailingPunct)
+		return leadingChar + fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`, url) + trailingPunct
 	})
 
 	// Clean up HTML
-	html, _ = doc.Html()
 	html = regexp.MustCompile(`\s+`).ReplaceAllString(html, " ")
 	html = regexp.MustCompile(`<br\s*/?>`).ReplaceAllString(html, "\n")
 	html = regexp.MustCompile(`</li>\s*<li>`).ReplaceAllString(html, "</li><li>")
@@ -391,6 +455,8 @@ func updateNewsHTML(newContent string) (bool, error) {
 }
 
 func gitCommitAndPush() error {
+	log.Info("committing changes to git")
+	
 	// Open the repository in the current working directory (repository root)
 	repo, err := git.PlainOpen(".")
 	if err != nil {
@@ -400,6 +466,18 @@ func gitCommitAndPush() error {
 	wt, err := repo.Worktree()
 	if err != nil {
 		return fmt.Errorf("worktree access failed: %w", err)
+	}
+
+	// Check status before committing
+	status, err := wt.Status()
+	if err != nil {
+		return fmt.Errorf("git status check failed: %w", err)
+	}
+
+	// If no changes, don't commit
+	if status.IsClean() {
+		log.Info("no changes to commit")
+		return nil
 	}
 
 	if _, err := wt.Add(newsHTMLFile); err != nil {
@@ -422,11 +500,44 @@ func gitCommitAndPush() error {
 		Password: os.Getenv("PAT_TOKEN"),
 	}
 
-	if err := repo.Push(&git.PushOptions{Auth: auth}); err != nil {
-		return fmt.Errorf("push failed: %w", err)
+	// Try to push with retry logic for conflicts
+	maxRetries := 3
+	for attempt := 1; attempt <= maxRetries; attempt++ {
+		err = repo.Push(&git.PushOptions{Auth: auth})
+		if err == nil {
+			log.Info("changes pushed successfully")
+			return nil
+		}
+
+		// If it's not a conflict-related error, fail immediately
+		if !strings.Contains(err.Error(), "non-fast-forward") && 
+		   !strings.Contains(err.Error(), "rejected") {
+			return fmt.Errorf("push failed: %w", err)
+		}
+
+		// For conflicts, try to pull and retry
+		if attempt < maxRetries {
+			log.Warnf("push failed (attempt %d/%d), trying to pull and retry: %v", attempt, maxRetries, err)
+			
+			// Pull with rebase
+			pullErr := wt.Pull(&git.PullOptions{
+				Auth:         auth,
+				RemoteName:   "origin",
+				ReferenceName: "refs/heads/main", // Adjust if your branch is different
+			})
+			
+			if pullErr != nil && pullErr.Error() != "already up-to-date" {
+				log.Warnf("pull failed: %v", pullErr)
+			}
+			
+			time.Sleep(time.Duration(attempt) * time.Second) // Exponential backoff
+			continue
+		}
+
+		return fmt.Errorf("push failed after %d attempts: %w", maxRetries, err)
 	}
 
-	return nil
+	return fmt.Errorf("push failed after %d attempts", maxRetries)
 }
 
 func setBrowserHeaders(req *http.Request) {
