@@ -2,34 +2,18 @@
 <html lang="en">
 
 <head>
-
-<!-- No JS Check -->
-<noscript>
-  <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
-</noscript>
-<script>
-  // Script to run on page load to verify JavaScript is working
-  window.addEventListener('load', function() {
-      // Check if we were redirected back from the JS required page
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('jscheck') === 'true') {
-          // Remove the query parameter for clean URL
-          const newUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, newUrl);
-      }
-      
-      // Set a flag in localStorage to indicate JS is enabled
-      localStorage.setItem('jsEnabled', 'true');
-  });
-</script>
-
-
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="5; url=https://instagram.com/dareaquatics">
   <title>Redirecting to Instagram</title>
+
+  <!-- Noscript fallback -->
+  <noscript>
+    <meta http-equiv="refresh" content="5; url=https://instagram.com/dareaquatics">
+  </noscript>
+
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       display: flex;
@@ -108,34 +92,44 @@
       height: 40px;
     }
   </style>
+
   <script>
+    // JS check flag
+    window.addEventListener('load', function () {
+      localStorage.setItem('jsEnabled', 'true');
+    });
+
+    // Countdown
     let countdown = 5;
-    setInterval(function () {
+    const countdownEl = document.getElementById("countdown");
+
+    const intervalId = setInterval(() => {
       if (countdown > 0) {
         countdown--;
-        document.getElementById("countdown").innerHTML = countdown;
+        if (countdownEl) countdownEl.textContent = countdown;
+      } else {
+        clearInterval(intervalId);
       }
     }, 1000);
 
-    // JavaScript fallback if meta redirect fails
-    setTimeout(function () {
+    // Fallback redirect
+    setTimeout(() => {
       window.location.href = "https://instagram.com/dareaquatics";
     }, 5000);
   </script>
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" role="status" aria-live="polite">
     <h1>We're redirecting you to Instagram</h1>
     <p>Hang tight! You'll be there in <span id="countdown">5</span> seconds...</p>
     <div class="icon">
-      <!-- Instagram SVG Icon -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" class="social-icon"
-        alt="Instagram">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+        class="social-icon" alt="Instagram Logo">
     </div>
-    <div class="loader"></div>
-    <p class="countdown">If not redirected, <a href="https://instagram.com/dareaquatics" class="redirect-link">click
-        here</a>.</p>
+    <div class="loader" aria-hidden="true"></div>
+    <p class="countdown">If not redirected, <a href="https://instagram.com/dareaquatics"
+        class="redirect-link">click here</a>.</p>
   </div>
 </body>
 
