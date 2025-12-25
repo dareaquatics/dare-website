@@ -59,9 +59,11 @@
         .info-columns {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
         .info-column {
             flex-basis: 48%;
+            margin-bottom: 20px;
         }
         h2 {
             font-size: 18px;
@@ -81,36 +83,36 @@
             color: #888;
             margin-top: 20px;
             text-align: center;
+            font-family: monospace;
+            user-select: all;
         }
     </style>
     <script>
         window.addEventListener('load', function() {
-            // Check if we were redirected back from the JS required page
             const params = new URLSearchParams(window.location.search);
             if (params.get('jscheck') === 'true') {
-                // Remove the query parameter for clean URL
                 const newUrl = window.location.pathname;
                 window.history.replaceState({}, document.title, newUrl);
             }
             
-            // Set a flag in localStorage to indicate JS is enabled
             localStorage.setItem('jsEnabled', 'true');
 
-            // Check if JavaScript is now enabled
+            // Redirect back to target if JS is enabled
             if (typeof(Storage) !== "undefined") {
-                // Get the target URL from the query parameters
                 const targetUrl = params.get('target') || '/';
-                const authorizedUrls = ['/', '/home', '/dashboard']; // List of authorized URLs
-                
-                // If JavaScript is enabled, redirect back to the target page
+                const authorizedUrls = ['/', '/home', '/dashboard'];
                 if (localStorage.getItem('jsEnabled') === 'true') {
                     if (authorizedUrls.includes(targetUrl)) {
                         window.location.href = decodeURIComponent(targetUrl) + '?jscheck=true';
                     } else {
-                        window.location.href = '/'; // Default safe URL
+                        window.location.href = '/';
                     }
                 }
             }
+
+            // Generate a unique debug/browser ID
+            const browserId = `${navigator.userAgent} | ${navigator.platform} | Lang:${navigator.language} | Mem:${navigator.deviceMemory || 'N/A'}GB | Cores:${navigator.hardwareConcurrency || 'N/A'} | TS:${Date.now()}`;
+            document.getElementById('browser-id').textContent = browserId;
         });
     </script>
 </head>
@@ -135,8 +137,5 @@
         © 2025 DARE Aquatics • Browser ID: <span id="browser-id">Loading...</span>
     </div>
   </div>
-  <script>
-      document.getElementById('browser-id').textContent = navigator.userAgent;
-  </script>
 </body>
 </html>
