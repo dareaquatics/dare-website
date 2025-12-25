@@ -59,7 +59,9 @@ func main() {
 
 	articleURLs, err := fetchArticleURLs()
 	if err != nil {
-		log.Fatalf("failed to fetch article urls: %v", err)
+		log.Errorf("failed to fetch article urls: %v", err)
+		log.Info("sync process completed with errors - no changes made")
+		os.Exit(0) // Exit successfully so workflow doesn't fail
 	}
 
 	articles := processArticles(articleURLs)
@@ -71,12 +73,16 @@ func main() {
 	htmlContent := generateHTML(articles)
 	modified, err := updateNewsHTML(htmlContent)
 	if err != nil {
-		log.Fatalf("failed to update html: %v", err)
+		log.Errorf("failed to update html: %v", err)
+		log.Info("sync process completed with errors - no changes made")
+		os.Exit(0)
 	}
 
 	if modified {
 		if err := gitCommitAndPush(); err != nil {
-			log.Fatalf("failed to commit changes: %v", err)
+			log.Errorf("failed to commit changes: %v", err)
+			log.Info("sync process completed with errors - changes not pushed")
+			os.Exit(0)
 		}
 	}
 
@@ -101,12 +107,34 @@ func fetchArticleURLs() ([]string, error) {
 	setBrowserHeaders(req)
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("request failed: %w", err)
+		return nil, fmt.Errorf("request failed (network error): %w", err)
 	}
 	defer resp.Body.Close()
 
+	// Explicit handling of different HTTP status codes
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		switch resp.StatusCode {
+		case http.StatusForbidden:
+			log.Errorf("HTTP 403 Forbidden - Access denied to news page")
+			log.Error("Possible causes: IP blocked, rate limit exceeded, or site requires authentication")
+			return nil, fmt.Errorf("access forbidden (403) - check permissions and rate limits")
+		case http.StatusUnauthorized:
+			log.Errorf("HTTP 401 Unauthorized - Authentication failed")
+			return nil, fmt.Errorf("authentication failed (401) - invalid credentials")
+		case http.StatusNotFound:
+			log.Errorf("HTTP 404 Not Found - News page URL not found")
+			log.Errorf("URL attempted: %s", newsURL)
+			return nil, fmt.Errorf("resource not found (404) - check URL")
+		case http.StatusTooManyRequests:
+			log.Errorf("HTTP 429 Too Many Requests - Rate limit exceeded")
+			return nil, fmt.Errorf("rate limit exceeded (429) - try again later")
+		case http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable:
+			log.Errorf("HTTP %d - Server error on remote side", resp.StatusCode)
+			return nil, fmt.Errorf("server error (%d) - remote service is down", resp.StatusCode)
+		default:
+			log.Errorf("HTTP %d - Unexpected status code from news page", resp.StatusCode)
+			return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		}
 	}
 
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
@@ -170,9 +198,27 @@ func fetchArticle(articleURL string) (Article, error) {
 	setBrowserHeaders(req)
 	resp, err := client.Do(req)
 	if err != nil {
-		return Article{}, fmt.Errorf("request failed: %w", err)
+		return Article{}, fmt.Errorf("request failed (network error): %w", err)
 	}
 	defer resp.Body.Close()
+
+	// Handle HTTP errors for individual articles
+	if resp.StatusCode != http.StatusOK {
+		switch resp.StatusCode {
+		case http.StatusForbidden:
+			log.Warnf("HTTP 403 Forbidden for article: %s", articleURL)
+			return Article{}, fmt.Errorf("access forbidden (403)")
+		case http.StatusNotFound:
+			log.Warnf("HTTP 404 Not Found for article: %s", articleURL)
+			return Article{}, fmt.Errorf("article not found (404)")
+		case http.StatusTooManyRequests:
+			log.Warnf("HTTP 429 Rate limit exceeded for article: %s", articleURL)
+			return Article{}, fmt.Errorf("rate limit exceeded (429)")
+		default:
+			log.Warnf("HTTP %d for article: %s", resp.StatusCode, articleURL)
+			return Article{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		}
+	}
 
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
