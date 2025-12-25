@@ -32,7 +32,8 @@ style:
 
   # Additional CSS styles (optional)
   custom_css:
-    "font-weight: bold;"
+    "font-weight: bold;
+    text-align: center;"
     # Example:
     # custom_css: "font-weight: bold; text-decoration: underline;"
 
