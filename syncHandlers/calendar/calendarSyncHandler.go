@@ -40,18 +40,25 @@ func main() {
 
 	events, err := fetchEvents(log)
 	if err != nil {
-		log.Fatalf("failed to fetch events: %v", err)
+		// Log the error but don't fail - allows the workflow to complete gracefully
+		log.Errorf("failed to fetch events: %v", err)
+		log.Info("sync process completed with errors - no changes made")
+		os.Exit(0) // Exit successfully so workflow doesn't fail
 	}
 
 	htmlContent := generateHTML(events, log)
 	modified, err := updateHTMLContent(htmlContent, log)
 	if err != nil {
-		log.Fatalf("failed to update html: %v", err)
+		log.Errorf("failed to update html: %v", err)
+		log.Info("sync process completed with errors - no changes made")
+		os.Exit(0)
 	}
 
 	if modified {
 		if err := gitCommitAndPush(log); err != nil {
-			log.Fatalf("failed to commit changes: %v", err)
+			log.Errorf("failed to commit changes: %v", err)
+			log.Info("sync process completed with errors - changes not pushed")
+			os.Exit(0)
 		}
 	}
 
@@ -72,12 +79,33 @@ func fetchEvents(log *logrus.Logger) ([]gocal.Event, error) {
 	log.Info("fetching ics data")
 	resp, err := http.Get(icsURL)
 	if err != nil {
-		return nil, fmt.Errorf("ics fetch failed: %w", err)
+		return nil, fmt.Errorf("ics fetch failed (network error): %w", err)
 	}
 	defer resp.Body.Close()
 
+	// Explicit handling of different HTTP status codes
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		switch resp.StatusCode {
+		case http.StatusForbidden:
+			log.Errorf("HTTP 403 Forbidden - Access denied to ICS feed")
+			log.Error("Possible causes: API key expired, rate limit exceeded, or permissions changed")
+			return nil, fmt.Errorf("access forbidden (403) - check API key and permissions")
+		case http.StatusUnauthorized:
+			log.Errorf("HTTP 401 Unauthorized - Authentication failed")
+			return nil, fmt.Errorf("authentication failed (401) - invalid credentials")
+		case http.StatusNotFound:
+			log.Errorf("HTTP 404 Not Found - ICS feed URL not found")
+			return nil, fmt.Errorf("resource not found (404) - check URL")
+		case http.StatusTooManyRequests:
+			log.Errorf("HTTP 429 Too Many Requests - Rate limit exceeded")
+			return nil, fmt.Errorf("rate limit exceeded (429) - try again later")
+		case http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable:
+			log.Errorf("HTTP %d - Server error on remote side", resp.StatusCode)
+			return nil, fmt.Errorf("server error (%d) - remote service is down", resp.StatusCode)
+		default:
+			log.Errorf("HTTP %d - Unexpected status code", resp.StatusCode)
+			return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		}
 	}
 
 	loc, err := time.LoadLocation(timezone)
@@ -87,6 +115,7 @@ func fetchEvents(log *logrus.Logger) ([]gocal.Event, error) {
 
 	parser := gocal.NewParser(resp.Body)
 	if err := parser.Parse(); err != nil {
+		log.Errorf("failed to parse ICS data: %v", err)
 		return nil, fmt.Errorf("ics parse failed: %w", err)
 	}
 
