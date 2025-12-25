@@ -299,26 +299,7 @@ func formatDate(timestamp string, tzid string) string {
 }
 
 func processContent(html string) string {
-	// FIRST: Replace images with links using regex (before goquery)
-	imgRegex := regexp.MustCompile(`<img[^>]*\ssrc=["']([^"']+)["'][^>]*>`)
-	html = imgRegex.ReplaceAllStringFunc(html, func(match string) string {
-		srcRegex := regexp.MustCompile(`src=["']([^"']+)["']`)
-		srcMatch := srcRegex.FindStringSubmatch(match)
-		if len(srcMatch) < 2 {
-			return ""
-		}
-		src := srcMatch[1]
-		if !strings.HasPrefix(src, "http") {
-			if strings.HasPrefix(src, "/") {
-				src = baseURL + src
-			} else {
-				src = baseURL + "/" + src
-			}
-		}
-		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
-	})
-
-	// Now parse with goquery for other operations
+	// Parse with goquery for structural operations
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
 	if err != nil {
 		return html
@@ -358,14 +339,37 @@ func processContent(html string) string {
 		}
 	})
 
-	// Get the processed HTML
+	// Get the HTML output from goquery
 	html, _ = doc.Html()
 
-	// LAST: Convert plain text URLs to links using regex
-	// This regex finds URLs that are NOT already inside href="" attributes
+	// NOW do all regex replacements on the final HTML (goquery is done, can't interfere)
+	
+	// 1. Replace images with links
+	imgRegex := regexp.MustCompile(`<img[^>]*\ssrc=["']([^"']+)["'][^>]*>`)
+	html = imgRegex.ReplaceAllStringFunc(html, func(match string) string {
+		srcRegex := regexp.MustCompile(`src=["']([^"']+)["']`)
+		srcMatch := srcRegex.FindStringSubmatch(match)
+		if len(srcMatch) < 2 {
+			return "" // Remove malformed img tags
+		}
+		src := srcMatch[1]
+		
+		// Make relative URLs absolute
+		if !strings.HasPrefix(src, "http") {
+			if strings.HasPrefix(src, "/") {
+				src = baseURL + src
+			} else {
+				src = baseURL + "/" + src
+			}
+		}
+		
+		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
+	})
+
+	// 2. Convert plain text URLs to links
 	html = convertPlainTextURLsToLinks(html)
 
-	// Clean up HTML
+	// 3. Clean up HTML formatting
 	html = regexp.MustCompile(`\s+`).ReplaceAllString(html, " ")
 	html = regexp.MustCompile(`<br\s*/?>`).ReplaceAllString(html, "\n")
 	html = regexp.MustCompile(`</li>\s*<li>`).ReplaceAllString(html, "</li><li>")
@@ -374,14 +378,15 @@ func processContent(html string) string {
 }
 
 func convertPlainTextURLsToLinks(html string) string {
-	// Find all URLs in text content (not in attributes)
+	// This regex finds text content between tags that contains URLs
+	// Pattern: >(text with URL)<
 	urlRegex := regexp.MustCompile(`>([^<]*\b(?:https?://[^\s<>"]+)[^<]*)<`)
 	
 	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
 		// Extract the text content between > and <
 		text := match[1 : len(match)-1]
 		
-		// Find and replace URLs in this text
+		// Replace URLs in this text with links
 		urlPattern := regexp.MustCompile(`\b(https?://[^\s<>"]+)`)
 		newText := urlPattern.ReplaceAllString(text, `<a href="$1" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`)
 		
