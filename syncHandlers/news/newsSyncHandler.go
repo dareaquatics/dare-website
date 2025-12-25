@@ -299,23 +299,26 @@ func formatDate(timestamp string, tzid string) string {
 }
 
 func processContent(html string) string {
-	// First, use regex to replace images before parsing with goquery
-	// This ensures clean replacement
-	imgRegex := regexp.MustCompile(`<img[^>]+src=["']([^"']+)["'][^>]*>`)
+	// FIRST: Replace images with links using regex (before goquery)
+	imgRegex := regexp.MustCompile(`<img[^>]*\ssrc=["']([^"']+)["'][^>]*>`)
 	html = imgRegex.ReplaceAllStringFunc(html, func(match string) string {
-		// Extract src attribute
 		srcRegex := regexp.MustCompile(`src=["']([^"']+)["']`)
 		srcMatch := srcRegex.FindStringSubmatch(match)
 		if len(srcMatch) < 2 {
-			return match
+			return ""
 		}
 		src := srcMatch[1]
 		if !strings.HasPrefix(src, "http") {
-			src = baseURL + src
+			if strings.HasPrefix(src, "/") {
+				src = baseURL + src
+			} else {
+				src = baseURL + "/" + src
+			}
 		}
 		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
 	})
 
+	// Now parse with goquery for other operations
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
 	if err != nil {
 		return html
@@ -331,7 +334,6 @@ func processContent(html string) string {
 	doc.Find("a[href]").Each(func(i int, s *goquery.Selection) {
 		href, exists := s.Attr("href")
 		if !exists || href == "" || href == "#" {
-			// Remove empty or anchor-only links, keep just the text
 			s.ReplaceWithHtml(s.Text())
 			return
 		}
@@ -345,12 +347,11 @@ func processContent(html string) string {
 			}
 		}
 
-		// Set the cleaned href and target
 		s.SetAttr("href", href)
 		s.SetAttr("target", "_blank")
 		s.SetAttr("rel", "noopener noreferrer")
 		
-		// Only replace text if it's empty or just whitespace or is the URL itself
+		// Replace text if it's a URL
 		text := strings.TrimSpace(s.Text())
 		if text == "" || text == href || strings.HasPrefix(text, "http://") || strings.HasPrefix(text, "https://") {
 			s.SetText("Click here to be redirected to the link")
@@ -360,38 +361,33 @@ func processContent(html string) string {
 	// Get the processed HTML
 	html, _ = doc.Html()
 
-	// Find and convert plain text URLs to clickable links
-	// This regex finds URLs not already inside HTML tags
-	urlRegex := regexp.MustCompile(`(?i)\b(https?://[^\s<>"]+?)(?:\.)?(?:\s|<|$)`)
-	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
-		// Check if this URL is already inside an href attribute or tag
-		if strings.Contains(match, `href=`) {
-			return match
-		}
-		
-		// Extract URL
-		submatches := urlRegex.FindStringSubmatch(match)
-		if len(submatches) < 2 {
-			return match
-		}
-		
-		url := submatches[1]
-		
-		// Remove trailing punctuation that's likely not part of the URL
-		url = strings.TrimRight(url, ".,;:!?)")
-		
-		// Find what comes after the URL in the original match
-		trailing := strings.TrimPrefix(match, url)
-		
-		// Replace the URL entirely with the link text
-		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>%s`, url, trailing)
-	})
+	// LAST: Convert plain text URLs to links using regex
+	// This regex finds URLs that are NOT already inside href="" attributes
+	html = convertPlainTextURLsToLinks(html)
 
 	// Clean up HTML
 	html = regexp.MustCompile(`\s+`).ReplaceAllString(html, " ")
 	html = regexp.MustCompile(`<br\s*/?>`).ReplaceAllString(html, "\n")
 	html = regexp.MustCompile(`</li>\s*<li>`).ReplaceAllString(html, "</li><li>")
 
+	return html
+}
+
+func convertPlainTextURLsToLinks(html string) string {
+	// Find all URLs in text content (not in attributes)
+	urlRegex := regexp.MustCompile(`>([^<]*\b(?:https?://[^\s<>"]+)[^<]*)<`)
+	
+	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
+		// Extract the text content between > and <
+		text := match[1 : len(match)-1]
+		
+		// Find and replace URLs in this text
+		urlPattern := regexp.MustCompile(`\b(https?://[^\s<>"]+)`)
+		newText := urlPattern.ReplaceAllString(text, `<a href="$1" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`)
+		
+		return ">" + newText + "<"
+	})
+	
 	return html
 }
 
