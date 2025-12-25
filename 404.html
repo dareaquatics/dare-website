@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-<title>404</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <title>404 – Page Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+
+  <style>
+    .visually-hidden-focusable {
+      position: absolute;
+      left: -9999px;
+    }
+    .visually-hidden-focusable:focus {
+      left: 0;
+    }
+  </style>
+</head>
 <body>
-<h1>Error 404</h1>
-<p>The requested URL was not found on this server.</p>
+
+  <a href="/" class="visually-hidden-focusable">Go to homepage</a>
+
+  <main>
+    <h1>Error 404</h1>
+    <p>The requested URL was not found on this server.</p>
+  </main>
+
 </body>
+</html>
