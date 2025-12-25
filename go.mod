@@ -5,7 +5,7 @@ go 1.24.0
 toolchain go1.24.1
 
 require (
-	github.com/PuerkitoBio/goquery v1.10.3
+	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/apognu/gocal v0.9.1
 	github.com/go-git/go-git/v5 v5.16.3
 	github.com/sirupsen/logrus v1.9.3
