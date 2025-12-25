@@ -299,30 +299,32 @@ func formatDate(timestamp string, tzid string) string {
 }
 
 func processContent(html string) string {
+	// First, use regex to replace images before parsing with goquery
+	// This ensures clean replacement
+	imgRegex := regexp.MustCompile(`<img[^>]+src=["']([^"']+)["'][^>]*>`)
+	html = imgRegex.ReplaceAllStringFunc(html, func(match string) string {
+		// Extract src attribute
+		srcRegex := regexp.MustCompile(`src=["']([^"']+)["']`)
+		srcMatch := srcRegex.FindStringSubmatch(match)
+		if len(srcMatch) < 2 {
+			return match
+		}
+		src := srcMatch[1]
+		if !strings.HasPrefix(src, "http") {
+			src = baseURL + src
+		}
+		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
+	})
+
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
 	if err != nil {
 		return html
 	}
 
-	// Process images - replace the entire img tag with a link
-	doc.Find("img").Each(func(i int, s *goquery.Selection) {
-		src, _ := s.Attr("src")
-		if src != "" {
-			if !strings.HasPrefix(src, "http") {
-				src = baseURL + src
-			}
-			// Create new link element and replace the image with it
-			newLink := fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
-			s.BeforeHtml(newLink)
-			s.Remove()
-		}
-	})
-
-	// Flatten headings
+	// Flatten headings to paragraphs
 	doc.Find("h1,h2,h3,h4,h5,h6").Each(func(i int, s *goquery.Selection) {
-		newP := fmt.Sprintf(`<p class="news-paragraph">%s</p>`, s.Text())
-		s.BeforeHtml(newP)
-		s.Remove()
+		text := s.Text()
+		s.ReplaceWithHtml(fmt.Sprintf(`<p class="news-paragraph">%s</p>`, text))
 	})
 
 	// Clean up existing links and make relative links absolute
@@ -330,9 +332,7 @@ func processContent(html string) string {
 		href, exists := s.Attr("href")
 		if !exists || href == "" || href == "#" {
 			// Remove empty or anchor-only links, keep just the text
-			text := s.Text()
-			s.BeforeHtml(text)
-			s.Remove()
+			s.ReplaceWithHtml(s.Text())
 			return
 		}
 
@@ -362,24 +362,26 @@ func processContent(html string) string {
 
 	// Find and convert plain text URLs to clickable links
 	// This regex finds URLs not already inside HTML tags
-	urlRegex := regexp.MustCompile(`(?i)\b(https?://[^\s<>"]+?)(\.?(?:\s|<|$))`)
+	urlRegex := regexp.MustCompile(`(?i)\b(https?://[^\s<>"]+?)(?:\.)?(?:\s|<|$)`)
 	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
 		// Check if this URL is already inside an href attribute or tag
 		if strings.Contains(match, `href=`) {
 			return match
 		}
 		
-		// Extract URL and trailing punctuation/whitespace
+		// Extract URL
 		submatches := urlRegex.FindStringSubmatch(match)
-		if len(submatches) < 3 {
+		if len(submatches) < 2 {
 			return match
 		}
 		
 		url := submatches[1]
-		trailing := submatches[2]
 		
 		// Remove trailing punctuation that's likely not part of the URL
 		url = strings.TrimRight(url, ".,;:!?)")
+		
+		// Find what comes after the URL in the original match
+		trailing := strings.TrimPrefix(match, url)
 		
 		// Replace the URL entirely with the link text
 		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>%s`, url, trailing)
