@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JavaScript Required</title>
+    <title>JavaScript Required – Page Notice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         .warning-message {
-            display: none;
             background-color: #ffebee;
             color: #c62828;
             padding: 1rem;
@@ -16,10 +17,6 @@
             font-family: Arial, sans-serif;
         }
 
-        noscript .warning-message {
-            display: block;
-        }
-
         .content {
             padding: 1rem;
             text-align: center;
@@ -27,15 +24,18 @@
     </style>
 </head>
 <body>
+
     <noscript>
-        <div class="warning-message">
+        <div class="warning-message" role="alert">
             JavaScript is required to be enabled to use this page
         </div>
     </noscript>
-    <div class="content">
+
+    <main class="content">
         <h1>Welcome to the page</h1>
         <p>This content will be visible regardless of JavaScript status</p>
         <p>This page is for testing purposes only.</p>
-    </div>
+    </main>
+
 </body>
 </html>
