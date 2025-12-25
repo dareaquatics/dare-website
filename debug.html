@@ -3,148 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browser Info and Export</title>
+    <title>Browser Info and Debug Export</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            margin: 0.25rem;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 1rem;
+        }
+
+        .debug-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px dashed #666;
+            font-family: monospace;
+            font-size: 0.9rem;
+            background: #f9f9f9;
+        }
+
+        .debug-actions {
+            margin-top: 0.5rem;
+        }
+    </style>
+
     <script>
+        function generateDebugIdentifier() {
+            const now = new Date();
+
+            const date = now.toISOString().replace(/[:.]/g, '').replace('T', '_').slice(0, 15);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UnknownTZ';
+            const platform = (navigator.platform || 'UnknownPlatform').replace(/\s+/g, '');
+            const screenInfo = `${screen.width}x${screen.height}`;
+            const lang = navigator.language || 'xx';
+            const salt = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+            /*
+              Example output:
+              DBG-20251224_094530-America_Los_Angeles-Win32-1920x1080-en-US-A9F3KQ
+            */
+
+            return `DBG-${date}-${tz.replace(/\//g, '_')}-${platform}-${screenInfo}-${lang}-${salt}`;
+        }
+
         async function collectBrowserInfo() {
             const info = {};
+            const unsupported = [];
 
-            // Basic navigator properties
+            // Navigator
             info['User Agent'] = navigator.userAgent;
-            info['Platform'] = navigator.platform;
-            info['Language'] = navigator.language;
+            info['Platform'] = navigator.platform || 'Unavailable';
+            info['Language'] = navigator.language || 'Unavailable';
             info['Cookies Enabled'] = navigator.cookieEnabled;
             info['Online'] = navigator.onLine;
 
-            // Screen properties
-            info['Screen Width'] = screen.width;
-            info['Screen Height'] = screen.height;
-            info['Available Width'] = screen.availWidth;
-            info['Available Height'] = screen.availHeight;
+            // Screen
+            info['Screen'] = `${screen.width} x ${screen.height}`;
+            info['Available Screen'] = `${screen.availWidth} x ${screen.availHeight}`;
             info['Color Depth'] = screen.colorDepth;
-            info['Pixel Depth'] = screen.pixelDepth;
 
-            // Window properties
-            info['Inner Width'] = window.innerWidth;
-            info['Inner Height'] = window.innerHeight;
-            info['Outer Width'] = window.outerWidth;
-            info['Outer Height'] = window.outerHeight;
+            // Window
+            info['Window Inner'] = `${window.innerWidth} x ${window.innerHeight}`;
+            info['Window Outer'] = `${window.outerWidth} x ${window.outerHeight}`;
 
-            // Plugins
-            info['Plugins'] = Array.from(navigator.plugins).map(plugin => plugin.name).join(', ');
-
-            // MIME Types
-            info['MIME Types'] = Array.from(navigator.mimeTypes).map(mime => mime.type).join(', ');
+            // Hardware
+            info['CPU Cores'] = navigator.hardwareConcurrency || 'Unavailable';
+            info['Device Memory'] = navigator.deviceMemory
+                ? navigator.deviceMemory + ' GB'
+                : (unsupported.push('Device Memory API'), 'Not Supported');
 
             // Timezone
             info['Timezone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-            // Hardware concurrency and memory
-            info['CPU Cores'] = navigator.hardwareConcurrency;
-            info['Device Memory'] = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Not Supported';
-
-            // Touch and pointer capabilities
-            info['Max Touch Points'] = navigator.maxTouchPoints;
-
-            // Connection Information
+            // Network
             if (navigator.connection) {
                 info['Connection Type'] = navigator.connection.effectiveType;
-                info['Downlink Speed'] = navigator.connection.downlink + ' Mbps';
+                info['Downlink'] = navigator.connection.downlink + ' Mbps';
                 info['RTT'] = navigator.connection.rtt + ' ms';
             } else {
-                info['Connection Information'] = 'Not Supported';
+                unsupported.push('Network Information API');
+                info['Connection'] = 'Not Supported';
             }
 
-            // Geolocation
-            if (navigator.geolocation) {
+            // Storage
+            if (navigator.storage?.estimate) {
+                const storage = await navigator.storage.estimate();
+                info['Storage Usage'] = (storage.usage / 1024 / 1024).toFixed(2) + ' MB';
+                info['Storage Quota'] = (storage.quota / 1024 / 1024).toFixed(2) + ' MB';
+            } else {
+                unsupported.push('Storage API');
+                info['Storage'] = 'Not Supported';
+            }
+
+            // Battery
+            if (navigator.getBattery) {
+                const battery = await navigator.getBattery();
+                info['Battery Level'] = Math.round(battery.level * 100) + '%';
+                info['Battery Charging'] = battery.charging ? 'Yes' : 'No';
+            } else {
+                unsupported.push('Battery API');
+                info['Battery'] = 'Not Supported';
+            }
+
+            // Geolocation (explicit opt-in)
+            if (navigator.geolocation && confirm('Include approximate location data?')) {
                 await new Promise(resolve => {
                     navigator.geolocation.getCurrentPosition(
-                        position => {
-                            info['Latitude'] = position.coords.latitude;
-                            info['Longitude'] = position.coords.longitude;
-                            info['Accuracy'] = position.coords.accuracy + ' meters';
+                        pos => {
+                            info['Latitude'] = pos.coords.latitude;
+                            info['Longitude'] = pos.coords.longitude;
+                            info['Accuracy'] = pos.coords.accuracy + ' m';
                             resolve();
                         },
-                        error => {
-                            info['Geolocation'] = 'Permission Denied or Unavailable';
+                        () => {
+                            info['Geolocation'] = 'Denied';
                             resolve();
                         }
                     );
                 });
             } else {
-                info['Geolocation'] = 'Not Supported';
+                info['Geolocation'] = 'Not Included';
             }
 
-            // Battery Information
-            if (navigator.getBattery) {
-                const battery = await navigator.getBattery();
-                info['Battery Level'] = (battery.level * 100) + '%';
-                info['Battery Charging'] = battery.charging ? 'Yes' : 'No';
-                info['Battery Charging Time'] = battery.chargingTime ? battery.chargingTime + ' seconds' : 'N/A';
-                info['Battery Discharging Time'] = battery.dischargingTime ? battery.dischargingTime + ' seconds' : 'N/A';
-            } else {
-                info['Battery Information'] = 'Not Supported';
-            }
-
-            // Performance Metrics
-            const perf = performance.getEntriesByType('navigation')[0];
-            if (perf) {
-                info['Page Load Time'] = perf.loadEventEnd - perf.startTime + ' ms';
-                info['DOM Content Loaded'] = perf.domContentLoadedEventEnd - perf.startTime + ' ms';
-            }
-
-            // Storage Information
-            if (navigator.storage && navigator.storage.estimate) {
-                const storage = await navigator.storage.estimate();
-                info['Storage Usage'] = (storage.usage / (1024 * 1024)).toFixed(2) + ' MB';
-                info['Storage Quota'] = (storage.quota / (1024 * 1024)).toFixed(2) + ' MB';
-            } else {
-                info['Storage Information'] = 'Not Supported';
-            }
-
-            // WebGL Information
+            // WebGL
             const canvas = document.createElement('canvas');
             const gl = canvas.getContext('webgl');
             if (gl) {
-                const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                if (debugInfo) {
-                    info['Graphics Card Vendor'] = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-                    info['Graphics Card Renderer'] = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                } else {
-                    info['WebGL Renderer'] = 'Not Available';
-                }
+                const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                info['GPU Renderer'] = dbg
+                    ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)
+                    : 'Unavailable';
+                gl.getExtension('WEBGL_lose_context')?.loseContext();
             } else {
-                info['WebGL'] = 'Not Supported';
+                unsupported.push('WebGL');
+                info['GPU'] = 'Not Supported';
             }
 
-            // Gamepads
-            const gamepads = navigator.getGamepads();
-            if (gamepads) {
-                info['Gamepads'] = Array.from(gamepads).filter(Boolean).map((gamepad, index) => `Gamepad ${index + 1}: ${gamepad.id}`).join(', ');
+            // Plugins
+            if (navigator.plugins?.length) {
+                info['Plugins'] = Array.from(navigator.plugins).map(p => p.name).join(', ');
             } else {
-                info['Gamepads'] = 'Not Supported';
+                unsupported.push('Plugins API');
+                info['Plugins'] = 'Unavailable';
             }
 
-            // Final Display
-            const infoDiv = document.getElementById('info');
-            infoDiv.textContent = JSON.stringify(info, null, 2);
+            // Performance
+            const nav = performance.getEntriesByType('navigation')[0];
+            if (nav) {
+                info['Page Load Time'] = Math.round(nav.loadEventEnd - nav.startTime) + ' ms';
+                info['DOM Ready'] = Math.round(nav.domContentLoadedEventEnd - nav.startTime) + ' ms';
+            }
+
+            // Edge cases
+            info['Unsupported / Restricted Features'] =
+                unsupported.length ? unsupported.join(', ') : 'None Detected';
+
+            document.getElementById('info').textContent =
+                JSON.stringify(info, null, 2);
         }
 
         function exportToTxt() {
             const infoText = document.getElementById('info').textContent;
+            if (!infoText.trim()) {
+                alert('No data collected yet.');
+                return;
+            }
+
             const blob = new Blob([infoText], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'browser_info.txt';
+            link.download = 'browser_debug_info.txt';
             link.click();
         }
+
+        function copyDebugId() {
+            const id = document.getElementById('debug-id').textContent;
+            navigator.clipboard.writeText(id).then(() => {
+                alert('Debug identifier copied');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('debug-id').textContent =
+                generateDebugIdentifier();
+        });
     </script>
 </head>
+
 <body>
-    <h1>Browser Information and Export</h1>
+    <h1>Browser Information and Debug Export</h1>
+
+    <p>
+        This page collects detailed client-side diagnostic information for
+        debugging and testing purposes only. All data remains local unless
+        you choose to export it.
+    </p>
+
     <button onclick="collectBrowserInfo()">Collect Browser Information</button>
-    <p>Click the "Collect Browser Information" button to generate.</p>
     <button onclick="exportToTxt()">Export Data to TXT</button>
 
-    <pre id="info" style="white-space: pre-wrap; border: 1px solid #000; padding: 10px;"></pre>
+    <pre id="info"></pre>
+
+    <div class="debug-box">
+        <strong>Debug Identifier</strong>
+        <p>
+            This identifier uniquely represents this browser snapshot and
+            environment. Include it in bug reports or logs.
+        </p>
+
+        <div id="debug-id"></div>
+
+        <div class="debug-actions">
+            <button onclick="copyDebugId()">Copy Debug Identifier</button>
+        </div>
+    </div>
 </body>
 </html>
