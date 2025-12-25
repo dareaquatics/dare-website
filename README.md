@@ -8,12 +8,7 @@ Official website for DARE Aquatics. Hosted on GitHub Pages instance. Licensed un
 [![Dependabot Updates](https://github.com/dareaquatics/dare-website/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/dependabot/dependabot-updates)
 [![Weekly Snapshot](https://github.com/dareaquatics/dare-website/actions/workflows/snapshot.yaml/badge.svg)](https://github.com/dareaquatics/dare-website/actions/workflows/snapshot.yaml)
 
-
 ```
-
->Why are there 2 different versioning systems in Releases?
-See below 
-
 TAG:
 NNwNNa = Automated release for snapshotting purposes triggered by GitHub Actions workflow.
 vNN.N = Manual release triggered by a maintainer.
@@ -22,4 +17,12 @@ vNN.N = Manual release triggered by a maintainer.
 RELEASE TITLE:
 NNNNNNNNNN = Automated release for snapshotting purposes triggered by GitHub Actions workflow.
 MM.YYYY = Manual release triggered by a maintainer.
+
+
+
+
+
+202512250640549wDHDpYn
 ```
+
+
