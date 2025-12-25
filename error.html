@@ -1,101 +1,157 @@
 <style>
+  :root {
+      --bg-main: #f0f0f0;
+      --bg-card: #ffffff;
+      --text-main: #333;
+      --text-muted: #666;
+      --text-footer: #888;
+      --accent-error: #d9534f;
+      --accent-link: #0056b3;
+      --border-light: #ccc;
+      --shadow-soft: 0 2px 4px rgba(0,0,0,0.1);
+      --radius: 5px;
+  }
+
   body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-color: var(--bg-main);
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
   }
+
   .container {
       max-width: 800px;
       margin: 0 auto;
-      background-color: white;
+      background-color: var(--bg-card);
       padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
   }
+
   h1 {
       font-size: 24px;
       margin-top: 0;
   }
+
   .subtitle {
       font-size: 16px;
-      color: #666;
+      color: var(--text-muted);
       margin-bottom: 20px;
   }
+
   .browser-frame {
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
       padding: 20px;
       margin-bottom: 20px;
+      text-align: center;
   }
+
   .error-icon {
       width: 100px;
       height: 100px;
-      background-color: #d9534f;
+      background-color: var(--accent-error);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0 auto 20px;
   }
+
   .error-icon::before {
       content: "×";
-      color: white;
+      color: #fff;
       font-size: 80px;
       font-weight: bold;
+      line-height: 1;
   }
+
   .info-columns {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      gap: 20px;
   }
+
   .info-column {
-      flex-basis: 48%;
-      margin-bottom: 20px;
+      flex: 1 1 48%;
+      min-width: 260px;
   }
+
   h2 {
       font-size: 18px;
+      margin-top: 0;
   }
+
   p {
       font-size: 14px;
       line-height: 1.5;
+      margin: 0.5em 0 0;
   }
+
   .status-link {
       display: block;
       text-align: center;
       margin-top: 20px;
       font-size: 16px;
-      color: #0056b3;
+      color: var(--accent-link);
       text-decoration: none;
+      font-weight: bold;
   }
+
   .status-link:hover {
       text-decoration: underline;
   }
+
   .footer {
       font-size: 12px;
-      color: #888;
+      color: var(--text-footer);
       margin-top: 20px;
       text-align: center;
   }
+
+  @media (max-width: 600px) {
+      .container {
+          padding: 16px;
+      }
+  }
 </style>
-<div class="container">
+
+<div class="container" role="alert" aria-live="polite">
   <h1>Failed to Load Page</h1>
-  <p class="subtitle">We encountered an error while trying to access  PLACEHOLDER</p>
+  <p class="subtitle">
+      We encountered an error while trying to access <strong>PLACEHOLDER</strong>
+  </p>
+
   <div class="browser-frame">
-      <div class="error-icon"></div>
+      <div class="error-icon" aria-hidden="true"></div>
   </div>
+
   <div class="info-columns">
       <div class="info-column">
           <h2>What happened?</h2>
-          <p>The requested page could not be loaded due to a server issue or temporary network interruption. This error may occur if the website is undergoing updates or if there is high traffic volume.</p>
+          <p>
+              The requested page could not be loaded due to a server issue or
+              temporary network interruption. This may occur during updates
+              or periods of high traffic.
+          </p>
       </div>
+
       <div class="info-column">
           <h2>What can you do?</h2>
-          <p>Please try refreshing the page or returning later. If the issue persists, check your internet connection or contact the site administrator for assistance.</p>
+          <p>
+              Try refreshing the page or come back later. If the problem
+              continues, check your connection or contact the site administrator.
+          </p>
       </div>
   </div>
-  <a class="status-link" href="javascript:location.reload()">Try Again</a>
+
+  <a class="status-link" href="#" onclick="location.reload(); return false;">
+      Try Again
+  </a>
+
   <div class="footer">
       © 2025 DARE Aquatics • Error Code: 503-FLP • Reference ID: E503-LoadFail
   </div>
