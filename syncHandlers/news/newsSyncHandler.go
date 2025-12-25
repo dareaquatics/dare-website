@@ -304,26 +304,35 @@ func processContent(html string) string {
 		return html
 	}
 
-	// Process images
+	// Process images - replace the entire img tag with a link
 	doc.Find("img").Each(func(i int, s *goquery.Selection) {
 		src, _ := s.Attr("src")
-		if src != "" && !strings.HasPrefix(src, "http") {
-			src = baseURL + src
+		if src != "" {
+			if !strings.HasPrefix(src, "http") {
+				src = baseURL + src
+			}
+			// Create new link element and replace the image with it
+			newLink := fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
+			s.BeforeHtml(newLink)
+			s.Remove()
 		}
-		s.ReplaceWithHtml(fmt.Sprintf(`<a href="%s" target="_blank">Click to see image</a>`, src))
 	})
 
 	// Flatten headings
 	doc.Find("h1,h2,h3,h4,h5,h6").Each(func(i int, s *goquery.Selection) {
-		s.SetHtml(fmt.Sprintf(`<p class="news-paragraph">%s</p>`, s.Text()))
+		newP := fmt.Sprintf(`<p class="news-paragraph">%s</p>`, s.Text())
+		s.BeforeHtml(newP)
+		s.Remove()
 	})
 
 	// Clean up existing links and make relative links absolute
 	doc.Find("a[href]").Each(func(i int, s *goquery.Selection) {
 		href, exists := s.Attr("href")
 		if !exists || href == "" || href == "#" {
-			// Remove empty or anchor-only links
-			s.ReplaceWithHtml(s.Text())
+			// Remove empty or anchor-only links, keep just the text
+			text := s.Text()
+			s.BeforeHtml(text)
+			s.Remove()
 			return
 		}
 
@@ -341,9 +350,9 @@ func processContent(html string) string {
 		s.SetAttr("target", "_blank")
 		s.SetAttr("rel", "noopener noreferrer")
 		
-		// Only replace text if it's empty or just whitespace
+		// Only replace text if it's empty or just whitespace or is the URL itself
 		text := strings.TrimSpace(s.Text())
-		if text == "" || text == href {
+		if text == "" || text == href || strings.HasPrefix(text, "http://") || strings.HasPrefix(text, "https://") {
 			s.SetText("Click here to be redirected to the link")
 		}
 	})
@@ -352,30 +361,28 @@ func processContent(html string) string {
 	html, _ = doc.Html()
 
 	// Find and convert plain text URLs to clickable links
-	// Match URLs that start with http:// or https://, but avoid those already in href attributes
-	// Also trim common trailing punctuation that's not part of the URL
-	urlRegex := regexp.MustCompile(`(?:^|[^"=>])(\bhttps?://[^\s<>"]+?)([.,;!?)]*)(?:\s|<|$)`)
+	// This regex finds URLs not already inside HTML tags
+	urlRegex := regexp.MustCompile(`(?i)\b(https?://[^\s<>"]+?)(\.?(?:\s|<|$))`)
 	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
-		// Extract the URL and check if it's inside an href attribute
-		if strings.Contains(match, `href="`) || strings.Contains(match, `href='`) {
-			return match // Already a link, don't modify
+		// Check if this URL is already inside an href attribute or tag
+		if strings.Contains(match, `href=`) {
+			return match
 		}
 		
-		// Use submatch to separate URL from trailing punctuation
+		// Extract URL and trailing punctuation/whitespace
 		submatches := urlRegex.FindStringSubmatch(match)
-		if len(submatches) < 2 {
+		if len(submatches) < 3 {
 			return match
 		}
 		
 		url := submatches[1]
-		trailingPunct := ""
-		if len(submatches) > 2 {
-			trailingPunct = submatches[2]
-		}
+		trailing := submatches[2]
 		
-		// Preserve any leading character and add trailing punctuation after the link
-		leadingChar := strings.TrimSuffix(match, url+trailingPunct)
-		return leadingChar + fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`, url) + trailingPunct
+		// Remove trailing punctuation that's likely not part of the URL
+		url = strings.TrimRight(url, ".,;:!?)")
+		
+		// Replace the URL entirely with the link text
+		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>%s`, url, trailing)
 	})
 
 	// Clean up HTML
