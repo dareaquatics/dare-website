@@ -7,11 +7,11 @@ active: yes
 type: banner
 
 # The message to display
-message: "Merry Christmas from DARE Aquatics!"
+message: "Happy New Year from DARE Aquatics! ❄️☃️"
 
 # Unique identifier for this announcement (change this to create a new instance)
 # Use the current date and time in YYYY-MM-DD HH:MM 24HRTIME format
-instance: "2025-12-24 22:45"
+instance: "2025-12-25 00:05"
 
 # Visual style
 style:
@@ -19,7 +19,7 @@ style:
   # #bb2124 = Red         = Severe
   # #ff8f00 = Orange      = Warning
   # #5bc0de = Light Blue  = Info
-  background_color: "#1E792C"
+  background_color: "#B8E2F2"
 
   # 1E792C = christmas green 
   # B8E2F2 = new years baby blue
