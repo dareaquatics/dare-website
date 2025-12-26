@@ -11,7 +11,7 @@ message: "Happy New Year from DARE Aquatics! ❄️☃️"
 
 # Unique identifier for this announcement (change this to create a new instance)
 # Use the current date and time in YYYY-MM-DD HH:MM 24HRTIME format
-instance: "2025-12-25 00:05"
+instance: "2025-12-25 23:04"
 
 # Visual style
 style:
