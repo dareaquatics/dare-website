@@ -2,130 +2,37 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Redirecting to Facebook</title>
 
-  <!-- Noscript fallback -->
   <noscript>
-    <meta http-equiv="refresh" content="5; url=https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw">
+    <meta http-equiv="refresh" content="5; url=https://www.facebook.com/groups/228419265212105/?ref=share&amp;mibextid=I6gGtw" />
   </noscript>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Nunito', sans-serif;
-      background-color: #f7f7f7;
-      color: #333;
-    }
-
-    .container {
-      text-align: center;
-      padding: 40px;
-      border-radius: 12px;
-      background-color: white;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 100%;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #1c1e21;
-    }
-
-    p {
-      font-size: 18px;
-      color: #606770;
-    }
-
-    .loader {
-      margin: 20px auto;
-      border: 5px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 5px solid #1877f2;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .redirect-link {
-      color: #1877f2;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .redirect-link:hover {
-      text-decoration: underline;
-    }
-
-    .icon {
-      margin: 20px 0;
-    }
-
-    .countdown {
-      font-size: 16px;
-      margin-top: 10px;
-      color: #333;
-    }
-
-    .social-icon {
-      width: 40px;
-      height: 40px;
-    }
-  </style>
-
-  <script>
-    // JavaScript check flag
-    window.addEventListener('load', function () {
-      localStorage.setItem('jsEnabled', 'true');
-    });
-
-    let countdown = 5;
-    const countdownEl = document.getElementById("countdown");
-
-    const intervalId = setInterval(function () {
-      countdown--;
-      if (countdownEl) countdownEl.textContent = countdown;
-      if (countdown <= 0) clearInterval(intervalId);
-    }, 1000);
-
-    // Redirect after countdown
-    setTimeout(function () {
-      window.location.href = "https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw";
-    }, 5000);
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/pages/facebook.css" />
+  <script src="/assets/js/pages/facebook.js" defer></script>
 </head>
 
 <body>
   <div class="container" role="status" aria-live="polite">
     <h1>We're redirecting you to Facebook</h1>
-    <p>Just a moment! You’ll be there in <span id="countdown">5</span> seconds...</p>
+    <p>Just a moment! You will be there in <span id="countdown">5</span> seconds...</p>
     <div class="icon">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-        class="social-icon" alt="Facebook Logo">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+        class="social-icon"
+        alt="Facebook Logo"
+      />
     </div>
     <div class="loader" aria-hidden="true"></div>
     <p class="countdown">
-      If not redirected, <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw"
-        class="redirect-link">click here</a>.
+      If not redirected,
+      <a href="https://www.facebook.com/groups/228419265212105/?ref=share&amp;mibextid=I6gGtw" class="redirect-link"
+        >click here</a
+      >.
     </p>
   </div>
 </body>

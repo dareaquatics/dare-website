@@ -1,229 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browser Info and Debug Export</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        button {
-            margin: 0.25rem;
-        }
-
-        pre {
-            white-space: pre-wrap;
-            border: 1px solid #000;
-            padding: 10px;
-            margin-top: 1rem;
-        }
-
-        .debug-box {
-            margin-top: 2rem;
-            padding: 1rem;
-            border: 1px dashed #666;
-            font-family: monospace;
-            font-size: 0.9rem;
-            background: #f9f9f9;
-        }
-
-        .debug-actions {
-            margin-top: 0.5rem;
-        }
-    </style>
-
-    <script>
-        function generateDebugIdentifier() {
-            const now = new Date();
-
-            const date = now.toISOString().replace(/[:.]/g, '').replace('T', '_').slice(0, 15);
-            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UnknownTZ';
-            const platform = (navigator.platform || 'UnknownPlatform').replace(/\s+/g, '');
-            const screenInfo = `${screen.width}x${screen.height}`;
-            const lang = navigator.language || 'xx';
-            const salt = Math.random().toString(36).substring(2, 8).toUpperCase();
-
-            /*
-              Example output:
-              DBG-20251224_094530-America_Los_Angeles-Win32-1920x1080-en-US-A9F3KQ
-            */
-
-            return `DBG-${date}-${tz.replace(/\//g, '_')}-${platform}-${screenInfo}-${lang}-${salt}`;
-        }
-
-        async function collectBrowserInfo() {
-            const info = {};
-            const unsupported = [];
-
-            // Navigator
-            info['User Agent'] = navigator.userAgent;
-            info['Platform'] = navigator.platform || 'Unavailable';
-            info['Language'] = navigator.language || 'Unavailable';
-            info['Cookies Enabled'] = navigator.cookieEnabled;
-            info['Online'] = navigator.onLine;
-
-            // Screen
-            info['Screen'] = `${screen.width} x ${screen.height}`;
-            info['Available Screen'] = `${screen.availWidth} x ${screen.availHeight}`;
-            info['Color Depth'] = screen.colorDepth;
-
-            // Window
-            info['Window Inner'] = `${window.innerWidth} x ${window.innerHeight}`;
-            info['Window Outer'] = `${window.outerWidth} x ${window.outerHeight}`;
-
-            // Hardware
-            info['CPU Cores'] = navigator.hardwareConcurrency || 'Unavailable';
-            info['Device Memory'] = navigator.deviceMemory
-                ? navigator.deviceMemory + ' GB'
-                : (unsupported.push('Device Memory API'), 'Not Supported');
-
-            // Timezone
-            info['Timezone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-            // Network
-            if (navigator.connection) {
-                info['Connection Type'] = navigator.connection.effectiveType;
-                info['Downlink'] = navigator.connection.downlink + ' Mbps';
-                info['RTT'] = navigator.connection.rtt + ' ms';
-            } else {
-                unsupported.push('Network Information API');
-                info['Connection'] = 'Not Supported';
-            }
-
-            // Storage
-            if (navigator.storage?.estimate) {
-                const storage = await navigator.storage.estimate();
-                info['Storage Usage'] = (storage.usage / 1024 / 1024).toFixed(2) + ' MB';
-                info['Storage Quota'] = (storage.quota / 1024 / 1024).toFixed(2) + ' MB';
-            } else {
-                unsupported.push('Storage API');
-                info['Storage'] = 'Not Supported';
-            }
-
-            // Battery
-            if (navigator.getBattery) {
-                const battery = await navigator.getBattery();
-                info['Battery Level'] = Math.round(battery.level * 100) + '%';
-                info['Battery Charging'] = battery.charging ? 'Yes' : 'No';
-            } else {
-                unsupported.push('Battery API');
-                info['Battery'] = 'Not Supported';
-            }
-
-            // Geolocation (explicit opt-in)
-            if (navigator.geolocation && confirm('Include approximate location data?')) {
-                await new Promise(resolve => {
-                    navigator.geolocation.getCurrentPosition(
-                        pos => {
-                            info['Latitude'] = pos.coords.latitude;
-                            info['Longitude'] = pos.coords.longitude;
-                            info['Accuracy'] = pos.coords.accuracy + ' m';
-                            resolve();
-                        },
-                        () => {
-                            info['Geolocation'] = 'Denied';
-                            resolve();
-                        }
-                    );
-                });
-            } else {
-                info['Geolocation'] = 'Not Included';
-            }
-
-            // WebGL
-            const canvas = document.createElement('canvas');
-            const gl = canvas.getContext('webgl');
-            if (gl) {
-                const dbg = gl.getExtension('WEBGL_debug_renderer_info');
-                info['GPU Renderer'] = dbg
-                    ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)
-                    : 'Unavailable';
-                gl.getExtension('WEBGL_lose_context')?.loseContext();
-            } else {
-                unsupported.push('WebGL');
-                info['GPU'] = 'Not Supported';
-            }
-
-            // Plugins
-            if (navigator.plugins?.length) {
-                info['Plugins'] = Array.from(navigator.plugins).map(p => p.name).join(', ');
-            } else {
-                unsupported.push('Plugins API');
-                info['Plugins'] = 'Unavailable';
-            }
-
-            // Performance
-            const nav = performance.getEntriesByType('navigation')[0];
-            if (nav) {
-                info['Page Load Time'] = Math.round(nav.loadEventEnd - nav.startTime) + ' ms';
-                info['DOM Ready'] = Math.round(nav.domContentLoadedEventEnd - nav.startTime) + ' ms';
-            }
-
-            // Edge cases
-            info['Unsupported / Restricted Features'] =
-                unsupported.length ? unsupported.join(', ') : 'None Detected';
-
-            document.getElementById('info').textContent =
-                JSON.stringify(info, null, 2);
-        }
-
-        function exportToTxt() {
-            const infoText = document.getElementById('info').textContent;
-            if (!infoText.trim()) {
-                alert('No data collected yet.');
-                return;
-            }
-
-            const blob = new Blob([infoText], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'browser_debug_info.txt';
-            link.click();
-        }
-
-        function copyDebugId() {
-            const id = document.getElementById('debug-id').textContent;
-            navigator.clipboard.writeText(id).then(() => {
-                alert('Debug identifier copied');
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('debug-id').textContent =
-                generateDebugIdentifier();
-        });
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browser Info and Debug Export</title>
+  <link rel="stylesheet" href="/assets/css/pages/debug.css" />
+  <script src="/assets/js/pages/debug.js" defer></script>
 </head>
 
 <body>
-    <h1>Browser Information and Debug Export</h1>
+  <h1>Browser Information and Debug Export</h1>
 
+  <p>
+    This page collects detailed client-side diagnostic information for debugging and testing purposes only. All data
+    remains local unless you choose to export it.
+  </p>
+
+  <button id="collect-info" type="button">Collect Browser Information</button>
+  <button id="export-info" type="button">Export Data to TXT</button>
+
+  <pre id="info"></pre>
+
+  <div class="debug-box">
+    <strong>Debug Identifier</strong>
     <p>
-        This page collects detailed client-side diagnostic information for
-        debugging and testing purposes only. All data remains local unless
-        you choose to export it.
+      This identifier uniquely represents this browser snapshot and environment. Include it in bug reports or logs.
     </p>
 
-    <button onclick="collectBrowserInfo()">Collect Browser Information</button>
-    <button onclick="exportToTxt()">Export Data to TXT</button>
+    <div id="debug-id"></div>
 
-    <pre id="info"></pre>
-
-    <div class="debug-box">
-        <strong>Debug Identifier</strong>
-        <p>
-            This identifier uniquely represents this browser snapshot and
-            environment. Include it in bug reports or logs.
-        </p>
-
-        <div id="debug-id"></div>
-
-        <div class="debug-actions">
-            <button onclick="copyDebugId()">Copy Debug Identifier</button>
-        </div>
+    <div class="debug-actions">
+      <button id="copy-debug-id" type="button">Copy Debug Identifier</button>
     </div>
+  </div>
 </body>
+
 </html>

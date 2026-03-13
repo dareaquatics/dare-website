@@ -1,21 +1,36 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const loadingScreen = document.getElementById("loading-screen");
-  const content = document.getElementById("content");
+function initLoadingAnimation() {
+  const loadingScreens = Array.from(document.querySelectorAll("#loading-screen"));
+  const content =
+    document.getElementById("content") ||
+    document.querySelector("[data-site-content]") ||
+    document.querySelector("main");
 
-  function showContent() {
-    // Add class to fade out the loading screen
-    loadingScreen.classList.add("fade-out");
-
-    // Wait for the fade-out transition to finish before hiding
-    setTimeout(() => {
-      loadingScreen.style.display = "none";
-      // Show and fade in the content
+  function revealContent() {
+    if (content) {
       content.style.display = "block";
       requestAnimationFrame(() => {
         content.style.opacity = "1";
       });
-      document.body.style.overflow = "auto"; // Enable scrolling after loading
-    }, 1000); // Matches the CSS transition duration for loading screen
+    }
+    document.body.style.overflow = "auto";
+  }
+
+  if (!loadingScreens.length) {
+    revealContent();
+    return;
+  }
+
+  function showContent() {
+    loadingScreens.forEach((loadingScreen) => {
+      loadingScreen.classList.add("fade-out");
+      loadingScreen.style.pointerEvents = "none";
+    });
+
+    // Wait for the fade-out transition to finish before removing.
+    setTimeout(() => {
+      loadingScreens.forEach((loadingScreen) => loadingScreen.remove());
+      revealContent();
+    }, 1000);
   }
 
   // Generate a random loading time between 200 ms and 900 ms
@@ -32,4 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
       showContent();
     }, 300); // Keep animation for 1 second after loading
   }, randomLoadingTime); // Random loading time between 200 ms and 900 ms
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initLoadingAnimation);
+} else {
+  initLoadingAnimation();
+}

@@ -1,0 +1,102 @@
+.memberes-container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #eb5d1e;
+      margin: 20px auto 0;
+    }
+
+    .intro-text {
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto 40px;
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .memberes-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .member-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-image {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .member-info {
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .member-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .member-title {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .member-email {
+      font-size: 0.9rem;
+      color: #007bff;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .member-email:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .member-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .member-image {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px 10px 0 0;
+      }
+    }

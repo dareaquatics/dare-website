@@ -5,7 +5,8 @@ body {
   }
   
   /* Hide content initially and ensure it fades in */
-  #content {
+  #content,
+  [data-site-content] {
     opacity: 0;
     transition: opacity 1s ease-in-out;
     display: none; /* Hide by default */

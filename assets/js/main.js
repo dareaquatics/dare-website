@@ -35,6 +35,18 @@
   }
 
   /**
+   * Run logic on load, or immediately if load already fired.
+   * Needed because this file can be injected after includes finish.
+   */
+  const onWindowLoad = (callback) => {
+    if (document.readyState === 'complete') {
+      callback()
+      return
+    }
+    window.addEventListener('load', callback)
+  }
+
+  /**
    * Navbar links active state on scroll
    */
   let navbarlinks = select('#navbar .scrollto', true)
@@ -51,7 +63,7 @@
       }
     })
   }
-  window.addEventListener('load', navbarlinksActive)
+  onWindowLoad(navbarlinksActive)
   onscroll(document, navbarlinksActive)
 
   /**
@@ -80,7 +92,7 @@
         backtotop.classList.remove('active')
       }
     }
-    window.addEventListener('load', toggleBacktotop)
+    onWindowLoad(toggleBacktotop)
     onscroll(document, toggleBacktotop)
   }
 
@@ -124,7 +136,7 @@
   /**
    * Scroll with ofset on page load with hash links in the url
    */
-  window.addEventListener('load', () => {
+  onWindowLoad(() => {
     if (window.location.hash) {
       if (select(window.location.hash)) {
         scrollto(window.location.hash)
@@ -135,15 +147,17 @@
   /**
    * Porfolio isotope and filter
    */
-  window.addEventListener('load', () => {
+  onWindowLoad(() => {
     let portfolioContainer = select('.portfolio-container');
-    if (portfolioContainer) {
+    let portfolioFilters = select('#portfolio-flters li', true);
+
+    // Only enable Isotope when filter controls exist.
+    // Home page uses a simple grid and should not be transformed.
+    if (portfolioContainer && portfolioFilters.length) {
       let portfolioIsotope = new Isotope(portfolioContainer, {
         itemSelector: '.portfolio-item',
         layoutMode: 'fitRows'
       });
-
-      let portfolioFilters = select('#portfolio-flters li', true);
 
       on('click', '#portfolio-flters li', function (e) {
         e.preventDefault();
@@ -226,7 +240,7 @@
   /**
    * Animation on scroll
    */
-  window.addEventListener('load', () => {
+  onWindowLoad(() => {
     AOS.init({
       duration: 1000,
       easing: "ease-in-out",

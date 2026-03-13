@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+button {
+  margin: 0.25rem;
+}
+
+pre {
+  white-space: pre-wrap;
+  border: 1px solid #000;
+  padding: 10px;
+  margin-top: 1rem;
+}
+
+.debug-box {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px dashed #666;
+  font-family: monospace;
+  font-size: 0.9rem;
+  background: #f9f9f9;
+}
+
+.debug-actions {
+  margin-top: 0.5rem;
+}

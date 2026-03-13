@@ -1,141 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enable JavaScript</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f6f6f6;
-            margin: 0;
-            padding: 0;
-            color: #2c2c2c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h1 {
-            font-size: 24px;
-            margin-top: 0;
-        }
-        .subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .browser-frame {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .error-icon {
-            width: 100px;
-            height: 100px;
-            background-color: #ce3d38;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 20px;
-        }
-        .error-icon::before {
-            content: "×";
-            color: white;
-            font-size: 80px;
-            font-weight: bold;
-        }
-        .info-columns {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        .info-column {
-            flex-basis: 48%;
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 18px;
-        }
-        p {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .instructions {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-top: 1rem;
-        }
-        .footer {
-            font-size: 12px;
-            color: #888;
-            margin-top: 20px;
-            text-align: center;
-            font-family: monospace;
-            user-select: all;
-        }
-    </style>
-    <script>
-        window.addEventListener('load', function() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('jscheck') === 'true') {
-                const newUrl = window.location.pathname;
-                window.history.replaceState({}, document.title, newUrl);
-            }
-            
-            localStorage.setItem('jsEnabled', 'true');
-
-            // Redirect back to target if JS is enabled
-            if (typeof(Storage) !== "undefined") {
-                const targetUrl = params.get('target') || '/';
-                const authorizedUrls = ['/', '/home', '/dashboard'];
-                if (localStorage.getItem('jsEnabled') === 'true') {
-                    if (authorizedUrls.includes(targetUrl)) {
-                        window.location.href = decodeURIComponent(targetUrl) + '?jscheck=true';
-                    } else {
-                        window.location.href = '/';
-                    }
-                }
-            }
-
-            // Generate a unique debug/browser ID
-            const browserId = `${navigator.userAgent} | ${navigator.platform} | Lang:${navigator.language} | Mem:${navigator.deviceMemory || 'N/A'}GB | Cores:${navigator.hardwareConcurrency || 'N/A'} | TS:${Date.now()}`;
-            document.getElementById('browser-id').textContent = browserId;
-        });
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enable JavaScript</title>
+  <link rel="stylesheet" href="/assets/css/pages/javascriptRequired.css" />
+  <script src="/assets/js/pages/javascriptRequired.js" defer></script>
 </head>
+
 <body>
   <div class="container">
     <h1>Sorry, JavaScript is required</h1>
     <p class="subtitle">You need to enable JavaScript to access this website</p>
     <div class="browser-frame">
-        <div class="error-icon"></div>
+      <div class="error-icon"></div>
     </div>
     <div class="info-columns">
-        <div class="info-column">
-            <h2>Why is JavaScript required?</h2>
-            <p>This website requires JavaScript to function properly. JavaScript enables interactive features and essential functionality that are necessary for the site to work as intended.</p>
-        </div>
-        <div class="info-column">
-            <h2>What can I do to resolve this?</h2>
-            <p>Please enable JavaScript in your browser settings and refresh the page. If you need help enabling JavaScript, please follow the instructions below.</p>
-        </div>
+      <div class="info-column">
+        <h2>Why is JavaScript required?</h2>
+        <p>
+          This website requires JavaScript to function properly. JavaScript enables interactive features and essential
+          functionality that are necessary for the site to work as intended.
+        </p>
+      </div>
+      <div class="info-column">
+        <h2>What can I do to resolve this?</h2>
+        <p>
+          Please enable JavaScript in your browser settings and refresh the page. If you need help enabling
+          JavaScript, please follow the instructions below.
+        </p>
+      </div>
     </div>
-    <div class="footer">
-        © 2025 DARE Aquatics • Browser ID: <span id="browser-id">Loading...</span>
-    </div>
+    <div class="footer">© 2025 DARE Aquatics • Browser ID: <span id="browser-id">Loading...</span></div>
   </div>
 </body>
+
 </html>

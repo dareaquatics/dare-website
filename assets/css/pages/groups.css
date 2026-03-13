@@ -1,0 +1,87 @@
+:root {
+      --brand-color: #eb5d1e;
+      --check-color: #007bff;
+    }
+
+    .group-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .group-card {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .group-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .group-card h3 {
+      color: var(--brand-color);
+      border-bottom: 2px solid var(--brand-color);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .group-info p {
+      margin-bottom: 8px;
+    }
+
+    .group-requirements,
+    .group-description {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .group-requirements h4,
+    .group-description h4 {
+      color: var(--brand-color);
+      margin-bottom: 15px;
+    }
+
+    .group-requirements ul,
+    .group-description ul {
+      padding-left: 25px;
+      list-style-type: none;
+    }
+
+    .group-requirements ul li,
+    .group-description ul li {
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .group-requirements ul li:before,
+    .group-description ul li:before {
+      content: "\F26A";
+      font-family: "bootstrap-icons";
+      color: var(--check-color);
+      position: absolute;
+      left: -25px;
+      top: 2px;
+    }
+
+    .equipment-needed {
+      background-color: #e9ecef;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .equipment-needed h4 {
+      color: var(--brand-color);
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .group-card {
+        padding: 20px;
+      }
+    }

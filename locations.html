@@ -2,195 +2,24 @@
 <html lang="en">
 
 <head>
-  <!-- No JS Check -->
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=/javascriptRequired.html?redirect=true&target=" id="noscript-redirect">
-  </noscript>
-  <script>
-    // Script to run on page load to verify JavaScript is working
-    window.addEventListener('load', function () {
-      // Check if we were redirected back from the JS required page
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('jscheck') === 'true') {
-        // Remove the query parameter for clean URL
-        const newUrl = window.location.pathname;
-        window.history.replaceState({}, document.title, newUrl);
-      }
-
-      // Set a flag in localStorage to indicate JS is enabled
-      localStorage.setItem('jsEnabled', 'true');
-    });
-  </script>
-  <!-- Meta tags and favicons -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>DARE Aquatics | Locations</title>
-  <meta name="description" content="dare aquatics website">
-  <meta name="keywords"
-    content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me">
-  <link rel="icon" href="assets/img/logo.png">
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Raleway:300,400,600,700"
-    rel="stylesheet">
-
-  <!-- CSS Libraries -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <p style="display:none;">
-    &#68;&#105;&#103;&#105;&#116;&#97;&#108;&#108;&#121;&#32;&#119;&#97;&#116;&#101;&#114;&#109;&#097;&#114;&#107;&#101;&#100;&#32;&#98;&#121;&#32;&#82;&#121;&#097;&#110;&#32;&#076;&#117;&#32;&#48;&#56;&#49;&#56;&#50;&#48;&#48;&#56;
-  </p>
-
-  <!-- Custom Stylesheet -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/loadingAnimation.css" rel="stylesheet">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXFQXHX3SN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-QXFQXHX3SN');
-  </script>
-
-  <!-- Custom Styles -->
-  <style>
-    .banner {
-      background-color: #ff0000;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .location-card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin-bottom: 40px;
-    }
-
-    .location-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .location-address {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .map-iframe {
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-      height: 300px;
-    }
-
-    .location-details {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-    }
-
-    .location-details h4 {
-      color: #333;
-      margin-bottom: 15px;
-    }
-
-    .location-details ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    .location-details li {
-      margin-bottom: 10px;
-    }
-
-    .location-details i {
-      color: #007bff;
-      margin-right: 10px;
-    }
-
-    .container p {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.6;
-    }
-
-    .map-button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-      margin-top: 15px;
-    }
-
-    .map-button:hover {
-      background-color: #0056b3;
-      color: white;
-      text-decoration: none;
-    }
-  </style>
-
-  <div id="loading-screen">
-    <div class="bouncing-dots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-  </div>
-
-  <link rel="stylesheet" href="/assets/css/announcement.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-  <script src="/assets/js/announcement.js"></script>
-
+  <meta content="dare aquatics website" name="description" />
+  <meta content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me" name="keywords" />
+  <script src="/assets/js/siteBootstrap.js" defer></script>
+  <script src="/assets/js/layoutLoader.js" defer></script>
+  <meta data-include="/partials/site-head-common.html" />
+  <link href="/assets/css/pages/locations.css" rel="stylesheet" />
 </head>
 
-<body>
-  <!-- Header -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex justify-content-between">
-      <div class="logo">
-        <a href="/"><img src="assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid"></a>
-      </div>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="/">Home</a></li>
-          <li><a class="nav-link scrollto" href="coaches">Coaches</a></li>
-          <li><a class="nav-link scrollto" href="calendar">Calendar</a></li>
-          <li><a class="nav-link scrollto" href="faq">F.A.Q</a></li>
-          <li><a class="nav-link scrollto" href="groups">Swim Groups</a></li>
-          <li><a class="nav-link scrollto" href="news">News</a></li>
-          <li><a class="nav-link scrollto active" href="locations">Pool Locations</a></li>
-          <li><a class="nav-link scrollto" href="pbc">PBC</a></li>
-          <li><a class="nav-link scrollto" href="contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="sponsorship">Sponsor Us</a></li>
-          <li><a class="getstarted scrollto"
-              href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
-              target="_blank">Sign In</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main id="main">
+<body data-page="locations" data-announcement="true">
+  <div data-include="/partials/loading-screen.html"></div>
+  <div id="content" data-site-content>
+    <div data-include="/partials/site-header.html"></div>
+    <main id="main">
+<!-- Main Content -->
+  
     <!-- Banner -->
     <div class="banner">
       <p>Photography or videography of any kind is <strong>NOT</strong> allowed near or on the pool deck without city
@@ -318,117 +147,15 @@
 
       </div>
     </section>
-  </main>
+  
 
   <!-- Footer -->
   <div class="footer-top">
-    <footer id="footer">
-      <div class="footer-newsletter">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-top">
-        <div class="container">
-          <div class="row">
-
-            <div class="col-lg-3 col-md-6 footer-contact">
-              <h3>DARE Aquatics</h3>
-              <p>
-                110 West 6th Street P.O Box 256 <br>
-                Azuza, California 91702 <br>
-                United States <br><br>
-                <strong>Contact Us:</strong>
-              <p>Have questions or need help? Use our <a href="/contact">contact form</a> — it's the fastest way to
-                reach
-                our team.
-              </p>
-              </p>
-            </div>
-
-            <!-- Useful Links 1 -->
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i> <a href="/" target="_blank" rel="noopener noreferrer">Home</a>
-                </li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://www.gomotionapp.com/team/cadas/page/home"
-                    target="_blank" rel="noopener noreferrer">TeamUnify</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="privacy-policy" target="_blank"
-                    rel="noopener noreferrer">Privacy Policy</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://status.dareaquatics.com" target="_blank"
-                    rel="noopener noreferrer">Status Page</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/dareaquatics/dare-website"
-                    target="_blank" rel="noopener noreferrer">Source Code</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="/policy" target="_blank" rel="noopener noreferrer">Team
-                    Policy Documents</a></li>
-              </ul>
-            </div>
-
-            <!-- Useful Links 2 -->
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/" target="_blank"
-                    rel="noopener noreferrer">USA Swimming</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://www.usaswimming.org/safe-sport" target="_blank"
-                    rel="noopener noreferrer">Safe Sport</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://uscenterforsafesport.org/report-a-concern/"
-                    target="_blank" rel="noopener noreferrer">Report a Concern (SafeSport)</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://www.goswim.tv/" target="_blank"
-                    rel="noopener noreferrer">GoSwim</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="http://www.swimmingworldmagazine.com" target="_blank"
-                    rel="noopener noreferrer">Swimming World Online</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="https://swimmingcoach.org" target="_blank"
-                    rel="noopener noreferrer">American Swimming Coaches Association</a></li>
-              </ul>
-            </div>
-
-            <!-- Social Networks -->
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Social Networks</h4>
-              <p>Follow our social media to stay updated on the latest events!</p>
-              <div class="social-links mt-3">
-                <a href="https://www.facebook.com/groups/228419265212105/?ref=share&mibextid=I6gGtw" class="facebook"><i
-                    class="bx bxl-facebook"></i></a>
-                <a href="https://www.instagram.com/dareaquatics" class="instagram"><i class="bx bxl-instagram"></i></a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="container py-4">
-        <div class="copyright">
-          &copy; Copyright <strong><span>DARE Aquatics</span></strong>. All Rights Reserved. Licensed under the <a
-            href="license">GPLv3.</a>
-        </div>
-        <div class="credits">
-          Made with ❤️ by Ryan
-        </div>
-      </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-    <!-- JavaScript Libraries -->
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Main JavaScript File -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/maintenanceStatusLogic.js"></script>
-    <script src="assets/js/loaderLogic.js"></script>
+    </main>
+    <div data-include="/partials/site-footer.html"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  </div>
+  <div data-include="/partials/site-scripts.html"></div>
 </body>
 
 </html>

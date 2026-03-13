@@ -59,7 +59,19 @@ class EmergencyAnnouncement {
 
     generateConfigId() {
         const { message, type, instance } = this.config;
-        return btoa(`${message}|${type}|${instance}`).substr(0, 20);
+        const raw = `${message}|${type}|${instance}`;
+        try {
+            const encodedBytes = new TextEncoder().encode(raw);
+            let binary = '';
+            encodedBytes.forEach((byte) => {
+                binary += String.fromCharCode(byte);
+            });
+            return btoa(binary).slice(0, 20);
+        } catch (error) {
+            // Last-resort deterministic fallback for older environments.
+            const safeAscii = unescape(encodeURIComponent(raw));
+            return btoa(safeAscii).slice(0, 20);
+        }
     }
 
     isHidden() {
@@ -154,11 +166,20 @@ class EmergencyAnnouncement {
     }
 
     setupEventListeners() {
-        this.element.querySelector('.announcement__close').addEventListener('click', () => this.close());
-        this.element.querySelector('.announcement__hide').addEventListener('click', () => this.hide());
+        const closeButton = this.element.querySelector('.announcement__close');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => this.close());
+        }
 
-        this.resizeObserver = new ResizeObserver(this.adjustPageLayout.bind(this));
-        this.resizeObserver.observe(this.element);
+        const hideButton = this.element.querySelector('.announcement__hide');
+        if (hideButton) {
+            hideButton.addEventListener('click', () => this.hide());
+        }
+
+        if ('ResizeObserver' in window) {
+            this.resizeObserver = new ResizeObserver(this.adjustPageLayout.bind(this));
+            this.resizeObserver.observe(this.element);
+        }
     }
 
     adjustPageLayout() {

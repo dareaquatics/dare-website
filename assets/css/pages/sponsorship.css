@@ -1,0 +1,131 @@
+/* Color Scheme */
+        .orange-text {
+            color: #e67e22;
+        }
+
+        .btn-orange {
+            background: #e67e22;
+            color: white !important;
+            border: none;
+        }
+
+        .btn-orange:hover {
+            background: #d35400;
+        }
+
+        .btn-gray {
+            background: #6c757d !important;
+            color: white !important;
+            border: none;
+        }
+
+        .btn-gray:hover {
+            background: #5a6268 !important;
+        }
+
+        /* Sponsorship Layout */
+        .sponsor-hero {
+            padding: 2rem 0;
+        }
+
+        .header-divider {
+            width: 80px;
+            height: 4px;
+            background: #2a5d84;
+            margin: 1rem auto;
+        }
+
+        .intro-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .smaller-text {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Stats */
+        .stat-item {
+            background: rgba(42, 93, 132, 0.1);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2a5d84;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Tier Cards */
+        .tier-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tier-header {
+            border-bottom: 2px solid;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tier-header h3 {
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2a5d84;
+            margin-top: 0.5rem;
+        }
+
+        .tier-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tier-benefits li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tier-benefits li:last-child {
+            border-bottom: 0;
+        }
+
+        /* Tier Colors */
+        .bronze .tier-header {
+            border-color: #cd7f32;
+        }
+
+        .silver .tier-header {
+            border-color: #c0c0c0;
+        }
+
+        .gold .tier-header {
+            border-color: #ffd700;
+        }
+
+        .platinum .tier-header {
+            border-color: #e5e4e2;
+        }
+
+        .champion .tier-header {
+            border-color: #2a5d84;
+        }
