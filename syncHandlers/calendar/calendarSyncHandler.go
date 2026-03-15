@@ -138,7 +138,7 @@ func generateHTML(events []gocal.Event, log *logrus.Logger) string {
 	log.Info("generating html content")
 
 	if len(events) == 0 {
-		return `<div class="event"><p>No upcoming events published.</p></div>`
+		return `<div class="event-node event-node--empty"><div class="event-card"><p>No upcoming events at this time.</p></div></div>`
 	}
 
 	var content strings.Builder
@@ -153,28 +153,32 @@ func generateHTML(events []gocal.Event, log *logrus.Logger) string {
 
 		hasUpcoming = true
 		content.WriteString(fmt.Sprintf(`
-		<div class="event">
-		  <h2><strong>%s</strong></h2>
-		  <p><b>Event Start:</b> %s</p>
-		  <p><b>Event End:</b> %s</p>
-		  <br>
-		  <p>Click the button below for more information.</p>
-		  <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" 
-		     target="_blank" 
-		     rel="noopener noreferrer" 
-		     class="btn btn-primary">
-		    More Details
-		  </a>
-		</div>
-		<br><br>`,
+		<div class="event-node">
+		  <div class="event-card">
+		    <div class="event-date-badge">
+		      <span class="event-month">%s</span>
+		      <span class="event-day">%s</span>
+		    </div>
+		    <div class="event-body">
+		      <h2 class="event-title">%s</h2>
+		      <p class="event-range">%s &ndash; %s</p>
+		      <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events"
+		         target="_blank"
+		         rel="noopener noreferrer"
+		         class="btn btn-primary">More Details</a>
+		    </div>
+		  </div>
+		</div>`,
+			event.Start.Format("Jan"),
+			event.Start.Format("2"),
 			event.Summary,
-			event.Start.Format("January 02, 2006"),
-			event.End.Format("January 02, 2006"),
+			event.Start.Format("January 2"),
+			event.End.Format("January 2, 2006"),
 		))
 	}
 
 	if !hasUpcoming {
-		content.WriteString(`<div class="event"><p>No upcoming events published.</p></div>`)
+		content.WriteString(`<div class="event-node event-node--empty"><div class="event-card"><p>No upcoming events at this time.</p></div></div>`)
 	}
 
 	return content.String()
