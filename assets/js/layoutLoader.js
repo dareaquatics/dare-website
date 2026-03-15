@@ -2,65 +2,83 @@
   "use strict";
 
   const includeCache = new Map();
-  const loadingIncludePath = "/partials/loading-screen.html";
+  const CRITICAL_STYLESHEET_PATH = "/assets/css/style.css";
+  const CRITICAL_STYLE_SENTINEL = "--nav-height";
 
-  function injectCriticalLoadingState() {
-    if (document.getElementById("layout-critical-style")) {
-      return;
+  function isCriticalStylesheetLink(link) {
+    const href = link.getAttribute("href");
+    if (!href) {
+      return false;
     }
 
-    const style = document.createElement("style");
-    style.id = "layout-critical-style";
-    style.textContent = `
-      body { margin: 0; overflow: hidden; }
-      #content, [data-site-content] { display: none; opacity: 0; }
-      #loading-screen {
-        position: fixed;
-        inset: 0;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-      }
-      #loading-screen .bouncing-dots {
-        display: flex;
-        justify-content: space-between;
-        width: 80px;
-      }
-      #loading-screen .dot {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background-color: #eb5d1e;
-        animation: layout-loader-bounce 1.4s infinite ease-in-out;
-      }
-      #loading-screen .dot:nth-child(2) { animation-delay: -0.32s; }
-      #loading-screen .dot:nth-child(3) { animation-delay: -0.16s; }
-      @keyframes layout-loader-bounce {
-        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-30px); }
-        60% { transform: translateY(-15px); }
-      }
-    `;
-    document.head.appendChild(style);
+    try {
+      return new URL(href, window.location.href).pathname === CRITICAL_STYLESHEET_PATH;
+    } catch (error) {
+      return href === CRITICAL_STYLESHEET_PATH || href.endsWith(CRITICAL_STYLESHEET_PATH);
+    }
   }
 
-  function ensureFallbackLoadingScreen() {
-    if (document.getElementById("loading-screen")) {
+  async function waitForCriticalStyles() {
+    const styleLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"][href]'));
+    const criticalLink = styleLinks.find(isCriticalStylesheetLink);
+
+    function hasCriticalStylesApplied() {
+      const sentinel = getComputedStyle(document.documentElement)
+        .getPropertyValue(CRITICAL_STYLE_SENTINEL)
+        .trim();
+      return sentinel.length > 0;
+    }
+
+    if (!criticalLink || hasCriticalStylesApplied()) {
       return;
     }
 
-    const fallback = document.createElement("div");
-    fallback.id = "loading-screen";
-    fallback.innerHTML = `
-      <div class="bouncing-dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-    `;
-    document.body.prepend(fallback);
+    await new Promise((resolve) => {
+      let done = false;
+      let pollId = null;
+      let timeoutId = null;
+
+      function finish() {
+        if (done) {
+          return;
+        }
+        done = true;
+        criticalLink.removeEventListener("load", onDone);
+        criticalLink.removeEventListener("error", onDone);
+        if (pollId !== null) {
+          clearInterval(pollId);
+        }
+        if (timeoutId !== null) {
+          clearTimeout(timeoutId);
+        }
+        resolve();
+      }
+
+      function onDone() {
+        if (hasCriticalStylesApplied()) {
+          finish();
+          return;
+        }
+        requestAnimationFrame(() => {
+          if (hasCriticalStylesApplied()) {
+            finish();
+          }
+        });
+      }
+
+      criticalLink.addEventListener("load", onDone, { once: true });
+      criticalLink.addEventListener("error", onDone, { once: true });
+
+      // Poll for stylesheet application in case the load event has already fired.
+      pollId = window.setInterval(() => {
+        if (hasCriticalStylesApplied()) {
+          finish();
+        }
+      }, 16);
+
+      // Never deadlock include loading.
+      timeoutId = window.setTimeout(finish, 2500);
+    });
   }
 
   async function fetchInclude(path) {
@@ -109,11 +127,6 @@
     }
 
     try {
-      if (includePath === loadingIncludePath && document.getElementById("loading-screen")) {
-        el.remove();
-        return;
-      }
-
       const html = await fetchInclude(includePath);
 
       const tagName = el.tagName.toLowerCase();
@@ -144,12 +157,12 @@
       return;
     }
 
-    const navLink = document.querySelector(`[data-nav-key="${pageKey}"]`);
-    if (!navLink) {
+    const navLinks = document.querySelectorAll(`[data-nav-key="${pageKey}"]`);
+    if (!navLinks.length) {
       return;
     }
 
-    navLink.classList.add("active");
+    navLinks.forEach(link => link.classList.add("active"));
   }
 
   async function loadAnnouncementIfNeeded() {
@@ -207,16 +220,14 @@
     document.dispatchEvent(new CustomEvent("layout:ready"));
   }
 
-  injectCriticalLoadingState();
-  if (document.body) {
-    ensureFallbackLoadingScreen();
-  } else {
-    document.addEventListener("DOMContentLoaded", ensureFallbackLoadingScreen, { once: true });
+  async function initLayout() {
+    await waitForCriticalStyles();
+    await loadAllIncludes();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadAllIncludes);
+    document.addEventListener("DOMContentLoaded", initLayout);
   } else {
-    loadAllIncludes();
+    initLayout();
   }
 })();
