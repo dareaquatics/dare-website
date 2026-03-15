@@ -1,0 +1,33 @@
+/* ─── Contact Page ───────────────────────────────────────── */
+
+.contact-lead {
+  max-width: 52ch;
+  color: var(--color-text-subtle);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  margin-bottom: 2.75rem;
+}
+
+/* Section with subtle orange radial glow from top */
+.contact-form-section {
+  padding-top: calc(var(--nav-height) + 4rem);
+  padding-bottom: 6rem;
+  background:
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(235, 93, 30, 0.08) 0%, transparent 70%),
+    var(--color-bg);
+}
+
+/* Slightly stronger glow in dark mode where it reads better */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .contact-form-section {
+    background:
+      radial-gradient(ellipse 90% 40% at 50% 0%, rgba(235, 93, 30, 0.13) 0%, transparent 70%),
+      var(--color-bg);
+  }
+}
+
+html[data-theme="dark"] .contact-form-section {
+  background:
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(235, 93, 30, 0.13) 0%, transparent 70%),
+    var(--color-bg);
+}
