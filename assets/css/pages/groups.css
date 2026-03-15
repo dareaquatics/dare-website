@@ -1,87 +1,141 @@
-:root {
-      --brand-color: #eb5d1e;
-      --check-color: #007bff;
-    }
+/* ─── Swim Groups Page ──────────────────────────────────── */
 
-    .group-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+.group-container {
+  max-width: 900px;
+}
 
-    .group-card {
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.group-intro {
+  font-size: 1rem;
+  color: var(--color-text-subtle);
+  line-height: 1.7;
+  max-width: 700px;
+  margin-bottom: 2.5rem;
+}
 
-    .group-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
+.group-intro a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
-    .group-card h3 {
-      color: var(--brand-color);
-      border-bottom: 2px solid var(--brand-color);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
+.group-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
 
-    .group-info p {
-      margin-bottom: 8px;
-    }
+.group-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 24px var(--color-shadow);
+}
 
-    .group-requirements,
-    .group-description {
-      background-color: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+.group-card > h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
 
-    .group-requirements h4,
-    .group-description h4 {
-      color: var(--brand-color);
-      margin-bottom: 15px;
-    }
+.group-info,
+.group-requirements,
+.group-description,
+.equipment-needed {
+  margin-bottom: 1rem;
+}
 
-    .group-requirements ul,
-    .group-description ul {
-      padding-left: 25px;
-      list-style-type: none;
-    }
+.group-info p,
+.group-requirements p,
+.group-description p {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 0.25rem;
+}
 
-    .group-requirements ul li,
-    .group-description ul li {
-      margin-bottom: 10px;
-      position: relative;
-    }
+.group-info code {
+  background: var(--color-bg-surface);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-family: monospace;
+  color: var(--color-accent);
+}
 
-    .group-requirements ul li:before,
-    .group-description ul li:before {
-      content: "\F26A";
-      font-family: "bootstrap-icons";
-      color: var(--check-color);
-      position: absolute;
-      left: -25px;
-      top: 2px;
-    }
+.group-requirements h4,
+.group-description h4,
+.equipment-needed h4 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 0.625rem;
+}
 
-    .equipment-needed {
-      background-color: #e9ecef;
-      border-radius: 10px;
-      padding: 20px;
-    }
+.group-requirements ul,
+.group-description ul,
+.equipment-needed ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
 
-    .equipment-needed h4 {
-      color: var(--brand-color);
-      margin-bottom: 15px;
-    }
+.group-requirements li,
+.group-description li,
+.equipment-needed li {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.5;
+}
 
-    @media (max-width: 768px) {
-      .group-card {
-        padding: 20px;
-      }
-    }
+.group-requirements li::before,
+.group-description li::before,
+.equipment-needed li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: 0.875rem;
+}
+
+.group-card > p {
+  font-size: 0.875rem;
+  color: var(--color-text-subtle);
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-accent-subtle);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.group-card a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Groups heading */
+.inner-page > .container > h2,
+.group-container > h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-5 {
+  margin-bottom: 2rem;
+}
