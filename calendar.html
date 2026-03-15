@@ -2,68 +2,92 @@
 <html lang="en">
 
 <head>
+  <script>(function(){var t=localStorage.getItem('dare-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>DARE Aquatics | Upcoming Events</title>
-  <meta content="Upcoming events for DARE Aquatics" name="description" />
-  <meta content="dare aquatics, events, swimming, swim club, swim events, swim competitions" name="keywords" />
+  <meta name="description" content="Upcoming swim meet events and competitions for DARE Aquatics." />
+  <meta name="keywords" content="dare aquatics, events, swimming, swim club, swim events, swim competitions" />
+  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)" />
   <script src="/assets/js/siteBootstrap.js" defer></script>
   <script src="/assets/js/layoutLoader.js" defer></script>
   <meta data-include="/partials/site-head-common.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="/assets/css/loadingAnimation.css" rel="stylesheet" />
+  <link href="/assets/css/announcement.css" rel="stylesheet" />
   <link href="/assets/css/pages/calendar.css" rel="stylesheet" />
 </head>
 
 <body data-page="calendar">
-  <div data-include="/partials/loading-screen.html"></div>
   <div id="content" data-site-content>
     <div data-include="/partials/site-header.html"></div>
     <main id="main">
-<!-- Main Content -->
-  
-    <section class="inner-page">
-      <div class="container">
-        <h1 class="section-title">Upcoming Events</h1>
-        <div class="events-container">
-          <!-- START UNDER HERE -->
 
-		<div class="event">
-		  <h2><strong>2026 Spring AG Champs</strong></h2>
-		  <p><b>Event Start:</b> March 11, 2026</p>
-		  <p><b>Event End:</b> March 15, 2026</p>
-		  <br>
-		  <p>Click the button below for more information.</p>
-		  <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" 
-		     target="_blank" 
-		     rel="noopener noreferrer" 
-		     class="btn btn-primary">
-		    More Details
-		  </a>
+      <section class="inner-page calendar-section" aria-label="Upcoming events">
+        <div class="container">
+          <div class="calendar-header reveal reveal--up">
+            <h1 class="page-title" data-word-reveal>Upcoming Events</h1>
+            <!-- <p class="calendar-subhead">Competition schedule &middot; DARE Aquatics</p> -->
+          </div>
+          <div class="events-timeline reveal reveal--up" style="--reveal-delay: 100ms">
+            <div class="timeline-direction" aria-hidden="true">
+              <span class="timeline-direction-label">Nearest</span>
+              <span class="timeline-direction-track"></span>
+              <span class="timeline-direction-label">Furthest</span>
+            </div>
+            <div class="events-container">
+              <!-- START UNDER HERE -->
+
+		<div class="event-node">
+		  <div class="event-card">
+		    <div class="event-date-badge">
+		      <span class="event-month">Mar</span>
+		      <span class="event-day">11</span>
+		    </div>
+		    <div class="event-body">
+		      <h2 class="event-title">2026 Spring AG Champs</h2>
+		      <p class="event-range">March 11 &ndash; March 15, 2026</p>
+		      <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events"
+		         target="_blank"
+		         rel="noopener noreferrer"
+		         class="btn btn-primary">More Details</a>
+		    </div>
+		  </div>
 		</div>
-		<br><br>
-		<div class="event">
-		  <h2><strong>Metro April LCM meet</strong></h2>
-		  <p><b>Event Start:</b> April 10, 2026</p>
-		  <p><b>Event End:</b> April 12, 2026</p>
-		  <br>
-		  <p>Click the button below for more information.</p>
-		  <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events" 
-		     target="_blank" 
-		     rel="noopener noreferrer" 
-		     class="btn btn-primary">
-		    More Details
-		  </a>
+    
+		<div class="event-node">
+		  <div class="event-card">
+		    <div class="event-date-badge">
+		      <span class="event-month">Apr</span>
+		      <span class="event-day">10</span>
+		    </div>
+		    <div class="event-body">
+		      <h2 class="event-title">Metro April LCM meet</h2>
+		      <p class="event-range">April 10 &ndash; April 12, 2026</p>
+		      <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events"
+		         target="_blank"
+		         rel="noopener noreferrer"
+		         class="btn btn-primary">More Details</a>
+		    </div>
+		  </div>
 		</div>
-		<br><br>
 <!-- END AUTOMATION SCRIPT -->
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-  
+      </section>
 
-  <!-- Footer -->
     </main>
     <div data-include="/partials/site-footer.html"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <button id="back-to-top" aria-label="Back to top">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
   </div>
   <div data-include="/partials/site-scripts.html"></div>
 </body>
