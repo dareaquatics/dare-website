@@ -1,27 +1,54 @@
-body {
-      margin: 20px;
-    }
+/* ─── Policy Page ────────────────────────────────────────── */
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  font-size: 0.9375rem;
+}
 
-    th,
-    td {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      text-align: left;
-    }
+.policy-table thead th {
+  background: var(--color-bg-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid var(--color-accent);
+}
 
-    th {
-      background-color: #f4f4f4;
-    }
+.policy-table tbody td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  vertical-align: middle;
+}
 
-    a {
-      text-decoration: none;
-    }
+.policy-table tbody tr:last-child td {
+  border-bottom: none;
+}
 
-    a:hover {
-      text-decoration: underline;
-    }
+.policy-table tbody tr:hover td {
+  background: var(--color-bg-surface);
+}
+
+.policy-table a {
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.policy-table a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .policy-table {
+    font-size: 0.875rem;
+  }
+
+  .policy-table thead th,
+  .policy-table tbody td {
+    padding: 0.75rem 0.625rem;
+  }
+}
