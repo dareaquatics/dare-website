@@ -2,108 +2,100 @@
 <html lang="en">
 
 <head>
+  <script>(function(){var t=localStorage.getItem('dare-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>DARE Aquatics | Coaches</title>
-  <meta content="Meet the coaches of DARE Aquatics" name="description" />
-  <meta content="DARE Aquatics, coaches, swim team, swimming, training, Alhambra, California" name="keywords" />
+  <meta name="description" content="Meet the dedicated coaching staff of DARE Aquatics swim team." />
+  <meta name="keywords" content="DARE Aquatics, coaches, swim team, swimming, training, Alhambra, California" />
+  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)" />
   <script src="/assets/js/siteBootstrap.js" defer></script>
   <script src="/assets/js/layoutLoader.js" defer></script>
   <meta data-include="/partials/site-head-common.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="/assets/css/loadingAnimation.css" rel="stylesheet" />
+  <link href="/assets/css/announcement.css" rel="stylesheet" />
   <link href="/assets/css/pages/coaches.css" rel="stylesheet" />
 </head>
 
 <body data-page="coaches">
-  <div data-include="/partials/loading-screen.html"></div>
   <div id="content" data-site-content>
     <div data-include="/partials/site-header.html"></div>
     <main id="main">
-<!-- End Header -->
 
-  
-    <section class="coaches-section">
-      <div class="coaches-container">
-        <h1 class="section-title">Meet Our Coaches</h1>
-        <p class="intro-text">
-          At DARE Aquatics, our coaches are passionate about swimming and
-          dedicated to helping our athletes reach their full potential. Get to
-          know the talented individuals who make our team great!
-        </p>
-        <p class="intro-text">
-          If you would like to contact any of our coaches, please utilize our contact form. We will respond to your inquiry as soon as we are able to. Inquiries sent via email may take longer.
-        </p>
-        <ul class="coaches-list">
-          <li class="coach-item">
-            <img src="assets/coaches/joy-lim.jpg" alt="Joy Lim, Head Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Joy Lim</h3>
-              <p class="coach-title">
-                Head Coach, Pre-National & National Coach
-              </p>
-              joy[at]dareaquatics.com
-            </div>
-          </li>
-          <li class="coach-item">
-            <img src="assets/coaches/yvonne-jo.jpg" alt="Yvonne Jo, DARE Devils Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Yvonne Jo</h3>
-              <p class="coach-title">DARE Devils (Pre-Comp)</p>
-              yvonne[at]dareaquatics.com
-            </div>
-          </li>
-          <!--  bye coach andrew :(
-          <li class="coach-item">
-            <img src="assets/coaches/andrew-kim.jpg" alt="Andrew Kim, Age Group 1 Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Andrew Kim</h3>
-              <p class="coach-title">Age Group 1</p>
-                andrew[at]dareaquatics.com
-            </div>
-          </li> 
-         -->
-          <li class="coach-item">
-            <img src="assets/coaches/andrew-kim.jpg" alt="Dennis Lee, PLACEHOLDER LEVEL Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Dennis Lee</h3>
-              <p class="coach-title">To Be Determined</p>
-              dennis[at]dareaquatics.com
-            </div>
-          </li>
+      <section class="inner-page" aria-label="Coaching staff">
+        <div class="container coaches-container">
+          <h1 class="page-title" data-word-reveal>Meet Our Coaches</h1>
+          <p class="intro-text reveal reveal--up" style="--reveal-delay: 100ms">
+            At DARE Aquatics, our coaches are passionate about swimming and dedicated to helping our athletes reach their full potential.
+          </p>
+          <p class="intro-text reveal reveal--up" style="--reveal-delay: 150ms">
+            To contact any of our coaches, please use our <a href="/contact">contact form</a>. We'll respond as soon as possible. Inquiries sent via email may take longer.
+          </p>
+          <ul class="coaches-list">
+            <li class="coach-item reveal reveal--up" style="--reveal-delay: 0ms">
+              <img src="/assets/coaches/joy-lim.jpg" alt="Joy Lim, Head Coach" class="coach-image" loading="lazy" />
+              <div class="coach-info">
+                <h3 class="coach-name">Joy Lim</h3>
+                <p class="coach-title">Head Coach, Pre-National &amp; National Coach</p>
+                joy[at]dareaquatics.com
+              </div>
+            </li>
+            <li class="coach-item reveal reveal--up" style="--reveal-delay: 60ms">
+              <img src="/assets/coaches/yvonne-jo.jpg" alt="Yvonne Jo, DARE Devils Coach" class="coach-image" loading="lazy" />
+              <div class="coach-info">
+                <h3 class="coach-name">Yvonne Jo</h3>
+                <p class="coach-title">DARE Devils (Pre-Comp)</p>
+                yvonne[at]dareaquatics.com
+              </div>
+            </li>
+            <li class="coach-item reveal reveal--up" style="--reveal-delay: 120ms">
+              <img src="/assets/coaches/andrew-kim.jpg" alt="Dennis Lee, Coach" class="coach-image" loading="lazy" />
+              <div class="coach-info">
+                <h3 class="coach-name">Dennis Lee</h3>
+                <p class="coach-title">To Be Determined</p>
+                dennis[at]dareaquatics.com
+              </div>
+            </li>
+            <li class="coach-item reveal reveal--up" style="--reveal-delay: 0ms">
+              <img src="/assets/coaches/joseph-kim.jpg" alt="Joseph Kim, Age Group Elite Coach" class="coach-image" loading="lazy" />
+              <div class="coach-info">
+                <h3 class="coach-name">Joseph Kim</h3>
+                <p class="coach-title">Age Group Elite Coach</p>
+                joseph[at]dareaquatics.com
+              </div>
+            </li>
+            <li class="coach-item reveal reveal--up" style="--reveal-delay: 60ms">
+              <img src="/assets/coaches/samuel-jo.jpg" alt="Samuel Jo, Sr. Development Coach" class="coach-image" loading="lazy" />
+              <div class="coach-info">
+                <h3 class="coach-name">Samuel Jo</h3>
+                <p class="coach-title">Sr. Development Coach</p>
+                sam[at]dareaquatics.com
+              </div>
+            </li>
+            <li class="coach-item reveal reveal--up" style="--reveal-delay: 120ms">
+              <img src="/assets/coaches/tevin-pak.jpg" alt="Tevin Pak, Age Group 1 Coach" class="coach-image" loading="lazy" />
+              <div class="coach-info">
+                <h3 class="coach-name">Tevin Pak</h3>
+                <p class="coach-title">Age Group 1</p>
+                tevin[at]dareaquatics.com
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
 
-          <li class="coach-item">
-            <img src="assets/coaches/joseph-kim.jpg" alt="Joseph Kim, Age Group Elite Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Joseph Kim</h3>
-              <p class="coach-title">Age Group Elite Coach</p>
-              joseph[at]dareaquatics.com
-            </div>
-          </li>
-          <li class="coach-item">
-            <img src="assets/coaches/samuel-jo.jpg" alt="Samuel Jo, Sr. Development Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Samuel Jo</h3>
-              <p class="coach-title">Sr. Development Coach</p>
-              sam[at]dareaquatics.com
-            </div>
-          </li>
-          <li class="coach-item">
-            <img src="assets/coaches/tevin-pak.jpg" alt="Tevin Pak, Age Group 1 Coach" class="coach-image" />
-            <div class="coach-info">
-              <h3 class="coach-name">Tevin Pak</h3>
-              <p class="coach-title">Age Group 1</p>
-              tevin[at]dareaquatics.com
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-  
-  <!-- End Main -->
-
-  <!-- Footer -->
     </main>
     <div data-include="/partials/site-footer.html"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <button id="back-to-top" aria-label="Back to top">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
   </div>
   <div data-include="/partials/site-scripts.html"></div>
 </body>
