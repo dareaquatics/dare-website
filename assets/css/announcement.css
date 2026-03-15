@@ -290,6 +290,29 @@
   }
 }
 
+/* Dark mode — manual toggle override */
+html[data-theme="dark"] {
+  --announcement-bg: #1f2937;
+  --announcement-text: #f3f4f6;
+  --announcement-border: #4b5563;
+  --announcement-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="dark"] .announcement__button:hover,
+html[data-theme="dark"] .announcement__button:focus,
+html[data-theme="dark"] .announcement__close:hover,
+html[data-theme="dark"] .announcement__close:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode — manual toggle override (for system-dark users who switch to light) */
+html[data-theme="light"] {
+  --announcement-bg: #ffffff;
+  --announcement-text: #1a1a1a;
+  --announcement-border: #e0e0e0;
+  --announcement-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
 /* Animation keyframes for entrance */
 @keyframes slideInDown {
   from {
