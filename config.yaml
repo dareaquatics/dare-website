@@ -4,7 +4,7 @@
 active: no
 
 # Type of announcement: 'popup' or 'banner'. Generally want to use popup.
-type: banner
+type: popup
 
 # The message to display
 message: "Happy New Year from DARE Aquatics! ❄️☃️"
