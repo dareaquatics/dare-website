@@ -1,65 +1,150 @@
+/* ─── News Page ─────────────────────────────────────────── */
+
+/* Page header */
+.news-header {
+  margin-bottom: 3rem;
+}
+
+.news-subhead {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  margin-top: 0.375rem;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Container ──────────────────────────────────────────── */
+
 .news-container {
-    max-width: 1290px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
+  display: flex;
+  flex-direction: column;
+  max-width: 860px;
+  gap: 1.25rem;
+}
 
-  .news-item {
-    margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #eee;
-  }
+/* ─── Card ───────────────────────────────────────────────── */
 
-  .news-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
+.news-item {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 14px;
+  padding: 1.875rem 2.25rem;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
 
-  .news-title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
-  }
+.news-item:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(235, 93, 30, 0.18),
+    0 8px 32px var(--color-shadow);
+}
 
-  .news-date {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-  }
+/* ─── Staggered reveal animations ───────────────────────── */
 
-  .news-content {
-    color: #444;
-    font-size: 16px;
-    line-height: 1.6;
+@keyframes newsReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .news-content a {
-    color: #ffa07a;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
+.news-container .news-item {
+  animation: newsReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
-  .news-content a:hover {
-    color: #eb5d1e;
-  }
+.news-container .news-item:nth-child(1) { animation-delay: 0.05s; }
+.news-container .news-item:nth-child(2) { animation-delay: 0.13s; }
+.news-container .news-item:nth-child(3) { animation-delay: 0.21s; }
+.news-container .news-item:nth-child(4) { animation-delay: 0.29s; }
+.news-container .news-item:nth-child(5) { animation-delay: 0.37s; }
+.news-container .news-item:nth-child(6) { animation-delay: 0.45s; }
+.news-container .news-item:nth-child(7) { animation-delay: 0.53s; }
+.news-container .news-item:nth-child(8) { animation-delay: 0.61s; }
 
-  .section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 40px;
-    position: relative;
+@media (prefers-reduced-motion: reduce) {
+  .news-container .news-item {
+    animation: none;
   }
+}
 
-  .section-title::after {
-    content: "";
-    display: block;
-    width: 50px;
-    height: 3px;
-    background-color: #eb5d1e;
-    margin: 10px auto;
-  }
+/* ─── Title ──────────────────────────────────────────────── */
+
+.news-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1875rem, 3vw, 1.5rem);
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 0.625rem;
+  line-height: 1.3;
+}
+
+.news-title strong {
+  font-weight: 400;
+}
+
+/* ─── Metadata row ───────────────────────────────────────── */
+
+.news-item > p.news-date {
+  display: inline;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* First p.news-date = author */
+.news-item > p.news-date:first-of-type {
+  color: var(--color-accent);
+}
+
+/* Second p.news-date = date — prepend separator */
+.news-item > p.news-date + p.news-date {
+  color: var(--color-text-subtle);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
+.news-item > p.news-date + p.news-date::before {
+  content: " · ";
+  color: var(--color-text-subtle);
+}
+
+/* ─── Content ────────────────────────────────────────────── */
+
+.news-content {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  line-height: 1.75;
+}
+
+.news-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.news-content a:hover {
+  color: var(--color-accent-hover);
+}
+
+.news-content div,
+.news-content p {
+  margin-bottom: 0.4rem;
+}
+
+.news-content img {
+  display: none;
+}
+
+/* Strip any inline font-family and size styles from GoMotion content */
+.news-content * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
