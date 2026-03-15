@@ -2,41 +2,53 @@
 <html lang="en">
 
 <head>
+  <script>(function(){var t=localStorage.getItem('dare-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>DARE Aquatics | Contact</title>
-  <meta content="dare aquatics website" name="description" />
-  <meta content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me" name="keywords" />
+  <meta name="description" content="Contact DARE Aquatics swim team in Alhambra, California." />
+  <meta name="keywords" content="dare aquatics, contact, swimming, swim, alhambra, california, swim club" />
+  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)" />
   <script src="/assets/js/siteBootstrap.js" defer></script>
   <script src="/assets/js/layoutLoader.js" defer></script>
   <meta data-include="/partials/site-head-common.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="/assets/css/loadingAnimation.css" rel="stylesheet" />
+  <link href="/assets/css/announcement.css" rel="stylesheet" />
+  <link href="/assets/css/pages/contact.css" rel="stylesheet" />
 </head>
 
 <body data-page="contact" data-announcement="true">
-  <div data-include="/partials/loading-screen.html"></div>
   <div id="content" data-site-content>
     <div data-include="/partials/site-header.html"></div>
     <main id="main">
-<!-- End Header -->
 
-  
+      <section class="inner-page contact-form-section" aria-label="Contact form">
+        <div class="container">
+          <h1 class="page-title" data-word-reveal>Contact Us</h1>
+          <p class="contact-lead reveal reveal--up" style="--reveal-delay: 80ms">
+            Have a question? Fill out the form below and we'll get back to you within 2 to 4 business days.
+          </p>
+          <div class="reveal reveal--up" style="--reveal-delay: 160ms">
+            <div class="elfsight-form-wrapper">
+              <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+              <div class="elfsight-app-7b1fcf0e-cd99-4f44-9c3f-3b01985d7c9b" data-elfsight-app-lazy></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section class="inner-page">
-      <div class="container">
-        <!-- Contact Form -->
-        <!-- NOTE: We are exceeding rate limits for the contact form. Perhaps consider hosting our own contact form somehow? -->
-        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-        <div class="elfsight-app-7b1fcf0e-cd99-4f44-9c3f-3b01985d7c9b" data-elfsight-app-lazy></div>
-      </div>
-    </section>
-    <!-- End Contact Form -->
-  
-  <!-- End Main -->
-
-  <!-- Footer -->
     </main>
     <div data-include="/partials/site-footer.html"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <button id="back-to-top" aria-label="Back to top">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
   </div>
   <div data-include="/partials/site-scripts.html"></div>
 </body>
