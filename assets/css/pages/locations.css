@@ -1,84 +1,207 @@
+/* ─── Locations Page ────────────────────────────────────── */
+
+/* Override global banner for this page — it's a warning banner */
 .banner {
-      background-color: #ff0000;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-      margin: 20px 0;
-    }
+  background: rgba(235, 93, 30, 0.1);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.875rem var(--container-padding);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  margin-top: var(--nav-height);
+}
 
-    .location-card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin-bottom: 40px;
-    }
+/* Banner already offsets for nav — reduce inner-page top padding */
+.inner-page {
+  padding-top: 3rem;
+}
 
-    .location-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-    }
+/* ─── Two-column grid ───────────────────────────────────── */
 
-    .location-address {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
-    }
+.locations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
 
-    .map-iframe {
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-      height: 300px;
-    }
+@media (max-width: 720px) {
+  .locations-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-    .location-details {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-    }
+/* ─── Location cards ────────────────────────────────────── */
 
-    .location-details h4 {
-      color: #333;
-      margin-bottom: 15px;
-    }
+.location-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: box-shadow 0.25s ease;
+}
 
-    .location-details ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
+.location-card:hover {
+  box-shadow: 0 6px 28px var(--color-shadow);
+}
 
-    .location-details li {
-      margin-bottom: 10px;
-    }
+.location-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
 
-    .location-details i {
-      color: #007bff;
-      margin-right: 10px;
-    }
+.location-address {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 1rem;
+}
 
-    .container p {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.6;
-    }
+.map-container {
+  margin: 1rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
 
-    .map-button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-      margin-top: 15px;
-    }
+.map-iframe {
+  width: 100%;
+  height: 240px;
+  border: none;
+  display: block;
+}
 
-    .map-button:hover {
-      background-color: #0056b3;
-      color: white;
-      text-decoration: none;
-    }
+.map-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1.25rem;
+  padding: 0.5rem 1.125rem;
+  background: var(--color-accent);
+  color: #fff !important;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-button:hover {
+  background: var(--color-accent-hover);
+  color: #fff !important;
+  box-shadow: 0 4px 16px rgba(235, 93, 30, 0.3);
+}
+
+/* ─── Per-card unique highlights ────────────────────────── */
+
+.location-highlights h4 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 0.625rem;
+}
+
+.location-highlights ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.location-highlights li {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.location-highlights li i {
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+/* ─── Shared facilities ─────────────────────────────────── */
+
+.shared-facilities {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.shared-facilities h4 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 0.875rem;
+}
+
+.shared-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem 1.5rem;
+}
+
+.shared-list li {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.shared-list li i {
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .shared-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ─── Slim closing note ─────────────────────────────────── */
+
+.locations-note {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--color-border);
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.locations-note a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Intro paragraph ───────────────────────────────────── */
+
+.inner-page > .container > p {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.inner-page > .container > p a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
