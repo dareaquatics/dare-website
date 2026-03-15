@@ -2,37 +2,51 @@
 <html lang="en">
 
 <head>
+  <script>(function(){var t=localStorage.getItem('dare-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>DARE Aquatics | Sponsorship Details</title>
-  <meta content="dare aquatics website" name="description" />
-  <meta content="dare aquatics, swimming, swim, alhambra, monterey park, california, swim club, club, swim, breastroke, freestyle, backstroke, butterfly, los angeles, swim club near me" name="keywords" />
+  <title>DARE Aquatics | Sponsorship Application</title>
+  <meta name="description" content="Apply to become a sponsor of DARE Aquatics swim team." />
+  <meta name="keywords" content="dare aquatics, sponsorship, application, swimming, alhambra, california" />
+  <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)" />
   <script src="/assets/js/siteBootstrap.js" defer></script>
   <script src="/assets/js/layoutLoader.js" defer></script>
   <meta data-include="/partials/site-head-common.html" />
-  <link rel="stylesheet" href="/assets/css/holidayStyle.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="/assets/css/loadingAnimation.css" rel="stylesheet" />
+  <link href="/assets/css/announcement.css" rel="stylesheet" />
 </head>
 
 <body data-page="sponsorship">
-  <div data-include="/partials/loading-screen.html"></div>
   <div id="content" data-site-content>
     <div data-include="/partials/site-header.html"></div>
     <main id="main">
-      <section class="inner-page">
+
+      <section class="inner-page" aria-label="Sponsorship application form">
         <div class="container">
-          <div class="section-title">
-            <!-- Elfsight Form Builder | Sponsor DARE -->
-            <script src="https://static.elfsight.com/platform/platform.js" async></script>
-            <div class="elfsight-app-39774be0-f0eb-426c-b2ee-1379d9e6245f" data-elfsight-app-lazy></div>
+          <h1 class="page-title reveal reveal--up">Sponsorship Application</h1>
+          <div class="reveal reveal--up" style="--reveal-delay: 80ms">
+            <div class="elfsight-form-wrapper">
+              <script src="https://static.elfsight.com/platform/platform.js" async></script>
+              <div class="elfsight-app-39774be0-f0eb-426c-b2ee-1379d9e6245f" data-elfsight-app-lazy></div>
+            </div>
           </div>
         </div>
       </section>
+
     </main>
     <div data-include="/partials/site-footer.html"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <button id="back-to-top" aria-label="Back to top">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
   </div>
   <div data-include="/partials/site-scripts.html"></div>
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 
 </html>
