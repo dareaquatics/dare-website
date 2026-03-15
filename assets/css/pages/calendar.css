@@ -1,119 +1,199 @@
+/* ─── Calendar / Upcoming Events Page ───────────────────── */
+
+/* Page header */
+.calendar-header {
+  margin-bottom: 3rem;
+}
+
+.calendar-subhead {
+  font-size: 0.9375rem;
+  color: var(--color-text-subtle);
+  margin-top: 0.375rem;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Direction indicator ────────────────────────────────── */
+
+.timeline-direction {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.timeline-direction-label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+}
+
+.timeline-direction-track {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) 0%,
+    rgba(235, 93, 30, 0.18) 100%
+  );
+  position: relative;
+  border-radius: 999px;
+}
+
+/* Arrowhead at the right end of the track */
+.timeline-direction-track::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid rgba(235, 93, 30, 0.45);
+  border-right: 1.5px solid rgba(235, 93, 30, 0.45);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ─── Timeline wrapper ───────────────────────────────────── */
+
+.events-timeline {
+  /* No overflow tricks needed — grid wraps naturally */
+}
+
+/* Wrapping grid — cards flow left→right, top→bottom */
 .events-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+}
 
-    .event {
-      margin-bottom: 30px;
-      padding: 25px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      background-color: #fafafa;
-    }
+@media (max-width: 900px) {
+  .events-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-    .event:hover {
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
-    }
+@media (max-width: 560px) {
+  .events-container {
+    grid-template-columns: 1fr;
+  }
 
-    .event h2 {
-      color: #333;
-      margin-bottom: 15px;
-      font-size: 24px;
-      line-height: 1.3;
-    }
+  .timeline-direction {
+    display: none;
+  }
+}
 
-    .event p {
-      color: #555;
-      margin-bottom: 12px;
-      line-height: 1.5;
-    }
+/* ─── Event node ─────────────────────────────────────────── */
 
-    .btn-primary {
-      background-color: #eb5d1e;
-      border-color: #ffa07a;
-      color: #fff;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-    }
+.event-node {
+  position: relative;
+  padding-top: 1.75rem; /* room for dot above the card */
+}
 
-    .btn-primary:hover,
-    .btn-primary:focus {
-      background-color: #ff8c5a;
-      border-color: #ff8c5a;
-      color: #fff;
-      text-decoration: none;
-    }
+/* Timeline dot */
+.event-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 0 0 1.5px var(--color-accent);
+  z-index: 1;
+}
 
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #333;
-      margin-bottom: 40px;
-      position: relative;
-    }
+/* No inter-card connecting line — grid wrapping makes a
+   continuous line impossible across rows */
 
-    .section-title::after {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 3px;
-      background-color: #eb5d1e;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+/* ─── Event card ─────────────────────────────────────────── */
 
-    .collapsible {
-      background-color: #f1f1f1;
-      color: #444;
-      cursor: pointer;
-      padding: 18px;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 16px;
-      transition: 0.4s;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
+.event-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
+}
 
-    .active,
-    .collapsible:hover {
-      background-color: #e0e0e0;
-    }
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px var(--color-shadow);
+}
 
-    .content {
-      padding: 0 18px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.2s ease-out;
-      background-color: #f9f9f9;
-      border-radius: 0 0 5px 5px;
-    }
+/* ─── Date badge ─────────────────────────────────────────── */
 
-    hr {
-      border: 0;
-      height: 1px;
-      background-image: linear-gradient(to right,
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.75),
-          rgba(0, 0, 0, 0));
-      margin: 20px 0;
-    }
+.event-date-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.5rem 0.875rem;
+  margin-bottom: 1rem;
+  min-width: 3.25rem;
+  text-align: center;
+  gap: 0.1rem;
+}
 
-    /* Navbar active link style */
-    #navbar .nav-link.active {
-      background: none;
-    }
+.event-month {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.event-day {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  opacity: 0.88;
+}
+
+/* ─── Event body ─────────────────────────────────────────── */
+
+.event-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 0.375rem;
+  line-height: 1.3;
+}
+
+.event-range {
+  font-size: 0.875rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+/* "More Details" button — generated by Go sync handler */
+.event-body .btn,
+.event-body .btn-primary,
+.event-body a[class*="btn"] {
+  padding: 0.5rem 1.125rem;
+  font-size: 0.875rem;
+  border-radius: 8px;
+}
+
+/* ─── Empty state ────────────────────────────────────────── */
+
+.event-node--empty .event-card {
+  border-left: 4px solid var(--color-accent);
+}
+
+.event-node--empty p {
+  color: var(--color-text-subtle);
+  font-size: 0.9375rem;
+}
