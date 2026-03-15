@@ -1,8 +1,132 @@
+/* ─── 404 Standalone Page ───────────────────────────────── */
+/* Design tokens inlined since this page loads no style.css */
+
+:root {
+  --color-accent: #eb5d1e;
+  --color-bg: #FAFAF8;
+  --color-text: #111111;
+  --color-text-subtle: #6B6866;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0A0A0B;
+    --color-text: #F5F5F5;
+    --color-text-subtle: #9A9693;
+  }
+}
+
+html[data-theme="dark"] {
+  --color-bg: #0A0A0B;
+  --color-text: #F5F5F5;
+  --color-text-subtle: #9A9693;
+}
+
+html[data-theme="light"] {
+  --color-bg: #FAFAF8;
+  --color-text: #111111;
+  --color-text-subtle: #6B6866;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
 .visually-hidden-focusable {
   position: absolute;
   left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .visually-hidden-focusable:focus {
-  left: 0;
+  position: static;
+  width: auto;
+  height: auto;
+}
+
+main h1 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 15vw, 10rem);
+  font-weight: 400;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+main p {
+  font-size: 1.125rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 2rem;
+}
+
+main a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Load Animations ────────────────────────────────────── */
+@keyframes veil-fade {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+@keyframes slide-up-in {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(12px) translateY(20px); transform: translateY(20px); }
+  to   { opacity: 1; filter: none; transform: none; }
+}
+
+/* Page veil — pure CSS, no JS needed */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 9999;
+  pointer-events: none;
+  animation: veil-fade 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+}
+
+.error-container {
+  animation: slide-up-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.error-code {
+  animation: slide-up-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+main h1 {
+  animation: slide-up-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.error-message {
+  animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.home-link {
+  animation: slide-up-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  display: inline-block;
 }
