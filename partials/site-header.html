@@ -1,32 +1,94 @@
-<header id="header" class="fixed-top d-flex align-items-center">
-  <div class="container d-flex align-items-center justify-content-between">
-    <div class="logo">
-      <a href="/"><img src="/assets/img/logo.png" alt="DARE Aquatics Logo" class="img-fluid" /></a>
+<header id="header" data-scrolled="false">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <a href="/" aria-label="DARE Aquatics home">
+        <img src="/assets/img/logo.png" alt="DARE Aquatics" />
+      </a>
     </div>
 
-    <nav id="navbar" class="navbar">
-      <ul>
-        <li><a class="nav-link scrollto" data-nav-key="home" href="/">Home</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="coaches" href="/coaches">Coaches</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="calendar" href="/calendar">Calendar</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="faq" href="/faq">F.A.Q</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="groups" href="/groups">Swim Groups</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="news" href="/news">News</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="locations" href="/locations">Pool Locations</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="pbc" href="/pbc">PBC</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="contact" href="/contact">Contact</a></li>
-        <li><a class="nav-link scrollto" data-nav-key="sponsorship" href="/sponsorship">Sponsor Us</a></li>
-        <li>
-          <a
-            class="getstarted scrollto"
-            href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&amp;team=cadas&amp;_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&amp;_tu_Login_Error_Redirect_=true"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Sign In</a
-          >
-        </li>
-      </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="nav-link" data-nav-key="home" href="/">Home</a>
+      <a class="nav-link" data-nav-key="coaches" href="/coaches">Coaches</a>
+      <a class="nav-link" data-nav-key="calendar" href="/calendar">Calendar</a>
+      <a class="nav-link" data-nav-key="faq" href="/faq">F.A.Q</a>
+      <a class="nav-link" data-nav-key="groups" href="/groups">Swim Groups</a>
+      <a class="nav-link" data-nav-key="news" href="/news">News</a>
+      <a class="nav-link" data-nav-key="locations" href="/locations">Locations</a>
+      <a class="nav-link" data-nav-key="pbc" href="/pbc">PBC</a>
+      <a class="nav-link" data-nav-key="contact" href="/contact">Contact</a>
+      <a class="nav-link" data-nav-key="sponsorship" href="/sponsorship">Sponsor Us</a>
     </nav>
+
+    <div class="nav-actions">
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        <i class="bi bi-moon"></i>
+      </button>
+      <a
+        class="btn--nav-signin"
+        href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Sign In</a>
+      <button
+        id="nav-hamburger"
+        class="nav-hamburger"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-mobile-overlay"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
   </div>
+
 </header>
+
+<div id="nav-backdrop" aria-hidden="true"></div>
+
+<nav id="nav-mobile-overlay" aria-label="Mobile navigation">
+
+  <div class="drawer-header">
+    <button id="nav-close" class="drawer-close" aria-label="Close menu">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-group-label">Explore</span>
+    <a class="drawer-link" data-nav-key="home" href="/" style="--i:0"><i class="bi bi-house"></i> Home</a>
+    <a class="drawer-link" data-nav-key="calendar" href="/calendar" style="--i:1"><i class="bi bi-calendar3"></i> Calendar</a>
+    <a class="drawer-link" data-nav-key="news" href="/news" style="--i:2"><i class="bi bi-newspaper"></i> News</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-group-label">Team</span>
+    <a class="drawer-link" data-nav-key="coaches" href="/coaches" style="--i:3"><i class="bi bi-people"></i> Coaches</a>
+    <a class="drawer-link" data-nav-key="groups" href="/groups" style="--i:4"><i class="bi bi-water"></i> Swim Groups</a>
+    <a class="drawer-link" data-nav-key="pbc" href="/pbc" style="--i:5"><i class="bi bi-award"></i> PBC</a>
+    <a class="drawer-link" data-nav-key="locations" href="/locations" style="--i:6"><i class="bi bi-geo-alt"></i> Locations</a>
+    <a class="drawer-link" data-nav-key="faq" href="/faq" style="--i:7"><i class="bi bi-question-circle"></i> F.A.Q</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-group-label">Get Involved</span>
+    <a class="drawer-link" data-nav-key="contact" href="/contact" style="--i:8"><i class="bi bi-envelope"></i> Contact</a>
+    <a class="drawer-link" data-nav-key="sponsorship" href="/sponsorship" style="--i:9"><i class="bi bi-heart"></i> Sponsor Us</a>
+  </div>
+
+  <div class="drawer-footer">
+    <a
+      class="drawer-signin btn--nav-signin"
+      href="https://www.gomotionapp.com/Login5.jsp?sn=www.gomotionapp.com&team=cadas&_tu_Login_Redirect_=/team/cadas/controller/cms/admin/index&_tu_Login_Error_Redirect_=true"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Sign In</a>
+  </div>
+
+</nav>
