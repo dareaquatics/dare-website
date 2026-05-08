@@ -13,16 +13,16 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/sirupsen/logrus"
 	git "github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	gitHttp "github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/sirupsen/logrus"
 )
 
 const (
 	newsURL      = "https://www.gomotionapp.com/team/cadas/page/news"
 	baseURL      = "https://www.gomotionapp.com"
-	newsHTMLFile = "news.html"
+	newsHTMLFile = "news/index.html"
 	startMarker  = "<!-- START UNDER HERE -->"
 	endMarker    = "<!-- END AUTOMATION SCRIPT -->"
 	timeFormat   = "January 2, 2006"
@@ -157,7 +157,7 @@ func processArticles(urls []string) []Article {
 	var wg sync.WaitGroup
 	ch := make(chan string, concurrency)
 	results := make(chan Article, len(urls))
-	
+
 	// Track errors
 	var errorCount int32
 	var errorMutex sync.Mutex
@@ -196,7 +196,7 @@ func processArticles(urls []string) []Article {
 	if errorCount > 0 {
 		log.Warnf("failed to fetch %d out of %d articles", errorCount, len(urls))
 	}
-	
+
 	if len(articles) == 0 && errorCount > 0 {
 		log.Error("all articles failed to fetch - check network connectivity and site availability")
 	}
@@ -331,7 +331,7 @@ func processContent(html string) string {
 		s.SetAttr("href", href)
 		s.SetAttr("target", "_blank")
 		s.SetAttr("rel", "noopener noreferrer")
-		
+
 		// Replace text if it's a URL
 		text := strings.TrimSpace(s.Text())
 		if text == "" || text == href || strings.HasPrefix(text, "http://") || strings.HasPrefix(text, "https://") {
@@ -343,7 +343,7 @@ func processContent(html string) string {
 	html, _ = doc.Html()
 
 	// NOW do all regex replacements on the final HTML (goquery is done, can't interfere)
-	
+
 	// 1. Replace images with links
 	imgRegex := regexp.MustCompile(`<img[^>]*\ssrc=["']([^"']+)["'][^>]*>`)
 	html = imgRegex.ReplaceAllStringFunc(html, func(match string) string {
@@ -353,7 +353,7 @@ func processContent(html string) string {
 			return "" // Remove malformed img tags
 		}
 		src := srcMatch[1]
-		
+
 		// Make relative URLs absolute
 		if !strings.HasPrefix(src, "http") {
 			if strings.HasPrefix(src, "/") {
@@ -362,7 +362,7 @@ func processContent(html string) string {
 				src = baseURL + "/" + src
 			}
 		}
-		
+
 		return fmt.Sprintf(`<a href="%s" target="_blank" rel="noopener noreferrer">Click to see image</a>`, src)
 	})
 
@@ -381,18 +381,18 @@ func convertPlainTextURLsToLinks(html string) string {
 	// This regex finds text content between tags that contains URLs
 	// Pattern: >(text with URL)<
 	urlRegex := regexp.MustCompile(`>([^<]*\b(?:https?://[^\s<>"]+)[^<]*)<`)
-	
+
 	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
 		// Extract the text content between > and <
 		text := match[1 : len(match)-1]
-		
+
 		// Replace URLs in this text with links
 		urlPattern := regexp.MustCompile(`\b(https?://[^\s<>"]+)`)
 		newText := urlPattern.ReplaceAllString(text, `<a href="$1" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`)
-		
+
 		return ">" + newText + "<"
 	})
-	
+
 	return html
 }
 
@@ -466,7 +466,7 @@ func updateNewsHTML(newContent string) (bool, error) {
 
 func gitCommitAndPush() error {
 	log.Info("committing changes to git")
-	
+
 	// Open the repository in the current working directory (repository root)
 	repo, err := git.PlainOpen(".")
 	if err != nil {
@@ -520,26 +520,26 @@ func gitCommitAndPush() error {
 		}
 
 		// If it's not a conflict-related error, fail immediately
-		if !strings.Contains(err.Error(), "non-fast-forward") && 
-		   !strings.Contains(err.Error(), "rejected") {
+		if !strings.Contains(err.Error(), "non-fast-forward") &&
+			!strings.Contains(err.Error(), "rejected") {
 			return fmt.Errorf("push failed: %w", err)
 		}
 
 		// For conflicts, try to pull and retry
 		if attempt < maxRetries {
 			log.Warnf("push failed (attempt %d/%d), trying to pull and retry: %v", attempt, maxRetries, err)
-			
+
 			// Pull with rebase
 			pullErr := wt.Pull(&git.PullOptions{
-				Auth:         auth,
-				RemoteName:   "origin",
+				Auth:          auth,
+				RemoteName:    "origin",
 				ReferenceName: "refs/heads/main", // Adjust if your branch is different
 			})
-			
+
 			if pullErr != nil && pullErr.Error() != "already up-to-date" {
 				log.Warnf("pull failed: %v", pullErr)
 			}
-			
+
 			time.Sleep(time.Duration(attempt) * time.Second) // Exponential backoff
 			continue
 		}

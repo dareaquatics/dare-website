@@ -7,8 +7,12 @@ on:
   push:               # Runs on push to the `main` branch
     branches:
       - main
-    paths:            # Only trigger if changes are in the root or assets folder
-      - '*'           # All files in the root directory
+    paths:            # Only trigger if changes are in the root, page subdirs, or assets folder
+      - '*.html'      # HTML files in the root directory
+      - '*.json'      # JSON config files in the root
+      - '*.yaml'      # YAML config files in the root (except workflows)
+      - '*/index.html' # Page subdirectory index files
+      - 'partials/**'  # Shared partials
       - 'assets/**'   # Everything inside the assets folder
 
 jobs:

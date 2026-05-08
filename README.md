@@ -35,7 +35,7 @@ This repository uses a shared-layout pattern for root pages:
   - `/partials/site-footer.html`
   - `/partials/loading-screen.html`
   - `/partials/site-scripts.html`
-- Root content pages (for example `index.html`, `calendar.html`, `news.html`) are thin shells that include those partials via `data-include`.
+- Root content pages and directory index pages (for example `index.html`, `calendar/index.html`, `news/index.html`) are thin shells that include those partials via `data-include`.
 - `/assets/js/layoutLoader.js` is responsible for:
   - Loading include fragments.
   - Activating nav state based on `body[data-page]`.
@@ -64,8 +64,7 @@ The sync handlers rely on marker comments and must remain unchanged:
 
 These markers are required in:
 
-- `calendar.html`
-- `news.html`
+- `calendar/index.html`
+- `news/index.html`
 
 Do not remove or rename those markers.
-
