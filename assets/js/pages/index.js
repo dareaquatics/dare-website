@@ -206,10 +206,13 @@ function initMissionWordScrub() {
   const missionText = document.getElementById("mission-text");
   if (!missionText) return;
 
+  const missionCta = document.getElementById("mission-cta");
+
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (reducedMotion) {
     missionText.style.opacity = "1";
+    if (missionCta) missionCta.classList.add("is-revealed");
     return;
   }
 
@@ -236,6 +239,9 @@ function initMissionWordScrub() {
   });
 
   const N = wordSpans.length;
+  // Independent of N, the last word's wordEnd below always resolves to 0.80 + 0.05 + 0.06.
+  const CTA_REVEAL_PROGRESS = 0.91;
+  let ctaRevealed = false;
   let sectionTop = 0;
   let sectionHeight = 0;
 
@@ -259,6 +265,11 @@ function initMissionWordScrub() {
       word.style.filter = "blur(" + ((1 - wordProgress) * 5) + "px)";
       word.style.transform = "scale(" + (0.86 + wordProgress * 0.14) + ")";
     });
+
+    if (missionCta && !ctaRevealed && sectionProgress >= CTA_REVEAL_PROGRESS) {
+      ctaRevealed = true;
+      missionCta.classList.add("is-revealed");
+    }
   }
 
   let raf = null;

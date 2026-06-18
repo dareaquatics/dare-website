@@ -101,7 +101,7 @@
 
   /* ── Intersection Observer reveals ────────────────────── */
   function initReveal() {
-    const els = document.querySelectorAll(".reveal");
+    const els = document.querySelectorAll(".reveal:not([data-scrub-reveal])");
     if (!els.length) return;
 
     const observer = new IntersectionObserver(
