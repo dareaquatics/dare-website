@@ -24,11 +24,9 @@
   z-index: 1;
 }
 
-/* Light mode: very subtle bottom fade — just enough to blend the edge
-   Note: html:not([data-theme="dark"]) prevents firing when the site theme
-   is manually set to dark while the OS itself is in light mode. */
+/* Light mode: very subtle bottom fade — just enough to blend the edge */
 @media (prefers-color-scheme: light) {
-  html:not([data-theme="dark"]) #hero::before { height: 10%; opacity: 0.4; }
+  #hero::before { height: 10%; opacity: 0.4; }
 }
 html[data-theme="light"] #hero::before { height: 10%; opacity: 0.4; }
 
@@ -151,14 +149,9 @@ html[data-theme="dark"] {
   #hero-pool-svg { transform: none !important; }
 }
 
-/* ── Light mode: cool blue palette to harmonize with pool ──
-   Note: html:not([data-theme="dark"]) prevents firing when the site theme
-   is manually set to dark while the OS itself is in light mode — without
-   this guard, these vars (declared directly on body) would override the
-   dark values inherited from html[data-theme="dark"], since a directly
-   declared custom property always wins over an inherited one. */
+/* ── Light mode: cool blue palette to harmonize with pool ── */
 @media (prefers-color-scheme: light) {
-  html:not([data-theme="dark"]) body {
+  body {
     --color-bg:          #EEF6FF;
     --color-bg-surface:  #E3EEF8;
     --color-bg-elevated: #F5FAFF;
