@@ -5,6 +5,10 @@
   <script>(function(){var t=localStorage.getItem('dare-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link rel="preload" href="/partials/site-head-common.html" as="fetch" crossorigin="anonymous" />
+  <link rel="preload" href="/partials/site-header.html" as="fetch" crossorigin="anonymous" />
+  <link rel="preload" href="/partials/site-footer.html" as="fetch" crossorigin="anonymous" />
+  <link rel="preload" href="/partials/site-scripts.html" as="fetch" crossorigin="anonymous" />
   <title>DARE Aquatics — Premier Competitive Swim Team in California</title>
   <meta name="description" content="DARE Aquatics is a premier year-round competitive swim team in California, offering expert coaching and technique instruction for swimmers of all ages and abilities." />
   <meta name="keywords" content="DARE Aquatics, swimming, swim team, competitive swimming, California, Alhambra, Azusa, swim coaching, youth sports" />
@@ -310,10 +314,10 @@
           </div>
           <div class="sponsors-logo-row reveal reveal--fade" style="--reveal-delay: 160ms">
             <div class="sponsor-logo-item">
-              <img src="/assets/actualSponsors/teaandjoy.png" alt="T&amp;Joy" />
+              <img src="/assets/actualSponsors/teaandjoy.png" alt="T&amp;Joy" loading="lazy" />
             </div>
             <div class="sponsor-logo-item">
-              <img src="/assets/actualSponsors/irenechoelaw.png" alt="Irene Choe Law" />
+              <img src="/assets/actualSponsors/irenechoelaw.png" alt="Irene Choe Law" loading="lazy" />
             </div>
           </div>
           <p class="sponsors-cta reveal reveal--fade" style="--reveal-delay: 240ms">
@@ -366,6 +370,7 @@
       <i class="bi bi-arrow-up-short"></i>
     </button>
   </div>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
   <div data-include="/partials/site-scripts.html"></div>
 
   <script type="application/ld+json">

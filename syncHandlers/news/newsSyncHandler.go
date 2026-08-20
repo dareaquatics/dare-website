@@ -34,6 +34,14 @@ var (
 		Timeout: 30 * time.Second,
 	}
 	log = logrus.New()
+
+	imgTagRegex       = regexp.MustCompile(`<img[^>]*\ssrc=["']([^"']+)["'][^>]*>`)
+	imgSrcRegex       = regexp.MustCompile(`src=["']([^"']+)["']`)
+	whitespaceRegex   = regexp.MustCompile(`\s+`)
+	brTagRegex        = regexp.MustCompile(`<br\s*/?>`)
+	listItemRegex     = regexp.MustCompile(`</li>\s*<li>`)
+	plainTextURLBlock = regexp.MustCompile(`>([^<]*\b(?:https?://[^\s<>"]+)[^<]*)<`)
+	plainTextURL      = regexp.MustCompile(`\b(https?://[^\s<>"]+)`)
 )
 
 type Article struct {
@@ -345,10 +353,8 @@ func processContent(html string) string {
 	// NOW do all regex replacements on the final HTML (goquery is done, can't interfere)
 
 	// 1. Replace images with links
-	imgRegex := regexp.MustCompile(`<img[^>]*\ssrc=["']([^"']+)["'][^>]*>`)
-	html = imgRegex.ReplaceAllStringFunc(html, func(match string) string {
-		srcRegex := regexp.MustCompile(`src=["']([^"']+)["']`)
-		srcMatch := srcRegex.FindStringSubmatch(match)
+	html = imgTagRegex.ReplaceAllStringFunc(html, func(match string) string {
+		srcMatch := imgSrcRegex.FindStringSubmatch(match)
 		if len(srcMatch) < 2 {
 			return "" // Remove malformed img tags
 		}
@@ -370,9 +376,9 @@ func processContent(html string) string {
 	html = convertPlainTextURLsToLinks(html)
 
 	// 3. Clean up HTML formatting
-	html = regexp.MustCompile(`\s+`).ReplaceAllString(html, " ")
-	html = regexp.MustCompile(`<br\s*/?>`).ReplaceAllString(html, "\n")
-	html = regexp.MustCompile(`</li>\s*<li>`).ReplaceAllString(html, "</li><li>")
+	html = whitespaceRegex.ReplaceAllString(html, " ")
+	html = brTagRegex.ReplaceAllString(html, "\n")
+	html = listItemRegex.ReplaceAllString(html, "</li><li>")
 
 	return html
 }
@@ -380,15 +386,12 @@ func processContent(html string) string {
 func convertPlainTextURLsToLinks(html string) string {
 	// This regex finds text content between tags that contains URLs
 	// Pattern: >(text with URL)<
-	urlRegex := regexp.MustCompile(`>([^<]*\b(?:https?://[^\s<>"]+)[^<]*)<`)
-
-	html = urlRegex.ReplaceAllStringFunc(html, func(match string) string {
+	html = plainTextURLBlock.ReplaceAllStringFunc(html, func(match string) string {
 		// Extract the text content between > and <
 		text := match[1 : len(match)-1]
 
 		// Replace URLs in this text with links
-		urlPattern := regexp.MustCompile(`\b(https?://[^\s<>"]+)`)
-		newText := urlPattern.ReplaceAllString(text, `<a href="$1" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`)
+		newText := plainTextURL.ReplaceAllString(text, `<a href="$1" target="_blank" rel="noopener noreferrer">Click here to be redirected to the link</a>`)
 
 		return ">" + newText + "<"
 	})

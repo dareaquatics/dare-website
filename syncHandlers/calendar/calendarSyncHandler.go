@@ -25,6 +25,10 @@ const (
 	commitMessage = "automated commit: sync TeamUnify calendar [skip ci]"
 )
 
+var client = &http.Client{
+	Timeout: 30 * time.Second,
+}
+
 func main() {
 	log := setupLogger()
 	log.Info("starting calendar sync process")
@@ -77,7 +81,7 @@ func setupLogger() *logrus.Logger {
 
 func fetchEvents(log *logrus.Logger) ([]gocal.Event, error) {
 	log.Info("fetching ics data")
-	resp, err := http.Get(icsURL)
+	resp, err := client.Get(icsURL)
 	if err != nil {
 		return nil, fmt.Errorf("ics fetch failed (network error): %w", err)
 	}
