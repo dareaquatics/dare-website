@@ -30,6 +30,11 @@
 }
 html[data-theme="light"] #hero::before { height: 10%; opacity: 0.4; }
 
+/* Manual dark toggle while OS is light: restore the default fade sizing —
+   otherwise it stays pinned to the light-mode 10%/0.4 values against a
+   now-dark var(--color-bg), producing a visible seam. */
+html[data-theme="dark"] #hero::before { height: 28%; opacity: 1; }
+
 /* Top vignette — ensures nav text reads against the pool at any brightness */
 #hero::after {
   content: '';
@@ -164,6 +169,17 @@ html[data-theme="light"] body {
   --color-bg-surface:  #E3EEF8;
   --color-bg-elevated: #F5FAFF;
   --nav-bg-scrolled:   rgba(238, 246, 255, 0.88);
+}
+
+/* Manual dark toggle while OS is light: reset the body-level overrides
+   above back to the standard dark palette (see style.css) — otherwise
+   they stay pinned to the light-blue values since a rule set directly
+   on body always wins over the inherited value from html[data-theme="dark"]. */
+html[data-theme="dark"] body {
+  --color-bg:          #0A0A0B;
+  --color-bg-surface:  #1A1A1C;
+  --color-bg-elevated: #242426;
+  --nav-bg-scrolled:   rgba(10, 10, 11, 0.88);
 }
 
 /* Layer 2: caustic shimmer blobs */
