@@ -9,9 +9,9 @@
   <link rel="preload" href="/partials/site-header.html" as="fetch" crossorigin="anonymous" />
   <link rel="preload" href="/partials/site-footer.html" as="fetch" crossorigin="anonymous" />
   <link rel="preload" href="/partials/site-scripts.html" as="fetch" crossorigin="anonymous" />
-  <title>DARE Aquatics | Upcoming Events</title>
-  <meta name="description" content="Upcoming swim meet events and competitions for DARE Aquatics." />
-  <meta name="keywords" content="dare aquatics, events, swimming, swim club, swim events, swim competitions" />
+  <title>DARE Aquatics | Calendar</title>
+  <meta name="description" content="Practice times by group, upcoming swim meets and team events, and meet entry deadlines for DARE Aquatics." />
+  <meta name="keywords" content="dare aquatics, practice schedule, swim meets, entry deadlines, swim club calendar" />
   <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)" />
   <script src="/assets/js/siteBootstrap.js" defer></script>
@@ -32,40 +32,124 @@
     <div data-include="/partials/site-header.html"></div>
     <main id="main">
 
-      <section class="inner-page calendar-section" aria-label="Upcoming events">
-        <div class="container">
-          <div class="calendar-header reveal reveal--up">
-            <h1 class="page-title" data-word-reveal>Upcoming Events</h1>
-            <!-- <p class="calendar-subhead">Competition schedule &middot; DARE Aquatics</p> -->
-          </div>
-          <div class="events-timeline reveal reveal--up" style="--reveal-delay: 100ms">
-            <div class="timeline-direction" aria-hidden="true">
-              <span class="timeline-direction-label">Nearest</span>
-              <span class="timeline-direction-track"></span>
-              <span class="timeline-direction-label">Furthest</span>
+      <section class="inner-page" aria-label="Team calendar">
+        <div class="container calendar-container">
+          <div class="calendar-header">
+            <h1 class="page-title" data-word-reveal>Calendar</h1>
+            <p class="calendar-intro">Upcoming meets and team events. Looking for your swimmer's practice times or a meet's entry deadline? Choose an option below.</p>
+            <div class="calendar-tools" data-calendar-tools hidden>
+              <button type="button" class="btn btn--ghost" aria-expanded="false" aria-controls="practice-panel" data-tool="practice">
+                <i class="bi bi-clock" aria-hidden="true"></i> Practice times
+              </button>
+              <button type="button" class="btn btn--ghost" aria-expanded="false" aria-controls="deadline-panel" data-tool="deadline">
+                <i class="bi bi-hourglass-split" aria-hidden="true"></i> Entry deadlines
+              </button>
             </div>
-            <div class="events-container">
-              <!-- START UNDER HERE -->
+          </div>
 
-		<div class="event-node">
-		  <div class="event-card">
-		    <div class="event-date-badge">
-		      <span class="event-month">Oct</span>
-		      <span class="event-day">9</span>
-		    </div>
-		    <div class="event-body">
-		      <h2 class="event-title">Cerritos SCY Meet</h2>
-		      <p class="event-range">October 9 &ndash; October 10, 2026</p>
-		      <a href="https://www.gomotionapp.com/team/cadas/controller/cms/admin/index?team=cadas#/calendar-team-events"
-		         target="_blank"
-		         rel="noopener noreferrer"
-		         class="btn btn-primary">More Details</a>
-		    </div>
-		  </div>
-		</div>
-<!-- END AUTOMATION SCRIPT -->
-            </div>
+          <!-- Lookup panels: opened from the buttons above by /assets/js/pages/calendar.js -->
+          <div id="practice-panel" class="tool-panel" hidden data-no-animate>
+            <h2 class="tool-title">Practice times</h2>
+            <label class="tool-label" for="practice-group">Your swimmer's group</label>
+            <select id="practice-group" class="tool-select" data-practice-select>
+              <option value="">Choose a group</option>
+            </select>
+            <div class="tool-result" data-practice-result aria-live="polite"></div>
           </div>
+
+          <div id="deadline-panel" class="tool-panel" hidden data-no-animate>
+            <h2 class="tool-title">Entry deadlines</h2>
+            <label class="tool-label" for="deadline-meet">Meet</label>
+            <select id="deadline-meet" class="tool-select" data-deadline-select>
+              <option value="">Choose a meet</option>
+            </select>
+            <div class="tool-result" data-deadline-result aria-live="polite"></div>
+          </div>
+
+          <section class="events" aria-labelledby="events-heading" data-no-animate>
+            <h2 id="events-heading" class="visually-hidden">Meets and events</h2>
+            <div class="ev-next" data-next-slot hidden></div>
+            <h3 class="ev-later-title" data-later-title hidden>Later</h3>
+            <ol class="ev-list">
+              <!-- START UNDER HERE -->
+<li class="ev ev--meet" data-start="2026-10-10T12:00:00-07:00" data-end="2026-10-11T23:59:59-07:00">
+  <time class="ev-date" datetime="2026-10-10"><span class="ev-month">Oct</span><span class="ev-day">10</span></time>
+  <div class="ev-body">
+    <p class="ev-kind">Meet<span class="ev-countdown"></span></p>
+    <h3 class="ev-title">2026 CA Cerritos SC Swim Meet</h3>
+    <p class="ev-when">Oct 10–11, 2026</p>
+    <p class="ev-where">13150 East 166 th Street, Cerritos, CA</p>
+    <div class="ev-actions">
+      <a class="btn btn--primary" href="https://team.commitswimming.com/sign-in" target="_blank" rel="noopener noreferrer">More details</a>
+      <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=13150+East+166+th+Street%2C+Cerritos%2C+CA" target="_blank" rel="noopener noreferrer"><i class="bi bi-geo-alt" aria-hidden="true"></i> Directions</a>
+    </div>
+  </div>
+</li>
+<li class="ev ev--event" data-start="2026-10-17T07:30:00-07:00" data-end="2026-10-17T09:00:00-07:00">
+  <time class="ev-date" datetime="2026-10-17"><span class="ev-month">Oct</span><span class="ev-day">17</span></time>
+  <div class="ev-body">
+    <p class="ev-kind">Team event<span class="ev-countdown"></span></p>
+    <h3 class="ev-title">Annual Clothing Drive Fundraiser - Hosted by PBC</h3>
+    <p class="ev-when">Sat, Oct 17, 2026, 7:30am–9:00am</p>
+    <p class="ev-desc">Give gently used clothing a second life while supporting DARE Aquatics. Families are invited to donate clothing, shoes, and other accepted items during our annual collection. Donations are collected by weight, with proceeds benefiting the team and its programs.<br /><br />A simple way to clear out your closets, give items another purpose, and support DARE at the same time.</p>
+    <div class="ev-actions">
+      <a class="btn btn--primary" href="https://team.commitswimming.com/sign-in" target="_blank" rel="noopener noreferrer">More details</a>
+    </div>
+  </div>
+</li>
+<li class="ev ev--meet" data-start="2026-10-30T12:00:00-07:00" data-end="2026-11-01T23:59:59-08:00">
+  <time class="ev-date" datetime="2026-10-30"><span class="ev-month">Oct</span><span class="ev-day">30</span></time>
+  <div class="ev-body">
+    <p class="ev-kind">Meet<span class="ev-countdown"></span></p>
+    <h3 class="ev-title">2026 Rising Tide 16&amp;U Short Course Meeet</h3>
+    <p class="ev-when">Oct 30 – Nov 1, 2026</p>
+    <p class="ev-where">4601 Walnut Ave, Irvine, CA</p>
+    <div class="ev-actions">
+      <a class="btn btn--primary" href="https://team.commitswimming.com/sign-in" target="_blank" rel="noopener noreferrer">More details</a>
+      <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=4601+Walnut+Ave%2C+Irvine%2C+CA" target="_blank" rel="noopener noreferrer"><i class="bi bi-geo-alt" aria-hidden="true"></i> Directions</a>
+    </div>
+  </div>
+</li>
+<li class="ev ev--meet" data-start="2026-10-31T12:00:00-07:00" data-end="2026-10-31T23:59:59-07:00">
+  <time class="ev-date" datetime="2026-10-31"><span class="ev-month">Oct</span><span class="ev-day">31</span></time>
+  <div class="ev-body">
+    <p class="ev-kind">Meet<span class="ev-countdown"></span></p>
+    <h3 class="ev-title">Orange vs. Black - The Haunted Block Party</h3>
+    <p class="ev-when">Sat, Oct 31, 2026</p>
+    <div class="ev-actions">
+      <a class="btn btn--primary" href="https://team.commitswimming.com/sign-in" target="_blank" rel="noopener noreferrer">More details</a>
+    </div>
+  </div>
+</li>
+<li class="ev ev--meet" data-start="2026-11-05T12:00:00-08:00" data-end="2026-11-08T23:59:59-08:00">
+  <time class="ev-date" datetime="2026-11-05"><span class="ev-month">Nov</span><span class="ev-day">5</span></time>
+  <div class="ev-body">
+    <p class="ev-kind">Meet<span class="ev-countdown"></span></p>
+    <h3 class="ev-title">2026 Legends of Coaching Don LaMont -UPDATED</h3>
+    <p class="ev-when">Nov 5–8, 2026</p>
+    <p class="ev-where">13806 La Mirada Blvd, La Mirada, CA</p>
+    <div class="ev-actions">
+      <a class="btn btn--primary" href="https://team.commitswimming.com/sign-in" target="_blank" rel="noopener noreferrer">More details</a>
+      <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=13806+La+Mirada+Blvd%2C+La+Mirada%2C+CA" target="_blank" rel="noopener noreferrer"><i class="bi bi-geo-alt" aria-hidden="true"></i> Directions</a>
+    </div>
+  </div>
+</li>
+<li class="ev ev--meet" data-start="2026-12-04T12:00:00-08:00" data-end="2026-12-06T23:59:59-08:00">
+  <time class="ev-date" datetime="2026-12-04"><span class="ev-month">Dec</span><span class="ev-day">4</span></time>
+  <div class="ev-body">
+    <p class="ev-kind">Meet<span class="ev-countdown"></span></p>
+    <h3 class="ev-title">2026 CA Trident Swim Club SC Dec Meet</h3>
+    <p class="ev-when">Dec 4–6, 2026</p>
+    <p class="ev-where">2000 S. Otterbein, Rowland Heights, CA</p>
+    <div class="ev-actions">
+      <a class="btn btn--primary" href="https://team.commitswimming.com/sign-in" target="_blank" rel="noopener noreferrer">More details</a>
+      <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=2000+S.+Otterbein%2C+Rowland+Heights%2C+CA" target="_blank" rel="noopener noreferrer"><i class="bi bi-geo-alt" aria-hidden="true"></i> Directions</a>
+    </div>
+  </div>
+</li>
+<!-- END AUTOMATION SCRIPT -->
+            </ol>
+          </section>
         </div>
       </section>
 

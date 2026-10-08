@@ -424,8 +424,14 @@ html[data-theme="dark"] .hero-bg {
 #mission {
   padding: 0;
   text-align: center;
-  min-height: 220vh;
+  min-height: 150vh;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  #mission {
+    min-height: 130vh;
+  }
 }
 
 .mission-sticky-inner {

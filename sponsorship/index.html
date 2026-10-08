@@ -35,141 +35,121 @@
       <section class="inner-page" aria-label="Sponsorship details">
         <div class="container">
 
-          <div class="sponsor-hero reveal reveal--up">
-            <h1 class="page-title" data-word-reveal>Invest in Youth Athletics and Community Development</h1>
-            <div class="header-divider"></div>
-          </div>
-
-          <div class="intro-card reveal reveal--up" style="--reveal-delay: 80ms">
-            <p>
-              DARE Aquatics is a year-round competitive swim team developing athletes aged 5–18.
-              Our program emphasizes teamwork, discipline, and community values while competing
-              at regional and national levels. Your sponsorship directly supports:
-            </p>
-            <div class="sponsor-stats">
-              <div class="stat-item">
-                <div class="stat-number">200+</div>
-                <div class="stat-label">Annual Participants</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">15+</div>
-                <div class="stat-label">Community Events</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Athlete Support Programs</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">5</div>
-                <div class="stat-label">Competition Levels</div>
-              </div>
+          <header class="sponsor-intro">
+            <h1 class="page-title" data-word-reveal>Sponsor DARE Aquatics</h1>
+            <p class="sponsor-lede">DARE Aquatics is a year-round competitive swim team developing athletes aged 5–18. Our program emphasizes teamwork, discipline, and community values while competing at regional and national levels.</p>
+            <div class="sponsor-actions">
+              <a href="/sponsorform" class="btn btn--primary">Apply to sponsor</a>
+              <a href="#packages" class="btn btn--ghost">See packages</a>
             </div>
-          </div>
+          </header>
 
-          <h2 class="section-heading reveal reveal--up" style="--reveal-delay: 0ms">Sponsorship Packages</h2>
+          <dl class="sponsor-stats">
+            <div><dt>Annual participants</dt><dd>200+</dd></div>
+            <div><dt>Community events</dt><dd>15+</dd></div>
+            <div><dt>Competition levels</dt><dd>5</dd></div>
+            <div><dt>Years developing champions</dt><dd>6+</dd></div>
+          </dl>
 
-          <div class="tier-grid reveal reveal--up" style="--reveal-delay: 80ms">
-            <div class="tier-card bronze">
-              <div class="tier-header">
-                <h3>Bronze</h3>
-                <div class="price">$500</div>
-              </div>
-              <ul class="tier-benefits">
-                <li><i class="bi bi-check2-circle"></i>Website logo placement</li>
-                <li><i class="bi bi-check2-circle"></i>1 year visibility</li>
-              </ul>
+          <section id="packages" class="sponsor-block" aria-labelledby="packages-heading">
+            <div class="block-head">
+              <h2 id="packages-heading" class="block-title">Sponsorship packages</h2>
+              <p class="block-sub">Each package includes everything in the one before it. All packages run for one year.</p>
             </div>
-
-            <div class="tier-card silver">
-              <div class="tier-header">
-                <h3>Silver</h3>
-                <div class="price">$750</div>
-              </div>
-              <ul class="tier-benefits">
-                <li><i class="bi bi-check2-circle"></i>All Bronze benefits</li>
-                <li><i class="bi bi-check2-circle"></i>Clickable website link</li>
-                <li><i class="bi bi-check2-circle"></i>Social media feature</li>
-              </ul>
+            <div class="tier-row" data-no-animate>
+              <article class="tier tier--bronze">
+                <h3 class="tier-name"><span class="tier-medal" aria-hidden="true"></span>Bronze</h3>
+                <p class="tier-price">$500</p>
+                <p class="tier-includes">Includes:</p>
+                <ul class="tier-list">
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Website logo placement</li>
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>1 year visibility</li>
+                </ul>
+              </article>
+              <article class="tier tier--silver">
+                <h3 class="tier-name"><span class="tier-medal" aria-hidden="true"></span>Silver</h3>
+                <p class="tier-price">$750</p>
+                <p class="tier-includes">Everything in Bronze, plus:</p>
+                <ul class="tier-list">
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Clickable website link</li>
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Social media feature</li>
+                </ul>
+              </article>
+              <article class="tier tier--gold">
+                <h3 class="tier-name"><span class="tier-medal" aria-hidden="true"></span>Gold</h3>
+                <p class="tier-price">$1,200</p>
+                <p class="tier-includes">Everything in Silver, plus:</p>
+                <ul class="tier-list">
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Team apparel branding</li>
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>2 social posts</li>
+                </ul>
+              </article>
+              <article class="tier tier--platinum">
+                <h3 class="tier-name"><span class="tier-medal" aria-hidden="true"></span>Platinum</h3>
+                <p class="tier-price">$1,500</p>
+                <p class="tier-includes">Everything in Gold, plus:</p>
+                <ul class="tier-list">
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Event banner placement</li>
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Priority website listing</li>
+                </ul>
+              </article>
+              <article class="tier tier--champion">
+                <h3 class="tier-name"><span class="tier-medal" aria-hidden="true"></span>Champion</h3>
+                <p class="tier-price">$2,000</p>
+                <p class="tier-includes">Everything in Platinum, plus:</p>
+                <ul class="tier-list">
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>Quarterly social features</li>
+                  <li><i class="bi bi-check2" aria-hidden="true"></i>VIP event access</li>
+                </ul>
+              </article>
             </div>
+          </section>
 
-            <div class="tier-card gold">
-              <div class="tier-header">
-                <h3>Gold</h3>
-                <div class="price">$1,200</div>
-              </div>
-              <ul class="tier-benefits">
-                <li><i class="bi bi-check2-circle"></i>All Silver benefits</li>
-                <li><i class="bi bi-check2-circle"></i>Team apparel branding</li>
-                <li><i class="bi bi-check2-circle"></i>2 social posts</li>
-              </ul>
+          <section class="sponsor-block" aria-labelledby="why-heading">
+            <div class="block-head">
+              <h2 id="why-heading" class="block-title">Why partner with us</h2>
             </div>
+            <ul class="why-grid">
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <h3>Community impact</h3>
+                <p>Reach 150+ local families every month.</p>
+              </li>
+              <li>
+                <i class="bi bi-award" aria-hidden="true"></i>
+                <h3>Proven results</h3>
+                <p>More than six years developing champions.</p>
+              </li>
+              <li>
+                <i class="bi bi-megaphone" aria-hidden="true"></i>
+                <h3>Exposure across channels</h3>
+                <p>Your name on our website, social media, apparel, and meet banners.</p>
+              </li>
+              <li>
+                <i class="bi bi-heart" aria-hidden="true"></i>
+                <h3>Youth development</h3>
+                <p>Help young athletes grow in and out of the pool.</p>
+              </li>
+            </ul>
+          </section>
 
-            <div class="tier-card platinum">
-              <div class="tier-header">
-                <h3>Platinum</h3>
-                <div class="price">$1,500</div>
-              </div>
-              <ul class="tier-benefits">
-                <li><i class="bi bi-check2-circle"></i>All Gold benefits</li>
-                <li><i class="bi bi-check2-circle"></i>Event banner placement</li>
-                <li><i class="bi bi-check2-circle"></i>Priority website listing</li>
-              </ul>
+          <section class="sponsor-block" aria-labelledby="current-heading">
+            <div class="block-head">
+              <h2 id="current-heading" class="block-title">Our current sponsors</h2>
             </div>
-
-            <div class="tier-card champion">
-              <div class="tier-header">
-                <h3>Champion</h3>
-                <div class="price">$2,000</div>
-              </div>
-              <ul class="tier-benefits">
-                <li><i class="bi bi-check2-circle"></i>All Platinum benefits</li>
-                <li><i class="bi bi-check2-circle"></i>Quarterly social features</li>
-                <li><i class="bi bi-check2-circle"></i>VIP event access</li>
-              </ul>
+            <div class="current-sponsors">
+              <img src="/assets/actualSponsors/teaandjoy.png" alt="T&amp;Joy" loading="lazy" />
+              <img src="/assets/actualSponsors/irenechoelaw.png" alt="Irene Choe Law" loading="lazy" />
             </div>
-          </div>
+          </section>
 
-          <div class="value-proposition reveal reveal--up">
-            <h3>Why Partner With DARE Aquatics?</h3>
-            <div class="value-grid">
-              <div class="value-item">
-                <i class="bi bi-people-fill"></i>
-                <div>
-                  <h5>Community Impact</h5>
-                  <p>Reach 150+ local families monthly</p>
-                </div>
-              </div>
-              <div class="value-item">
-                <i class="bi bi-award"></i>
-                <div>
-                  <h5>Proven Results</h5>
-                  <p>6+ years developing champions</p>
-                </div>
-              </div>
-              <div class="value-item">
-                <i class="bi bi-megaphone"></i>
-                <div>
-                  <h5>Amplified Exposure</h5>
-                  <p>Multi-channel marketing benefits</p>
-                </div>
-              </div>
-              <div class="value-item">
-                <i class="bi bi-heart-fill"></i>
-                <div>
-                  <h5>Youth Development</h5>
-                  <p>Support life-changing programs</p>
-                </div>
-              </div>
+          <section class="sponsor-apply" aria-labelledby="apply-heading">
+            <div>
+              <h2 id="apply-heading" class="block-title">Become a sponsor</h2>
+              <p>Fill out the short application and we'll reply within 48 hours. Questions first? <a href="/contact">Contact us</a>.</p>
             </div>
-          </div>
-
-          <div class="sponsor-cta reveal reveal--up">
-            <h2>Join Our Premier Partner Network</h2>
-            <a href="/sponsorform" class="btn btn--primary">
-              <i class="bi bi-pen-fill"></i> Online Application
-            </a>
-            <p class="cta-note">Response within 48 hours</p>
-          </div>
+            <a href="/sponsorform" class="btn btn--primary">Apply to sponsor</a>
+          </section>
 
         </div>
       </section>

@@ -239,8 +239,10 @@ function initMissionWordScrub() {
   });
 
   const N = wordSpans.length;
-  // Independent of N, the last word's wordEnd below always resolves to 0.80 + 0.05 + 0.06.
-  const CTA_REVEAL_PROGRESS = 0.91;
+  // Independent of N, the last word's wordEnd below always resolves to 0.76 + 0.04 + 0.08 = 0.88.
+  // The CTA fades up as the final words land, so the last ~12% of the pin is a brief hold on the
+  // finished sentence — not a stretch of empty pinned scroll waiting for the button.
+  const CTA_REVEAL_PROGRESS = 0.76;
   let ctaRevealed = false;
   let sectionTop = 0;
   let sectionHeight = 0;
@@ -257,8 +259,8 @@ function initMissionWordScrub() {
     const sectionProgress = Math.min(1, Math.max(0, rawProgress));
 
     wordSpans.forEach(function (word, i) {
-      const wordStart = (i / N) * 0.80 + 0.05;
-      const wordEnd = wordStart + (0.80 / N) + 0.06;
+      const wordStart = (i / N) * 0.76 + 0.04;
+      const wordEnd = wordStart + (0.76 / N) + 0.08;
       const wordProgress = Math.min(1, Math.max(0, (sectionProgress - wordStart) / (wordEnd - wordStart)));
 
       word.style.opacity = 0.12 + wordProgress * 0.88;

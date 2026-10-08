@@ -1,0 +1,30 @@
+{
+  "howTo": "Set \"deadline\" to the entry deadline as \"YYYY-MM-DD\" (it closes at the end of that day, Pacific time). Leave it null if it isn't known yet. New meets are added here automatically by the calendar sync.",
+  "meets": {
+    "meet-6ssHfKwZpEs9qJLrQ-NkrfHvPksJTNbxRSh": {
+      "name": "2026 Legends of Coaching Don LaMont -UPDATED",
+      "dates": "Nov 5–8, 2026",
+      "deadline": null
+    },
+    "meet-GQgiNTF5ksfNCBjAp-5E2say27fWtkLEGay": {
+      "name": "2026 Rising Tide 16&U Short Course Meeet",
+      "dates": "Oct 30 – Nov 1, 2026",
+      "deadline": null
+    },
+    "meet-PSm9tDRQr8x2CqZjr-e33uYsqmvniQwEFqs": {
+      "name": "Orange vs. Black - The Haunted Block Party",
+      "dates": "Sat, Oct 31, 2026",
+      "deadline": null
+    },
+    "meet-n9gTyYeLczfFE7sBC-FxKkMYtYkoJqj4DZ3": {
+      "name": "2026 CA Cerritos SC Swim Meet",
+      "dates": "Oct 10–11, 2026",
+      "deadline": null
+    },
+    "meet-tbegJtjH2S4fvELpb-vcbyttukviASdX3AX": {
+      "name": "2026 CA Trident Swim Club SC Dec Meet",
+      "dates": "Dec 4–6, 2026",
+      "deadline": null
+    }
+  }
+}

@@ -190,6 +190,7 @@
     const pageScriptMap = {
       home: "/assets/js/pages/index.js",
       faq: "/assets/js/pages/faq.js",
+      calendar: "/assets/js/pages/calendar.js",
     };
 
     const pageKey = document.body.dataset.page;

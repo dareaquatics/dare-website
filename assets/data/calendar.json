@@ -1,0 +1,369 @@
+{
+  "updated": "2026-10-07T15:44:05-07:00",
+  "timezone": "America/Los_Angeles",
+  "items": [
+    {
+      "id": "meet-n9gTyYeLczfFE7sBC-FxKkMYtYkoJqj4DZ3",
+      "kind": "meet",
+      "title": "2026 CA Cerritos SC Swim Meet",
+      "start": "2026-10-10T12:00:00-07:00",
+      "end": "2026-10-11T23:59:59-07:00",
+      "allDay": false,
+      "address": "13150 East 166 th Street, Cerritos, CA"
+    },
+    {
+      "id": "event-gN3RE5JJrHA54pLEn",
+      "kind": "event",
+      "title": "Annual Clothing Drive Fundraiser - Hosted by PBC",
+      "start": "2026-10-17T07:30:00-07:00",
+      "end": "2026-10-17T09:00:00-07:00",
+      "allDay": false,
+      "description": "Give gently used clothing a second life while supporting DARE Aquatics. Families are invited to donate clothing, shoes, and other accepted items during our annual collection. Donations are collected by weight, with proceeds benefiting the team and its programs.\n\nA simple way to clear out your closets, give items another purpose, and support DARE at the same time."
+    },
+    {
+      "id": "meet-GQgiNTF5ksfNCBjAp-5E2say27fWtkLEGay",
+      "kind": "meet",
+      "title": "2026 Rising Tide 16&U Short Course Meeet",
+      "start": "2026-10-30T12:00:00-07:00",
+      "end": "2026-11-01T23:59:59-08:00",
+      "allDay": false,
+      "address": "4601 Walnut Ave, Irvine, CA"
+    },
+    {
+      "id": "meet-PSm9tDRQr8x2CqZjr-e33uYsqmvniQwEFqs",
+      "kind": "meet",
+      "title": "Orange vs. Black - The Haunted Block Party",
+      "start": "2026-10-31T12:00:00-07:00",
+      "end": "2026-10-31T23:59:59-07:00",
+      "allDay": false
+    },
+    {
+      "id": "meet-6ssHfKwZpEs9qJLrQ-NkrfHvPksJTNbxRSh",
+      "kind": "meet",
+      "title": "2026 Legends of Coaching Don LaMont -UPDATED",
+      "start": "2026-11-05T12:00:00-08:00",
+      "end": "2026-11-08T23:59:59-08:00",
+      "allDay": false,
+      "address": "13806 La Mirada Blvd, La Mirada, CA"
+    },
+    {
+      "id": "meet-tbegJtjH2S4fvELpb-vcbyttukviASdX3AX",
+      "kind": "meet",
+      "title": "2026 CA Trident Swim Club SC Dec Meet",
+      "start": "2026-12-04T12:00:00-08:00",
+      "end": "2026-12-06T23:59:59-08:00",
+      "allDay": false,
+      "address": "2000 S. Otterbein, Rowland Heights, CA"
+    }
+  ],
+  "practices": [
+    {
+      "id": "znj3F746LMmL7wEyW",
+      "name": "DARE Devils 1",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "16:00",
+          "end": "17:00",
+          "from": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "id": "rkMM9qaXs6cvouzdR",
+      "name": "DARE Devils 2",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "17:00",
+          "end": "18:00",
+          "place": "Granada Pool",
+          "address": "2233 Whitney Drive, Alhambra, CA 91803",
+          "from": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "id": "y8erfTdxGHcCgrxT2",
+      "name": "Pre-Competition",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "18:00",
+          "end": "19:00",
+          "place": "Granada Pool",
+          "address": "2233 Whitney Drive, Alhambra, CA 91803",
+          "from": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "id": "fXKkGT8izYhnX52Sk",
+      "name": "Silver 1",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "18:00",
+          "end": "19:00",
+          "place": "Granada Pool",
+          "address": "2233 Whitney Drive, Alhambra, CA 91803",
+          "from": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "id": "ge6GJbWK8MwduedRc",
+      "name": "Silver 2",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "16:30",
+          "end": "17:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "id": "rDrJpfkNTaehT3tyT",
+      "name": "Gold 1",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "16:00",
+          "end": "17:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "08:30",
+          "end": "09:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    },
+    {
+      "id": "hN2eSPbujimkp9wM2",
+      "name": "Gold 2",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "17:30",
+          "end": "19:00",
+          "place": "Granada Pool",
+          "address": "2233 Whitney Drive, Alhambra, CA 91803",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "20:30",
+          "end": "21:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    },
+    {
+      "id": "hr2ErPbnJHoKYTN4Y",
+      "name": "Senior Development 1",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "17:30",
+          "end": "19:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "08:00",
+          "end": "09:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    },
+    {
+      "id": "5cNKocrz9cJ2ZwHQc",
+      "name": "Senior Development 2",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "17:30",
+          "end": "19:00",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "07:00",
+          "end": "20:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    },
+    {
+      "id": "yPicTE6ipwJDP3WLK",
+      "name": "Pre-National",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "16:00",
+          "end": "17:30",
+          "place": "Granada Pool",
+          "address": "2233 Whitney Drive, Alhambra, CA 91803",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "07:00",
+          "end": "08:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    },
+    {
+      "id": "hR28PPJ9vMJoSrwi9",
+      "name": "National Development",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "17:00",
+          "end": "19:00",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "07:00",
+          "end": "08:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    },
+    {
+      "id": "k4DoHTusjsN7XgZQ8",
+      "name": "National",
+      "slots": [
+        {
+          "days": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR"
+          ],
+          "start": "17:00",
+          "end": "19:00",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-05"
+        },
+        {
+          "days": [
+            "SA"
+          ],
+          "start": "07:00",
+          "end": "08:30",
+          "place": "Alhambra Park Pool",
+          "address": "500 North Palm Avenue, Alhambra, CA 91801",
+          "from": "2026-10-10"
+        }
+      ]
+    }
+  ]
+}

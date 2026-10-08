@@ -39,6 +39,7 @@ jobs:
       - name: run sync handler
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          COMMIT_CALENDAR_URL: ${{ secrets.COMMIT_CALENDAR_URL }}
         run: |
           cd syncHandlers/calendar
           go run calendarSyncHandler.go

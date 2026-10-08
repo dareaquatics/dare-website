@@ -395,12 +395,6 @@
       el.classList.add("reveal", "reveal--wave");
     });
 
-    // news items → alternating left/right
-    document.querySelectorAll(".news-item").forEach((el, i) => {
-      if (skip(el)) return;
-      el.classList.add("reveal", i % 2 === 0 ? "reveal--left" : "reveal--right");
-    });
-
     // event cards → clip reveal with stagger
     document.querySelectorAll(".event-card").forEach((el, i) => {
       if (skip(el)) return;
