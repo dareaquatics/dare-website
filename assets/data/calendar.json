@@ -71,7 +71,7 @@
           ],
           "start": "16:00",
           "end": "17:00",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         }
       ]
     },
@@ -91,7 +91,7 @@
           "end": "18:00",
           "place": "Granada Pool",
           "address": "2233 Whitney Drive, Alhambra, CA 91803",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         }
       ]
     },
@@ -111,7 +111,7 @@
           "end": "19:00",
           "place": "Granada Pool",
           "address": "2233 Whitney Drive, Alhambra, CA 91803",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         }
       ]
     },
@@ -131,7 +131,7 @@
           "end": "19:00",
           "place": "Granada Pool",
           "address": "2233 Whitney Drive, Alhambra, CA 91803",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         }
       ]
     },
@@ -151,7 +151,7 @@
           "end": "17:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         }
       ]
     },
@@ -171,7 +171,7 @@
           "end": "17:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -181,7 +181,7 @@
           "end": "09:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     },
@@ -201,7 +201,7 @@
           "end": "19:00",
           "place": "Granada Pool",
           "address": "2233 Whitney Drive, Alhambra, CA 91803",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -211,7 +211,7 @@
           "end": "21:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     },
@@ -231,7 +231,7 @@
           "end": "19:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -241,7 +241,7 @@
           "end": "09:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     },
@@ -261,7 +261,7 @@
           "end": "19:00",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -271,7 +271,7 @@
           "end": "20:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     },
@@ -291,7 +291,7 @@
           "end": "17:30",
           "place": "Granada Pool",
           "address": "2233 Whitney Drive, Alhambra, CA 91803",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -301,7 +301,7 @@
           "end": "08:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     },
@@ -321,7 +321,7 @@
           "end": "19:00",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -331,7 +331,7 @@
           "end": "08:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     },
@@ -351,7 +351,7 @@
           "end": "19:00",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-05"
+          "from": "2026-10-12"
         },
         {
           "days": [
@@ -361,7 +361,7 @@
           "end": "08:30",
           "place": "Alhambra Park Pool",
           "address": "500 North Palm Avenue, Alhambra, CA 91801",
-          "from": "2026-10-10"
+          "from": "2026-10-17"
         }
       ]
     }
