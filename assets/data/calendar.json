@@ -3,15 +3,6 @@
   "timezone": "America/Los_Angeles",
   "items": [
     {
-      "id": "meet-n9gTyYeLczfFE7sBC-FxKkMYtYkoJqj4DZ3",
-      "kind": "meet",
-      "title": "2026 CA Cerritos SC Swim Meet",
-      "start": "2026-10-10T12:00:00-07:00",
-      "end": "2026-10-11T23:59:59-07:00",
-      "allDay": false,
-      "address": "13150 East 166 th Street, Cerritos, CA"
-    },
-    {
       "id": "event-gN3RE5JJrHA54pLEn",
       "kind": "event",
       "title": "Annual Clothing Drive Fundraiser - Hosted by PBC",
