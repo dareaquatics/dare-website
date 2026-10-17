@@ -3,15 +3,6 @@
   "timezone": "America/Los_Angeles",
   "items": [
     {
-      "id": "event-gN3RE5JJrHA54pLEn",
-      "kind": "event",
-      "title": "Annual Clothing Drive Fundraiser - Hosted by PBC",
-      "start": "2026-10-17T07:30:00-07:00",
-      "end": "2026-10-17T09:00:00-07:00",
-      "allDay": false,
-      "description": "Give gently used clothing a second life while supporting DARE Aquatics. Families are invited to donate clothing, shoes, and other accepted items during our annual collection. Donations are collected by weight, with proceeds benefiting the team and its programs.\n\nA simple way to clear out your closets, give items another purpose, and support DARE at the same time."
-    },
-    {
       "id": "meet-GQgiNTF5ksfNCBjAp-5E2say27fWtkLEGay",
       "kind": "meet",
       "title": "2026 Rising Tide 16&U Short Course Meeet",
