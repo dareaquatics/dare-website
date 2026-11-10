@@ -2,8 +2,18 @@
   "howTo": "Set \"deadline\" to the entry deadline as \"YYYY-MM-DD\" (it closes at the end of that day, Pacific time). Leave it null if it isn't known yet. New meets are added here automatically by the calendar sync.",
   "meets": {
     "meet-eY3RgAbFxRvAQkRDF-sMjjHZkEMcstYBruY": {
-      "name": "2026 Winter Age Group @ Riverside",
+      "name": "2026 CA SCS/RAA WAG",
       "dates": "Dec 11–13, 2026",
+      "deadline": null
+    },
+    "meet-ei3rTZe7Du6uBqoDb-ktrmW2L8G3X8B3EFh": {
+      "name": "2026 Nov DARE-MPMR Clash Of the Blocks #2",
+      "dates": "Sat, Nov 21, 2026",
+      "deadline": null
+    },
+    "meet-iWdN77N9sWi2wXCJ8-ymXyzcsi6D2X45xX7": {
+      "name": "2026 Short Course Metro Committee Champs",
+      "dates": "Feb 12–14, 2027",
       "deadline": null
     },
     "meet-tbegJtjH2S4fvELpb-vcbyttukviASdX3AX": {

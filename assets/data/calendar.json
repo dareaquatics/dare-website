@@ -1,7 +1,16 @@
 {
-  "updated": "2026-11-05T17:40:55-08:00",
+  "updated": "2026-11-10T18:45:02-08:00",
   "timezone": "America/Los_Angeles",
   "items": [
+    {
+      "id": "meet-ei3rTZe7Du6uBqoDb-ktrmW2L8G3X8B3EFh",
+      "kind": "meet",
+      "title": "2026 Nov DARE-MPMR Clash Of the Blocks #2",
+      "start": "2026-11-21T12:00:00-08:00",
+      "end": "2026-11-21T23:59:59-08:00",
+      "allDay": false,
+      "address": "Montebello, CA"
+    },
     {
       "id": "meet-tbegJtjH2S4fvELpb-vcbyttukviASdX3AX",
       "kind": "meet",
@@ -14,9 +23,18 @@
     {
       "id": "meet-eY3RgAbFxRvAQkRDF-sMjjHZkEMcstYBruY",
       "kind": "meet",
-      "title": "2026 Winter Age Group @ Riverside",
+      "title": "2026 CA SCS/RAA WAG",
       "start": "2026-12-11T12:00:00-08:00",
       "end": "2026-12-13T23:59:59-08:00",
+      "allDay": false,
+      "address": "4800 Magnolia Avenue, Riverside, CA"
+    },
+    {
+      "id": "meet-iWdN77N9sWi2wXCJ8-ymXyzcsi6D2X45xX7",
+      "kind": "meet",
+      "title": "2026 Short Course Metro Committee Champs",
+      "start": "2027-02-12T12:00:00-08:00",
+      "end": "2027-02-14T23:59:59-08:00",
       "allDay": false
     }
   ],
