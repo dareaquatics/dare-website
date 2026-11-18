@@ -1,58 +1,63 @@
 {
-  "updated": "2026-11-16T17:22:13-08:00",
+  "updated": "2026-11-18T06:11:09-08:00",
   "timezone": "America/Los_Angeles",
   "items": [
     {
       "id": "meet-ei3rTZe7Du6uBqoDb-ktrmW2L8G3X8B3EFh",
       "kind": "meet",
       "title": "2026 Nov DARE-MPMR Clash Of the Blocks #2",
-      "start": "2026-11-21T12:00:00-08:00",
-      "end": "2026-11-21T23:59:59-08:00",
-      "allDay": false,
-      "address": "Montebello, CA"
+      "start": "2026-11-21T00:00:00-08:00",
+      "end": "2026-11-22T23:59:59-08:00",
+      "allDay": true,
+      "address": "Montebello, CA",
+      "description": "<h2><strong>2026 Nov DARE-MPMR Clash Of the Blocks #2</strong></h2><p><strong>Last chance to qualify for WAG * Open to all competitive groups of DARE</strong></p>"
     },
     {
       "id": "meet-tbegJtjH2S4fvELpb-vcbyttukviASdX3AX",
       "kind": "meet",
       "title": "2026 CA Trident Swim Club SC Dec Meet",
-      "start": "2026-12-04T12:00:00-08:00",
-      "end": "2026-12-06T23:59:59-08:00",
-      "allDay": false,
+      "start": "2026-12-04T00:00:00-08:00",
+      "end": "2026-12-07T23:59:59-08:00",
+      "allDay": true,
       "address": "2000 S. Otterbein, Rowland Heights, CA"
     },
     {
       "id": "meet-eY3RgAbFxRvAQkRDF-sMjjHZkEMcstYBruY",
       "kind": "meet",
       "title": "2026 CA SCS/RAA WAG",
-      "start": "2026-12-11T12:00:00-08:00",
-      "end": "2026-12-13T23:59:59-08:00",
-      "allDay": false,
-      "address": "4800 Magnolia Avenue, Riverside, CA"
+      "start": "2026-12-11T00:00:00-08:00",
+      "end": "2026-12-14T23:59:59-08:00",
+      "allDay": true,
+      "address": "4800 Magnolia Avenue, Riverside, CA",
+      "description": "<p><strong>QUALIFYING SWIMMERS ONLY</strong> </p><p><br></p><p>This is a championship meet. If your swimmer qualifies, attendance is <strong>MANDATORY</strong>.&nbsp;</p>"
     },
     {
       "id": "meet-ywsNGSbL5mx8bqrG6-ScE4vP6tY2QxX2Rgd",
       "kind": "meet",
       "title": "2026 CA BREA CA/NV Speedo Sectionals",
-      "start": "2026-12-18T12:00:00-08:00",
-      "end": "2026-12-21T23:59:59-08:00",
-      "allDay": false
+      "start": "2026-12-18T00:00:00-08:00",
+      "end": "2026-12-22T23:59:59-08:00",
+      "allDay": true,
+      "description": "<h2><strong>2026 CA BREA CA/NV Speedo Sectionals</strong></h2><p><span style=\"color: rgb(205, 18, 14);\"><strong>QUALIFIED SR. SWIMMERS ONLY</strong></span></p>"
     },
     {
       "id": "meet-wZpTGH8Mr35yQKQa5-YSxD7yXCpdMerEbu3",
       "kind": "meet",
       "title": "2027 CA Trident Swim Club Winter Invite",
-      "start": "2027-01-15T12:00:00-08:00",
-      "end": "2027-01-17T23:59:59-08:00",
-      "allDay": false,
-      "address": "2000 So. Otterbein, Rowland Heights, CA"
+      "start": "2027-01-15T00:00:00-08:00",
+      "end": "2027-01-18T23:59:59-08:00",
+      "allDay": true,
+      "address": "2000 So. Otterbein, Rowland Heights, CA",
+      "description": "<h2><strong>2027 CA Trident Swim Club Winter Invite</strong></h2>"
     },
     {
       "id": "meet-iWdN77N9sWi2wXCJ8-ymXyzcsi6D2X45xX7",
       "kind": "meet",
       "title": "2026 Short Course Metro Committee Champs",
-      "start": "2027-02-12T12:00:00-08:00",
-      "end": "2027-02-14T23:59:59-08:00",
-      "allDay": false
+      "start": "2027-02-12T00:00:00-08:00",
+      "end": "2027-02-15T23:59:59-08:00",
+      "allDay": true,
+      "description": "<p><strong>2026 Short Course Metro Committee Champs </strong><span style=\"color: rgb(11, 60, 109);\"><strong>(Hosted by DARE)</strong></span></p>"
     }
   ],
   "practices": [
